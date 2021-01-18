@@ -1,0 +1,16 @@
+.workpackage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.workpackage__details {
+  flex: 0.2;
+}
+
+.workpackage__description {
+  flex: 0.8;
+}
+
+.workpackage__tasks > form {
+  display: flex;
+}

@@ -1,0 +1,95 @@
+.board {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.board__container {
+  margin-top: 20px;
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.board__title {
+  padding: 10px;
+  background-color: rgb(6, 143, 143);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board__info {
+  margin-top: 20px;
+  background-color: rgb(6, 143, 143);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.board__details {
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.board__column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: flex-start;
+}
+.board__column > img {
+  border-radius: 25%;
+  object-fit: contain;
+  height: 100px;
+}
+
+.board__statistics {
+  margin-top: 20px;
+  display: flex;
+
+  padding: 10px;
+  background-color: rgb(6, 143, 143);
+  min-height: 30vh;
+  width: 100%;
+}
+
+.board__workPackages {
+  flex: 0.5;
+  height: 300px;
+}
+
+.board__workPackage {
+  background-color: black;
+  color: white;
+  position: relative;
+  margin: 10px 0;
+  height: 40px;
+  list-style: none;
+  width: 100%;
+}
+
+.board__graph {
+  flex: 0.5;
+}
+
+.board__description {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+.board__status {
+  position: absolute;
+  background-color: red;
+  height: 100%;
+  transition: 2s ease-in;
+}

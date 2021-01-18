@@ -1,0 +1,8 @@
+.workpackages__container {
+  display: flex;
+}
+
+.workpackages__header {
+  display: flex;
+  justify-content: center;
+}

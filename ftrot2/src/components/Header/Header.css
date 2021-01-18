@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgb(94, 169, 253);
+  color: white;
+  width: 100%;
+}
+
+.header__menu svg {
+  color: white;
+}
+
+.header__menu:hover {
+  color: white;
+  background-color: blue !important;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  transition: transform 0.5s ease-in;
+}
+
+.header__left.active {
+  transform: translateX(180px);
+}
+.header__logo {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.header__logo > h1 {
+  margin-left: 5px;
+}
+
+.header__title > h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.header__icons {
+  display: flex;
+  align-items: center;
+}
+
+.header__icon {
+  margin-right: 8px;
+  object-fit: contain;
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.header__menu > button {
+  height: 200px !important;
+  width: 200px !important;
+}
+
+.header__functionButton {
+  margin-left: 20px;
+}

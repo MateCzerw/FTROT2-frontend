@@ -1,0 +1,30 @@
+.tasks__container {
+  background-color: green;
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
+}
+
+.tasks__engineerContainer {
+  background-color: blue;
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  overflow: scroll;
+}
+
+.tasks__unassignedContainer {
+  height: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tasks__unassignedColumn {
+  padding: 4px;
+  width: 250px;
+  min-height: 100vh;
+}

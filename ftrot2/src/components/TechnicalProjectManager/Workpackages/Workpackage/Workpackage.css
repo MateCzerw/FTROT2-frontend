@@ -1,0 +1,20 @@
+.workpackage {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 10px;
+  background-color: rgb(79, 184, 184);
+}
+.workpackage__details {
+  color: rgb(2, 26, 11);
+}
+
+.workpackage__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.workpackage__actions > button {
+  margin: 5px;
+}

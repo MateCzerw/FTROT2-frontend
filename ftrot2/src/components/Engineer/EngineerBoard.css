@@ -1,0 +1,52 @@
+.content {
+  display: flex;
+  background-color: rgb(79, 184, 184);
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  color: black;
+}
+
+.content__panel {
+  margin: 20px 10px 10px 10px;
+  padding: 10px;
+  display: flex;
+  background-color: rgb(6, 143, 143);
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content__userDetails {
+  margin: 10px;
+  padding: 20px;
+
+  background-color: rgb(79, 184, 184);
+  display: flex;
+  justify-content: space-between;
+}
+
+.content__userDetails > img {
+  object-fit: fill;
+  width: 100 px;
+  border-radius: 10%;
+}
+
+.content__tasks {
+  margin-top: 20px;
+  width: 90%;
+
+  padding: 10px;
+  background-color: rgb(79, 184, 184);
+  display: flex;
+}
+
+.content__tasklist {
+  flex: 0.5;
+}
+
+.content__statistics {
+  margin-left: 10px;
+  padding: 10px;
+  flex: 0.5;
+}
