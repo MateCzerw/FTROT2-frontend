@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
+import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 const itemsFromBackend = [
   { id: uuid(), content: "First task" },
@@ -8,9 +9,30 @@ const itemsFromBackend = [
   { id: uuid(), content: "Third task" },
   { id: uuid(), content: "Fourth task" },
   { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "Sixth task" },
+  { id: uuid(), content: "Seventh task" },
+  { id: uuid(), content: "Eighth task" },
+  { id: uuid(), content: "Ninth task" },
+  { id: uuid(), content: "Tenth task" },
+  { id: uuid(), content: "Eleventh task" },
+  { id: uuid(), content: "Twelfth task" },
+  { id: uuid(), content: "Thirteenth task" },
 ];
 
-const anotherItems = [
+const items1 = [
+  { id: uuid(), content: "First task" },
+  { id: uuid(), content: "Second task" },
+  { id: uuid(), content: "Third task" },
+  { id: uuid(), content: "Fourth task" },
+  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "Sixth task" },
+  { id: uuid(), content: "Seventh task" },
+];
+
+const items2 = [
   { id: uuid(), content: "First task" },
   { id: uuid(), content: "Second task" },
   { id: uuid(), content: "Third task" },
@@ -18,14 +40,49 @@ const anotherItems = [
   { id: uuid(), content: "Fifth task" },
 ];
 
-const findEngineerByColumnId = () => {};
+const items3 = [
+  { id: uuid(), content: "First task" },
+  { id: uuid(), content: "Second task" },
+  { id: uuid(), content: "Third task" },
+  { id: uuid(), content: "Fourth task" },
+  { id: uuid(), content: "Fifth task" },
+];
+
+const items4 = [
+  { id: uuid(), content: "First task" },
+  { id: uuid(), content: "Second task" },
+  { id: uuid(), content: "Third task" },
+  { id: uuid(), content: "Fourth task" },
+  { id: uuid(), content: "Fifth task" },
+];
+
+const items5 = [
+  { id: uuid(), content: "First task" },
+  { id: uuid(), content: "Second task" },
+  { id: uuid(), content: "Third task" },
+  { id: uuid(), content: "Fourth task" },
+  { id: uuid(), content: "Fifth task" },
+];
 
 const columnsFTROT = [
   {
-    engineer: "Mateusz Czerwiński",
+    name: "Mateusz",
+    surname: "Czerwiński",
     week: 1,
     schedule: [
-      { columnId: uuid(), dayName: "Monday", tasks: anotherItems },
+      { columnId: uuid(), dayName: "Monday", tasks: items1 },
+      { columnId: uuid(), dayName: "Tuesday", tasks: items2 },
+      { columnId: uuid(), dayName: "Wednesday", tasks: items3 },
+      { columnId: uuid(), dayName: "Thursday", tasks: items4 },
+      { columnId: uuid(), dayName: "Friday", tasks: items5 },
+    ],
+  },
+  {
+    name: "Bartosz",
+    surname: "Kozłowski",
+    week: 1,
+    schedule: [
+      { columnId: uuid(), dayName: "Monday", tasks: [] },
       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
       { columnId: uuid(), dayName: "Thursday", tasks: [] },
@@ -33,36 +90,27 @@ const columnsFTROT = [
     ],
   },
   {
-    engineer: "Bartosz Kozłowski",
+    name: "Agnieszka",
+    surname: "Leszczuk",
     week: 1,
     schedule: [
-      { columnId: uuid(), day: "Monday", tasks: [] },
-      { columnId: uuid(), day: "Tuesday", tasks: [] },
-      { columnId: uuid(), day: "Wednesday", tasks: [] },
-      { columnId: uuid(), day: "Thursday", tasks: [] },
-      { columnId: uuid(), day: "Friday", tasks: [] },
+      { columnId: uuid(), dayName: "Monday", tasks: [] },
+      { columnId: uuid(), dayName: "Tuesday", tasks: [] },
+      { columnId: uuid(), dayName: "Wednesday", tasks: [] },
+      { columnId: uuid(), dayName: "Thursday", tasks: [] },
+      { columnId: uuid(), dayName: "Friday", tasks: [] },
     ],
   },
   {
-    engineer: "Agnieszka Leszczuk",
+    name: "Marek",
+    surname: "Repeła",
     week: 1,
     schedule: [
-      { columnId: uuid(), day: "Monday", tasks: [] },
-      { columnId: uuid(), day: "Tuesday", tasks: [] },
-      { columnId: uuid(), day: "Wednesday", tasks: [] },
-      { columnId: uuid(), day: "Thursday", tasks: [] },
-      { columnId: uuid(), day: "Friday", tasks: [] },
-    ],
-  },
-  {
-    engineer: "Marek Repeła",
-    week: 1,
-    schedule: [
-      { columnId: uuid(), day: "Monday", tasks: [] },
-      { columnId: uuid(), day: "Tuesday", tasks: [] },
-      { columnId: uuid(), day: "Wednesday", tasks: [] },
-      { columnId: uuid(), day: "Thursday", tasks: [] },
-      { columnId: uuid(), day: "Friday", tasks: [] },
+      { columnId: uuid(), dayName: "Monday", tasks: [] },
+      { columnId: uuid(), dayName: "Tuesday", tasks: [] },
+      { columnId: uuid(), dayName: "Wednesday", tasks: [] },
+      { columnId: uuid(), dayName: "Thursday", tasks: [] },
+      { columnId: uuid(), dayName: "Friday", tasks: [] },
     ],
   },
 ];
@@ -74,11 +122,7 @@ const unassignedTasksFromBackend = {
   },
 };
 
-const generateRawForOneWeek = () => {
-  return <div></div>;
-};
-
-const generateColumnForOneDay = (columnId, tasks) => {
+const generateColumnForOneDay = (columnId, tasks, dayName) => {
   return (
     <Droppable droppableId={columnId} key={columnId}>
       {(provided, snapshot) => {
@@ -91,6 +135,8 @@ const generateColumnForOneDay = (columnId, tasks) => {
               background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
             }}
           >
+            <h3>{dayName}</h3>
+
             {tasks.map((task, index) => {
               return (
                 <Draggable key={task.id} draggableId={task.id} index={index}>
@@ -124,41 +170,94 @@ const generateColumnForOneDay = (columnId, tasks) => {
 };
 
 const onDragEnd = (result, columns, setColumns) => {
-  // console.log(columns);
-  // console.log(setColumns);
   if (!result.destination) return;
+  console.log("Result: ", result);
+  console.log("Columns: ", columns);
+  console.log("setColumns: ", setColumns);
   const { source, destination } = result;
 
-  if (source.droppableId !== destination.droppableId) {
-    const sourceColumn = columns[source.droppableId];
-    const destColumn = columns[destination.droppableId];
-    const sourceItems = [...sourceColumn.items];
-    const destItems = [...destColumn.items];
-    const [removed] = sourceItems.splice(source.index, 1);
-    destItems.splice(destination.index, 0, removed);
-    setColumns({
+  let sourceEngineer = columns.find((engineer) =>
+    engineer.schedule.some((item) => item.columnId === source.droppableId)
+  );
+
+  let destinationEngineer = columns.find((engineer) =>
+    engineer.schedule.some((item) => item.columnId === destination.droppableId)
+  );
+
+  // console.log(sourceEngineer);
+
+  // console.log(destinationEngineer);
+
+  if (sourceEngineer !== destinationEngineer) {
+    console.log("inne");
+
+    const sourceColumn = sourceEngineer.schedule.find(
+      (item) => item.columnId === source.droppableId
+    );
+    //   const sourceColumn = columns[source.droppableId];
+    const destColumn = destinationEngineer.schedule.find(
+      (item) => item.columnId === destination.droppableId
+    );
+    //   const destColumn = columns[destination.droppableId];
+
+    const sourceTasks = [...sourceColumn.tasks];
+    //   const sourceItems = [...sourceColumn.items];
+    const destTasks = [...destColumn.tasks];
+    //   const destItems = [...destColumn.items];
+    const [removed] = sourceTasks.splice(source.index, 1);
+    //   const [removed] = sourceItems.splice(source.index, 1);
+    destTasks.splice(destination.index, 0, removed);
+    //   destItems.splice(destination.index, 0, removed);
+
+    sourceColumn.tasks = sourceTasks;
+    destColumn.tasks = destTasks;
+    //   setColumns({
+    //     ...columns,
+    //     [source.droppableId]: {
+    //       ...sourceColumn,
+    //       items: sourceItems,
+    //     },
+    //     [destination.droppableId]: {
+    //       ...destColumn,
+    //       items: destItems,
+    //     },
+    //   });
+
+    setColumns([
       ...columns,
-      [source.droppableId]: {
-        ...sourceColumn,
-        items: sourceItems,
-      },
-      [destination.droppableId]: {
-        ...destColumn,
-        items: destItems,
-      },
-    });
+      sourceEngineer,
+      destinationEngineer,
+      //     [source.droppableId]: {
+      //       ...sourceColumn,
+      //       items: sourceItems,
+      //     },
+      //     [destination.droppableId]: {
+      //       ...destColumn,
+      //       items: destItems,
+      //     },
+    ]);
   } else {
-    const column = columns[source.droppableId];
-    const copiedItems = [...column.items];
-    const [removed] = copiedItems.splice(source.index, 1);
-    copiedItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
-      [source.droppableId]: {
-        ...column,
-        items: copiedItems,
-      },
-    });
+    const sourceColumn = sourceEngineer.schedule.find(
+      (item) => item.columnId === source.droppableId
+    );
+    //   const sourceColumn = columns[source.droppableId];
+    const destColumn = sourceEngineer.schedule.find(
+      (item) => item.columnId === destination.droppableId
+    );
+
+    //   const column = columns[source.droppableId];
+    //   const copiedItems = [...column.items];
+    //   const [removed] = copiedItems.splice(source.index, 1);
+    //   copiedItems.splice(destination.index, 0, removed);
+    setColumns([...columns, sourceEngineer]);
+
+    //   setColumns({
+    //     ...columns,
+    //     [source.droppableId]: {
+    //       ...column,
+    //       items: copiedItems,
+    //     },
+    //   });
   }
 };
 
@@ -184,7 +283,7 @@ const AssignTasks = () => {
                   {(provided, snapshot) => {
                     return (
                       <div
-                        className="tasks__eachDay"
+                        className="tasks__unasignedTasksColumn"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         style={{
@@ -210,7 +309,7 @@ const AssignTasks = () => {
                                     style={{
                                       backgroundColor: snapshot.isDragging
                                         ? "#263B4A"
-                                        : "#456C86",
+                                        : "tomato",
                                       ...provided.draggableProps.style,
                                     }}
                                   >
@@ -233,10 +332,45 @@ const AssignTasks = () => {
 
         <div className="tasks__engineersBoard">
           {columnsFTROT.map((column, index) => {
-            return column.schedule.map((day) => {
-              const { columnId, dayName, tasks } = day;
-              return generateColumnForOneDay(columnId, tasks);
-            });
+            return (
+              <div className="tasks__engineer">
+                {column.schedule.map((day) => {
+                  const { columnId, dayName, tasks } = day;
+                  return generateColumnForOneDay(columnId, tasks, dayName);
+                })}
+                <div className="tasks__engineerInfo">
+                  <div className="tasks__engineerDetails">
+                    <div className="tasks__engineerName">
+                      <p>Name: {column.name}</p>
+                      <p>Surname: {column.surname}</p>
+                    </div>
+                    <img
+                      src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
+                      alt="User"
+                    ></img>
+                  </div>
+                  <div className="tasks__chart">
+                    <Doughnut
+                      data={{
+                        labels: ["Assigned", "Unassiged", "Overtime"],
+                        datasets: [
+                          {
+                            data: [90, 32, 30],
+                            backgroundColor: ["green", "orange", "gray"],
+                          },
+                        ],
+                      }}
+                      width={"100%"}
+                      height={"100%"}
+                      options={{
+                        maintainAspectRatio: false,
+                        legend: false,
+                      }}
+                    ></Doughnut>
+                  </div>
+                </div>
+              </div>
+            );
           })}
         </div>
       </div>

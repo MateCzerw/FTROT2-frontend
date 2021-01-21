@@ -6,32 +6,60 @@
 
 .tasks__unassignedTasksBoard {
   flex: 0.15;
+  margin: 10px;
   height: calc(100vh - 58px);
-  background-color: gray;
+  display: flex;
+  justify-content: center;
+  background-color: lightgray;
   overflow-y: scroll;
 }
+
+.tasks__unassignedTasksBoard::-webkit-scrollbar {
+  display: none;
+}
+
+.tasks__unassignedTasksBoard h2 {
+  text-align: center;
+  padding: 10px;
+  border-bottom: solid 1px white;
+}
+
 .tasks__engineersBoard {
   flex: 0.85;
   height: calc(100vh - 58px);
   background-color: silver;
   overflow-y: scroll;
 }
+
 .tasks__engineer {
   padding: 10px;
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   background-color: steelblue;
 }
 
 .tasks__dayContainer {
+  margin: 0 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-color: blue;
+  /* align-items: center; */
+  justify-content: flex-start;
   padding: 10px;
-  width: 500px;
-  height: 100px;
+  min-width: 220px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.tasks__dayContainer > h3 {
+  text-align: center;
+  padding: 10px;
+  border-bottom: solid 1px white;
+}
+
+.tasks__dayContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .tasks__eachTask {
@@ -40,4 +68,41 @@
   width: 200px;
   border-radius: 5px;
   background-color: tomato;
+}
+
+.tasks__engineerInfo {
+  margin: 0 10px;
+  padding: 10px;
+  width: 100%;
+  height: 400px;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.tasks__engineerDetails {
+  width: 100%;
+  display: flex;
+}
+
+.tasks__engineerDetails > img {
+  height: 100px;
+  object-fit: contain;
+}
+.tasks__engineerName {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.tasks__chart {
+  padding: 10px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
