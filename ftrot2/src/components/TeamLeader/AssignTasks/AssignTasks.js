@@ -176,81 +176,88 @@ const onDragEnd = (result, columns, setColumns) => {
   console.log("setColumns: ", setColumns);
   const { source, destination } = result;
 
-  let sourceEngineer = columns.find((engineer) =>
+  const sourceRow = columns.find((engineer) =>
     engineer.schedule.some((item) => item.columnId === source.droppableId)
   );
 
-  let destinationEngineer = columns.find((engineer) =>
+  const destinationRow = columns.find((engineer) =>
     engineer.schedule.some((item) => item.columnId === destination.droppableId)
   );
 
-  // console.log(sourceEngineer);
+  const sourceColumn = sourceRow.schedule.find(
+    (item) => item.columnId === source.droppableId
+  );
 
-  // console.log(destinationEngineer);
-
-  if (sourceEngineer !== destinationEngineer) {
-    console.log("inne");
-
-    const sourceColumn = sourceEngineer.schedule.find(
-      (item) => item.columnId === source.droppableId
-    );
-    //   const sourceColumn = columns[source.droppableId];
-    const destColumn = destinationEngineer.schedule.find(
-      (item) => item.columnId === destination.droppableId
-    );
-    //   const destColumn = columns[destination.droppableId];
-
+  const destColumn = destinationRow.schedule.find(
+    (item) => item.columnId === destination.droppableId
+  );
+  if (sourceRow !== destinationRow) {
     const sourceTasks = [...sourceColumn.tasks];
-    //   const sourceItems = [...sourceColumn.items];
     const destTasks = [...destColumn.tasks];
-    //   const destItems = [...destColumn.items];
     const [removed] = sourceTasks.splice(source.index, 1);
-    //   const [removed] = sourceItems.splice(source.index, 1);
     destTasks.splice(destination.index, 0, removed);
-    //   destItems.splice(destination.index, 0, removed);
-
     sourceColumn.tasks = sourceTasks;
     destColumn.tasks = destTasks;
-    //   setColumns({
-    //     ...columns,
-    //     [source.droppableId]: {
-    //       ...sourceColumn,
-    //       items: sourceItems,
-    //     },
-    //     [destination.droppableId]: {
-    //       ...destColumn,
-    //       items: destItems,
-    //     },
-    //   });
 
-    setColumns([
-      ...columns,
-      sourceEngineer,
-      destinationEngineer,
-      //     [source.droppableId]: {
-      //       ...sourceColumn,
-      //       items: sourceItems,
-      //     },
-      //     [destination.droppableId]: {
-      //       ...destColumn,
-      //       items: destItems,
-      //     },
-    ]);
-  } else {
-    const sourceColumn = sourceEngineer.schedule.find(
-      (item) => item.columnId === source.droppableId
-    );
+    setColumns([...columns, sourceRow, destinationRow]);
+  }
+
+  //MODIFICATION WITHIN 1 ENGINEER TASKS (SAME ENGINEER DIFFERENT DAY)
+  if (sourceRow === destinationRow && sourceColumn !== destColumn) {
+    const sourceTasks = [...sourceColumn.tasks];
+    const destTasks = [...destColumn.tasks];
+    const [removed] = sourceTasks.splice(source.index, 1);
+    destTasks.splice(destination.index, 0, removed);
+    sourceColumn.tasks = sourceTasks;
+    destColumn.tasks = destTasks;
+    setColumns([...columns, sourceRow]);
+  }
+
+  //MODIFICATION WITHIN 1 DAY (SAME ENGINEER SAME DAY)
+  if (sourceRow === destinationRow && sourceColumn === destColumn) {
+    const tasks = [...sourceColumn.tasks];
+    const copiedItems = [...tasks];
+    const [removed] = copiedItems.splice(source.index, 1);
+    copiedItems.splice(destination.index, 0, removed);
+    sourceColumn.tasks = copiedItems;
+    setColumns([...columns, sourceRow]);
+  }
+
+  // const sourceColumn = sourceEngineer.schedule.find(
+  //   (item) => item.columnId === source.droppableId
+  // );
+  //   const sourceColumn = columns[source.droppableId];
+  // const destColumn = sourceEngineer.schedule.find(
+  //   (item) => item.columnId === destination.droppableId
+  // );
+  //   const column = columns[source.droppableId];
+  //   const copiedItems = [...column.items];
+  //   const [removed] = copiedItems.splice(source.index, 1);
+  //   copiedItems.splice(destination.index, 0, removed);
+  // setColumns([...columns, sourceEngineer]);
+  //   setColumns({
+  //     ...columns,
+  //     [source.droppableId]: {
+  //       ...column,
+  //       items: copiedItems,
+  //     },
+  //   });
+
+  //UNASSIGNED TASKS SERVICE
+
+  if (false) {
+    // const sourceColumn = sourceEngineer.schedule.find(
+    //   (item) => item.columnId === source.droppableId
+    // );
     //   const sourceColumn = columns[source.droppableId];
-    const destColumn = sourceEngineer.schedule.find(
-      (item) => item.columnId === destination.droppableId
-    );
-
+    // const destColumn = sourceEngineer.schedule.find(
+    //   (item) => item.columnId === destination.droppableId
+    // );
     //   const column = columns[source.droppableId];
     //   const copiedItems = [...column.items];
     //   const [removed] = copiedItems.splice(source.index, 1);
     //   copiedItems.splice(destination.index, 0, removed);
-    setColumns([...columns, sourceEngineer]);
-
+    // setColumns([...columns, sourceEngineer]);
     //   setColumns({
     //     ...columns,
     //     [source.droppableId]: {

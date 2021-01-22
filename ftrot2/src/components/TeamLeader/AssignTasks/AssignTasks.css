@@ -68,6 +68,7 @@
   width: 200px;
   border-radius: 5px;
   background-color: tomato;
+  color: white;
 }
 
 .tasks__engineerInfo {
