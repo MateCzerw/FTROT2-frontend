@@ -4,7 +4,7 @@ import { uuid } from "uuidv4";
 import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 const itemsFromBackend = [
-  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
   { id: uuid(), content: "Third task", duration: 2 },
   { id: uuid(), content: "Fourth task", duration: 2 },
@@ -23,37 +23,31 @@ const itemsFromBackend = [
 ];
 
 const items1 = [
-  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
   { id: uuid(), content: "Third task", duration: 2 },
   { id: uuid(), content: "Fourth task", duration: 2 },
   { id: uuid(), content: "Fifth task", duration: 2 },
-  { id: uuid(), content: "Sixth task", duration: 2 },
+
   { id: uuid(), content: "Seventh task", duration: 2 },
 ];
 
 const items2 = [
   { id: uuid(), content: "First task", duration: 2 },
-  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 6 },
   { id: uuid(), content: "Third task", duration: 2 },
-  { id: uuid(), content: "Fourth task", duration: 2 },
-  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items3 = [
   { id: uuid(), content: "First task", duration: 2 },
   { id: uuid(), content: "Second task", duration: 2 },
   { id: uuid(), content: "Third task", duration: 2 },
-  { id: uuid(), content: "Fourth task", duration: 2 },
-  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items4 = [
   { id: uuid(), content: "First task", duration: 2 },
   { id: uuid(), content: "Second task", duration: 2 },
   { id: uuid(), content: "Third task", duration: 2 },
-  { id: uuid(), content: "Fourth task", duration: 2 },
-  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items5 = [
@@ -134,7 +128,7 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
               background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
             }}
           >
-            <h3>{dayName}</h3>
+            <h3>{`${dayName} | ${calculateTotalHoursInColumn(tasks)}h`}</h3>
 
             {tasks.map((task, index) => {
               return (
@@ -167,6 +161,20 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
       }}
     </Droppable>
   );
+};
+
+const calculateTotalHoursInColumn = (tasks) => {
+  let counter = 0;
+  tasks.forEach((task) => (counter += task.duration));
+  return counter;
+};
+
+const calculateTotalHoursInRow = (schedule) => {
+  let counter = 0;
+  schedule.forEach((day) => {
+    day.tasks.forEach((task) => (counter += task.duration));
+  });
+  return counter;
 };
 
 const onDragEnd = (
@@ -326,7 +334,9 @@ const AssignTasks = () => {
       <div className="tasks__container">
         <div className="tasks__unassignedTasksBoard">
           <div key={unassignedTasks.columnId}>
-            <h2>{unassignedTasks.name}</h2>
+            <h2>{`${unassignedTasks.name} | ${calculateTotalHoursInColumn(
+              unassignedTasks.tasks
+            )}h`}</h2>
 
             <Droppable
               droppableId={unassignedTasks.columnId}
@@ -406,8 +416,18 @@ const AssignTasks = () => {
                         labels: ["Assigned", "Unassiged", "Overtime"],
                         datasets: [
                           {
-                            data: [90, 32, 30],
-                            backgroundColor: ["green", "orange", "gray"],
+                            data: [
+                              calculateTotalHoursInRow(column.schedule) > 40
+                                ? 40
+                                : calculateTotalHoursInRow(column.schedule),
+                              40 - calculateTotalHoursInRow(column.schedule) > 0
+                                ? 40 - calculateTotalHoursInRow(column.schedule)
+                                : 0,
+                              calculateTotalHoursInRow(column.schedule) - 40 > 0
+                                ? calculateTotalHoursInRow(column.schedule) - 40
+                                : 0,
+                            ],
+                            backgroundColor: ["green", "gray", "red"],
                           },
                         ],
                       }}
