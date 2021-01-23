@@ -111,4 +111,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.tasks__chartText {
+  position: absolute;
+  font-weight: bold;
+  font-size: 30px;
 }

@@ -111,7 +111,7 @@ const columnsFTROT = [
 
 const unassignedTasksFromBackend = {
   columnId: uuid(),
-  name: "Not assigned",
+  name: "Unassigned",
   tasks: itemsFromBackend,
 };
 
@@ -436,8 +436,15 @@ const AssignTasks = () => {
                       options={{
                         maintainAspectRatio: false,
                         legend: false,
+                        centerText: {
+                          display: true,
+                          text: `90%`,
+                        },
                       }}
                     ></Doughnut>
+                    <p className="tasks__chartText">{`${calculateTotalHoursInRow(
+                      column.schedule
+                    )} / 40`}</p>
                   </div>
                 </div>
               </div>
