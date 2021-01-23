@@ -4,64 +4,64 @@ import { uuid } from "uuidv4";
 import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 const itemsFromBackend = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Sixth task" },
-  { id: uuid(), content: "Seventh task" },
-  { id: uuid(), content: "Eighth task" },
-  { id: uuid(), content: "Ninth task" },
-  { id: uuid(), content: "Tenth task" },
-  { id: uuid(), content: "Eleventh task" },
-  { id: uuid(), content: "Twelfth task" },
-  { id: uuid(), content: "Thirteenth task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
+  { id: uuid(), content: "Sixth task", duration: 2 },
+  { id: uuid(), content: "Seventh task", duration: 2 },
+  { id: uuid(), content: "Eighth task", duration: 2 },
+  { id: uuid(), content: "Ninth task", duration: 2 },
+  { id: uuid(), content: "Tenth task", duration: 2 },
+  { id: uuid(), content: "Eleventh task", duration: 2 },
+  { id: uuid(), content: "Twelfth task", duration: 2 },
+  { id: uuid(), content: "Thirteenth task", duration: 2 },
 ];
 
 const items1 = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Sixth task" },
-  { id: uuid(), content: "Seventh task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
+  { id: uuid(), content: "Sixth task", duration: 2 },
+  { id: uuid(), content: "Seventh task", duration: 2 },
 ];
 
 const items2 = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items3 = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items4 = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const items5 = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
+  { id: uuid(), content: "First task", duration: 2 },
+  { id: uuid(), content: "Second task", duration: 2 },
+  { id: uuid(), content: "Third task", duration: 2 },
+  { id: uuid(), content: "Fourth task", duration: 2 },
+  { id: uuid(), content: "Fifth task", duration: 2 },
 ];
 
 const columnsFTROT = [
@@ -116,10 +116,9 @@ const columnsFTROT = [
 ];
 
 const unassignedTasksFromBackend = {
-  [uuid()]: {
-    name: "Not assigned",
-    items: itemsFromBackend,
-  },
+  columnId: uuid(),
+  name: "Not assigned",
+  tasks: itemsFromBackend,
 };
 
 const generateColumnForOneDay = (columnId, tasks, dayName) => {
@@ -154,7 +153,8 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
                           ...provided.draggableProps.style,
                         }}
                       >
-                        {task.content}
+                        <p>{task.content}</p>
+                        <p>{task.duration}</p>
                       </div>
                     );
                   }}
@@ -169,12 +169,90 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
   );
 };
 
-const onDragEnd = (result, columns, setColumns) => {
+const onDragEnd = (
+  result,
+  columns,
+  unassignedTasks,
+  setColumns,
+  setUnassignedTasks
+) => {
   if (!result.destination) return;
   console.log("Result: ", result);
   console.log("Columns: ", columns);
   console.log("setColumns: ", setColumns);
   const { source, destination } = result;
+
+  const unassignedTaskId = unassignedTasks.columnId;
+
+  //UNASSIGNED TASKS SERVICE
+
+  if (
+    unassignedTaskId === source.droppableId &&
+    unassignedTaskId !== destination.droppableId
+  ) {
+    const destinationRow = columns.find((engineer) =>
+      engineer.schedule.some(
+        (item) => item.columnId === destination.droppableId
+      )
+    );
+
+    const destColumn = destinationRow.schedule.find(
+      (item) => item.columnId === destination.droppableId
+    );
+
+    const unassignedTasksCopy = unassignedTasks;
+
+    const destTasks = [...destColumn.tasks];
+    const [removed] = unassignedTasksCopy.tasks.splice(source.index, 1);
+    destTasks.splice(destination.index, 0, removed);
+    destColumn.tasks = destTasks;
+
+    setColumns([...columns, destinationRow]);
+    setUnassignedTasks(unassignedTasksCopy);
+
+    return;
+  }
+
+  if (
+    unassignedTaskId !== source.droppableId &&
+    unassignedTaskId === destination.droppableId
+  ) {
+    const sourceRow = columns.find((engineer) =>
+      engineer.schedule.some((item) => item.columnId === source.droppableId)
+    );
+
+    const sourceColumn = sourceRow.schedule.find(
+      (item) => item.columnId === source.droppableId
+    );
+
+    const unassignedTasksCopy = unassignedTasks;
+
+    const sourceTasks = [...sourceColumn.tasks];
+    const [removed] = sourceTasks.splice(source.index, 1);
+    unassignedTasksCopy.tasks.splice(destination.index, 0, removed);
+    sourceColumn.tasks = sourceTasks;
+
+    setColumns([...columns, sourceRow]);
+    setUnassignedTasks(unassignedTasksCopy);
+
+    return;
+  }
+
+  if (
+    unassignedTaskId === source.droppableId &&
+    unassignedTaskId === destination.droppableId
+  ) {
+    const unassignedTasksCopy = unassignedTasks;
+
+    const tasks = [...unassignedTasks.tasks];
+    //   const copiedItems = [...tasks];
+    const [removed] = tasks.splice(source.index, 1);
+    tasks.splice(destination.index, 0, removed);
+    unassignedTasksCopy.tasks = tasks;
+    //   sourceColumn.tasks = copiedItems;
+    setUnassignedTasks(unassignedTasksCopy);
+    return;
+  }
 
   const sourceRow = columns.find((engineer) =>
     engineer.schedule.some((item) => item.columnId === source.droppableId)
@@ -191,6 +269,8 @@ const onDragEnd = (result, columns, setColumns) => {
   const destColumn = destinationRow.schedule.find(
     (item) => item.columnId === destination.droppableId
   );
+
+  //MODIFICATION WITHIN 2 DIFFERENT ENGINEERS
   if (sourceRow !== destinationRow) {
     const sourceTasks = [...sourceColumn.tasks];
     const destTasks = [...destColumn.tasks];
@@ -222,50 +302,6 @@ const onDragEnd = (result, columns, setColumns) => {
     sourceColumn.tasks = copiedItems;
     setColumns([...columns, sourceRow]);
   }
-
-  // const sourceColumn = sourceEngineer.schedule.find(
-  //   (item) => item.columnId === source.droppableId
-  // );
-  //   const sourceColumn = columns[source.droppableId];
-  // const destColumn = sourceEngineer.schedule.find(
-  //   (item) => item.columnId === destination.droppableId
-  // );
-  //   const column = columns[source.droppableId];
-  //   const copiedItems = [...column.items];
-  //   const [removed] = copiedItems.splice(source.index, 1);
-  //   copiedItems.splice(destination.index, 0, removed);
-  // setColumns([...columns, sourceEngineer]);
-  //   setColumns({
-  //     ...columns,
-  //     [source.droppableId]: {
-  //       ...column,
-  //       items: copiedItems,
-  //     },
-  //   });
-
-  //UNASSIGNED TASKS SERVICE
-
-  if (false) {
-    // const sourceColumn = sourceEngineer.schedule.find(
-    //   (item) => item.columnId === source.droppableId
-    // );
-    //   const sourceColumn = columns[source.droppableId];
-    // const destColumn = sourceEngineer.schedule.find(
-    //   (item) => item.columnId === destination.droppableId
-    // );
-    //   const column = columns[source.droppableId];
-    //   const copiedItems = [...column.items];
-    //   const [removed] = copiedItems.splice(source.index, 1);
-    //   copiedItems.splice(destination.index, 0, removed);
-    // setColumns([...columns, sourceEngineer]);
-    //   setColumns({
-    //     ...columns,
-    //     [source.droppableId]: {
-    //       ...column,
-    //       items: copiedItems,
-    //     },
-    //   });
-  }
 };
 
 const AssignTasks = () => {
@@ -277,64 +313,72 @@ const AssignTasks = () => {
 
   return (
     <DragDropContext
-      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      onDragEnd={(result) =>
+        onDragEnd(
+          result,
+          columns,
+          unassignedTasks,
+          setColumns,
+          setUnassignedTasks
+        )
+      }
     >
       <div className="tasks__container">
         <div className="tasks__unassignedTasksBoard">
-          {Object.entries(unassignedTasks).map(([columnId, column], index) => {
-            return (
-              <div key={columnId}>
-                <h2>Unassigned tasks</h2>
+          <div key={unassignedTasks.columnId}>
+            <h2>{unassignedTasks.name}</h2>
 
-                <Droppable droppableId={columnId} key={columnId}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        className="tasks__unasignedTasksColumn"
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={{
-                          background: snapshot.isDraggingOver
-                            ? "lightblue"
-                            : "lightgrey",
-                        }}
-                      >
-                        {column.items.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="tasks__eachTask"
-                                    style={{
-                                      backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
-                                        : "tomato",
-                                      ...provided.draggableProps.style,
-                                    }}
-                                  >
-                                    {item.content}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
-                        {provided.placeholder}
-                      </div>
-                    );
-                  }}
-                </Droppable>
-              </div>
-            );
-          })}
+            <Droppable
+              droppableId={unassignedTasks.columnId}
+              key={unassignedTasks.columnId}
+            >
+              {(provided, snapshot) => {
+                return (
+                  <div
+                    className="tasks__unasignedTasksColumn"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    style={{
+                      background: snapshot.isDraggingOver
+                        ? "lightblue"
+                        : "lightgrey",
+                    }}
+                  >
+                    {unassignedTasks.tasks.map((task, index) => {
+                      return (
+                        <Draggable
+                          key={task.id}
+                          draggableId={task.id}
+                          index={index}
+                        >
+                          {(provided, snapshot) => {
+                            return (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className="tasks__eachTask"
+                                style={{
+                                  backgroundColor: snapshot.isDragging
+                                    ? "#263B4A"
+                                    : "tomato",
+                                  ...provided.draggableProps.style,
+                                }}
+                              >
+                                <p>{task.content}</p>
+                                <p>{task.duration}</p>
+                              </div>
+                            );
+                          }}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                );
+              }}
+            </Droppable>
+          </div>
         </div>
 
         <div className="tasks__engineersBoard">
