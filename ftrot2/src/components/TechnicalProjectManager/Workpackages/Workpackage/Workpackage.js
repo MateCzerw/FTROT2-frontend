@@ -70,8 +70,8 @@ const Workpackage = ({
   });
 
   return (
-    <div className="workpackage">
-      <div className="workpackage__details">
+    <div className="tpjm workpackage">
+      <div className="tpjm workpackage__details">
         <h3>Name: {name}</h3>
         <h4>Id: {id}</h4>
         <h4>Tasks quantity: {tasksQuantity}</h4>
@@ -79,11 +79,11 @@ const Workpackage = ({
         <h4>Due to: {endDate}</h4>
         <h4>Predicted due to: {predictedFinish}</h4>
       </div>
-      <div className="workpackage__description">
+      <div className="tpjm workpackage__description">
         <h3>Description:</h3>
         <p>{description}</p>
       </div>
-      <div className="workpackage__actions">
+      <div className="tpjm workpackage__actions">
         <Button variant="contained" color="primary" onClick={handleDetailsOpen}>
           Details
         </Button>

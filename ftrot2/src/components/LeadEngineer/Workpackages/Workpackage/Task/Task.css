@@ -1,0 +1,13 @@
+.leadEngineer.task {
+  margin: 10px 0;
+  display: flex;
+  border: black 1px solid;
+  border-radius: 10px;
+  padding: 5;
+  background-color: white;
+  align-items: center;
+}
+
+.leadEngineer.task > p {
+  margin: 0 10px;
+}

@@ -12,6 +12,7 @@ const Workpackages = () => {
         name: "HMC",
         tasksQuantity: 5,
         finishedTasks: 3,
+        pid: 32568,
         endDate: moment(Date.now()).calendar(),
         predictedFinish: moment(Date.now()).calendar(),
         description:
@@ -22,6 +23,7 @@ const Workpackages = () => {
         name: "Volvo",
         tasksQuantity: 5,
         finishedTasks: 3,
+        pid: 32568,
         endDate: moment(Date.now()).calendar(),
         predictedFinish: moment(Date.now()).calendar(),
         description:
@@ -32,6 +34,7 @@ const Workpackages = () => {
         name: "BMC",
         tasksQuantity: 5,
         finishedTasks: 3,
+        pid: 32568,
         endDate: moment(Date.now()).calendar(),
         predictedFinish: moment(Date.now()).calendar(),
         description:
@@ -41,16 +44,35 @@ const Workpackages = () => {
     setWorkpackages(initialState);
   }, []);
   return (
-    <div className="workpackages">
-      <div className="workpackages__container">
-        <div className="workpackages__header">
+    <div className="leadEngineer workpackages">
+      <div className="leadEngineer workpackages__container">
+        <div className="leadEngineer workpackages__header">
           <h2>Workpackages</h2>
         </div>
-        <Workpackage></Workpackage>
-        <Workpackage></Workpackage>
-        <Workpackage></Workpackage>
-        <Workpackage></Workpackage>
-        <Workpackage></Workpackage>
+        {workpackages.map((workpackage) => {
+          const {
+            id,
+            name,
+            tasksQuantity,
+            finishedTasks,
+            pid,
+            endDate,
+            predictedFinish,
+            description,
+          } = workpackage;
+          return (
+            <Workpackage
+              id={id}
+              pid={pid}
+              name={name}
+              tasksQuantity={tasksQuantity}
+              finishedTasks={finishedTasks}
+              endDate={endDate}
+              predictedFinish={predictedFinish}
+              description={description}
+            ></Workpackage>
+          );
+        })}
       </div>
     </div>
   );
