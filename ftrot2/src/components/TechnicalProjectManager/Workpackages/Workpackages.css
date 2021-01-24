@@ -1,4 +1,4 @@
-.workpackages {
+.tpjm.workpackages {
   display: flex;
   background-color: rgb(79, 184, 184);
   width: 100%;
@@ -7,7 +7,7 @@
   color: black;
 }
 
-.workpackages__container {
+.tpjm.workpackages__container {
   margin: 20px 10px 10px 10px;
   padding: 10px;
   display: flex;
@@ -16,7 +16,7 @@
   flex-direction: column;
 }
 
-.workpackages__header {
+.tpjm.workpackages__header {
   margin: 10px 10px 10px 10px;
   padding: 10px;
   background-color: rgb(6, 143, 143);
@@ -27,7 +27,7 @@
   padding: 10px;
 }
 
-.workpackages__titleContainer {
+.tpjm.workpackages__titleContainer {
   flex: 1;
   display: flex;
   justify-content: center;

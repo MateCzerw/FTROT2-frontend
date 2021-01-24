@@ -1,16 +1,24 @@
-.workpackage {
+.leadEngineer.workpackage {
+  margin-top: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 }
 
-.workpackage__details {
-  flex: 0.2;
-}
-
-.workpackage__description {
-  flex: 0.8;
-}
-
-.workpackage__tasks > form {
+.leadEngineer.workpackage__details {
   display: flex;
+}
+.leadEngineer.workpackage__info {
+  flex: 0.3;
+  padding: 10px;
+}
+
+.leadEngineer.workpackage__description {
+  flex: 0.7;
+  padding: 10px;
+}
+
+.leadEngineer.workpackage__tasks {
+  padding: 10px;
+  flex-direction: column;
 }

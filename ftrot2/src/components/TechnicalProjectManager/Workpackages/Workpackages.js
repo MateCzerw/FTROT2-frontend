@@ -124,9 +124,9 @@ const Workpackages = () => {
   }, []);
 
   return (
-    <div className="workpackages">
-      <div className="workpackages__container">
-        <div className="workpackages__header">
+    <div className="tpjm workpackages">
+      <div className="tpjm workpackages__container">
+        <div className="tpjm workpackages__header">
           <Button
             variant="contained"
             color="secondary"
@@ -236,7 +236,7 @@ const Workpackages = () => {
               </DialogActions>
             </form>
           </Dialog>
-          <div className="workpackages__titleContainer">
+          <div className=" tpjm workpackages__titleContainer">
             <h2>Workpackages</h2>
           </div>
         </div>
