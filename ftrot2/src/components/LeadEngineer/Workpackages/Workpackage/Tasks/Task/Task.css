@@ -1,0 +1,5 @@
+.tasks__actions {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-evenly;
+}

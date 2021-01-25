@@ -1,0 +1,26 @@
+.tasks__container {
+  max-height: 300px;
+}
+
+.tasks__container::-webkit-scrollbar {
+  display: none;
+}
+
+.tasks__header {
+  display: flex;
+  width: 100%;
+}
+
+.tasks__title--name {
+  width: 25%;
+}
+
+.tasks__title--duration {
+  width: 25%;
+}
+.tasks__title--status {
+  width: 25%;
+}
+.tasks__title--actions {
+  width: 25%;
+}

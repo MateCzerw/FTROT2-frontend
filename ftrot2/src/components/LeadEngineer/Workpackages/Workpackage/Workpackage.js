@@ -1,6 +1,5 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, IconButton } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import Task from "./Task/Task";
 import "./Workpackage.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -8,6 +7,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+
+import Tasks from "./Tasks/Tasks";
+import { uuid } from "uuidv4";
+import TaskAdd from "./TaskAdd/TaskAdd";
 
 const validationSchema = yup.object({
   // email: yup
@@ -30,24 +33,34 @@ const validationSchema = yup.object({
 
 const initialState = [
   {
+    id: uuid(),
     name: "CAD model of pedal",
     duration: 2,
+    status: 0.5,
   },
   {
+    id: uuid(),
     name: "FEM of housing",
     duration: 2,
+    status: 0.5,
   },
   {
+    id: uuid(),
     name: "DFMEA",
     duration: 2,
+    status: 0.5,
   },
   {
+    id: uuid(),
     name: "Design review",
     duration: 10,
+    status: 0.5,
   },
   {
-    name: "meeting with supplier",
+    id: uuid(),
+    name: "Meeting with supplier",
     duration: 2,
+    status: 0.5,
   },
 ];
 
@@ -64,34 +77,46 @@ const Workpackage = ({
   handleWorkpackageEdit,
 }) => {
   const [tasks, setTasks] = useState([]);
-  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [isTaskAddOpen, setIsTaskAddOpen] = useState(false);
 
-  const handleAddTaskOpen = () => {
-    setIsAddTaskOpen(true);
+  const handleTaskAddOpen = () => {
+    setIsTaskAddOpen(true);
   };
-  const handleAddTaskClose = () => {
-    setIsAddTaskOpen(false);
+  const handleTaskAddClose = () => {
+    setIsTaskAddOpen(false);
+  };
+
+  const handleTaskAdd = (values) => {
+    const taskAdded = Object.assign({}, { id: uuid() }, values);
+    setTasks([...tasks, taskAdded]);
+  };
+
+  const handleTaskDelete = (id) => {
+    alert("Usunięto zadanie o id: " + id);
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+  };
+
+  const handleTaskEdit = (id, task) => {
+    const updatedTasks = tasks.map((element) => {
+      if (element.id === id) {
+        return {
+          id,
+          name: task.name,
+          duration: task.duration,
+          status: task.status,
+        };
+      }
+      return element;
+    });
+    setTasks(updatedTasks);
   };
 
   useEffect(() => {
     setTasks(initialState);
   }, []);
 
-  const formik = useFormik({
-    initialValues: {
-      // email: "foobar@example.com",
-      // password: "foobar",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // console.log(...workpackages);
-      handleAddTaskClose();
-      // handleWorkpackageEdit(id, values);
-    },
-  });
-
   return (
-    //formik
     <div className="leadEngineer workpackage">
       <div className="leadEngineer workpackage__details">
         <div className="leadEngineer workpackage__info">
@@ -107,71 +132,19 @@ const Workpackage = ({
         </div>
       </div>
       <div className="leadEngineer workpackage__tasks">
-        <h3>Tasks:</h3>
-        {tasks.map((task) => {
-          const { name, duration } = task;
-          return <Task name={name} duration={duration}></Task>;
-        })}
-        <Button variant="contained" color="primary" onClick={handleAddTaskOpen}>
+        <Tasks
+          tasks={tasks}
+          handleTaskDelete={handleTaskDelete}
+          handleTaskEdit={handleTaskEdit}
+        ></Tasks>
+        <Button variant="contained" color="primary" onClick={handleTaskAddOpen}>
           Add Task
         </Button>
-
-        <Dialog
-          onClose={handleAddTaskClose}
-          aria-labelledby="customized-dialog-title"
-          disableBackdropClick
-          open={isAddTaskOpen}
-        >
-          <form onSubmit={formik.handleSubmit}>
-            <DialogTitle
-              id="customized-dialog-title"
-              onClose={handleAddTaskClose}
-            >
-              Modal title
-            </DialogTitle>
-            <DialogContent dividers>
-              <TextField
-                fullWidth
-                id="name"
-                name="name"
-                label="name"
-                type="text"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
-              />
-
-              <TextField
-                fullWidth
-                id="description"
-                name="description"
-                label="description"
-                type="textarea"
-                multiline
-                rows={2}
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.description &&
-                  Boolean(formik.errors.description)
-                }
-                helperText={
-                  formik.touched.description && formik.errors.description
-                }
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleAddTaskClose} color="primary">
-                Cancel
-              </Button>
-              <Button autoFocus type="submit" color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </form>
-          )}
-        </Dialog>
+        <TaskAdd
+          isTaskAddOpen={isTaskAddOpen}
+          handleTaskAddClose={handleTaskAddClose}
+          handleTaskAdd={handleTaskAdd}
+        />
       </div>
     </div>
   );
