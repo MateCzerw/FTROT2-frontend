@@ -22,3 +22,8 @@
   padding: 10px;
   flex-direction: column;
 }
+
+.leadEngineer.workpackage__tasks > button {
+  margin-top: 10px;
+  width: 100%;
+}
