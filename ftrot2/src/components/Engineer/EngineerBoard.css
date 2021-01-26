@@ -1,52 +1,98 @@
-.content {
+.engineer.board__background {
   display: flex;
-  background-color: rgb(79, 184, 184);
+  /* background-color: rgb(79, 184, 184); */
   width: 100%;
   height: 100%;
   justify-content: center;
-  color: black;
+  color: #efefef;
+  font-size: 14px;
 }
 
-.content__panel {
-  margin: 20px 10px 10px 10px;
+.engineer.board__container {
+  margin: 20px 10px;
+  width: 60%;
   padding: 10px;
   display: flex;
-  background-color: rgb(6, 143, 143);
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
 }
 
-.content__userDetails {
-  margin: 10px;
+.engineer.board__userDetails {
+  margin: 10px 0;
   padding: 20px;
-
-  background-color: rgb(79, 184, 184);
+  width: 100%;
+  background-color: #1d1d1f;
   display: flex;
   justify-content: space-between;
 }
 
-.content__userDetails > img {
+.engineer.board__userDetails > img {
   object-fit: fill;
   width: 100 px;
   border-radius: 10%;
 }
+.engineer.board__statsColumn {
+}
 
-.content__tasks {
+.engineer .board__stat > b {
+  color: #b0b0b0;
+  font-weight: bolder;
+}
+
+.engineer.board__tasks {
   margin-top: 20px;
-  width: 90%;
+  width: 50%;
 
   padding: 10px;
-  background-color: rgb(79, 184, 184);
+  background-color: #262729;
   display: flex;
+  flex-direction: column;
 }
 
-.content__tasklist {
-  flex: 0.5;
+.engineer.board__task {
+  background-color: black;
+  color: white;
+  position: relative;
+  margin: 10px 0;
+  height: 40px;
+  list-style: none;
+  width: 100%;
 }
 
-.content__statistics {
+.engineer .board__taskStatus {
+  position: absolute;
+  background-color: red;
+  height: 100%;
+  transition: 2s ease-in;
+}
+
+.engineer .board__taskDescription {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.engineer.board__statistics {
   margin-left: 10px;
   padding: 10px;
   flex: 0.5;
+}
+
+.engineer.board__panel {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+
+  min-height: 30vh;
+  width: 100%;
+}
+.engineer .board__graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+
+  min-height: 100%;
 }
