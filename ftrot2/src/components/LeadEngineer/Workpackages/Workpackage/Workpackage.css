@@ -1,8 +1,9 @@
 .leadEngineer.workpackage {
-  margin-top: 10px;
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  background-color: silver;
 }
 
 .leadEngineer.workpackage__details {

@@ -18,6 +18,7 @@ const Task = ({
   duration,
   status,
   id,
+  details,
   handleTaskDelete,
   handleTaskEdit,
 }) => {
@@ -43,8 +44,8 @@ const Task = ({
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={id}>
       <TableCell>{name}</TableCell>
-      <TableCell>{duration}</TableCell>
-      <TableCell>{status}</TableCell>
+      <TableCell>{duration}h</TableCell>
+      <TableCell>{status * 100}%</TableCell>
       <TableCell className="tasks__actions">
         <Tooltip title="Task Details" onClick={handleTaskDetailsOpen}>
           <IconButton aria-label="task details">
@@ -54,6 +55,7 @@ const Task = ({
         <TaskDetails
           isTaskDetailsOpen={isTaskDetailsOpen}
           handleTaskDetailsClose={handleTaskDetailsClose}
+          details={details}
         ></TaskDetails>
 
         <Tooltip title="Task Edit">
