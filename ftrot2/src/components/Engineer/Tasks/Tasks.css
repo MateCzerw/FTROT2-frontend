@@ -1,0 +1,16 @@
+.engineer.tasks.tasks__container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.engineer.tasks.tasks__week {
+  display: flex;
+}
+
+.engineer.tasks.tasks__container > .MuiSvgIcon-root {
+  height: 200px;
+  width: auto;
+}
