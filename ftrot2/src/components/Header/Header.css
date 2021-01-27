@@ -46,6 +46,7 @@
 }
 
 .header__icons {
+  margin-right: 10px;
   display: flex;
   align-items: center;
 }
@@ -55,11 +56,6 @@
   object-fit: contain;
   height: 30px !important;
   width: 30px !important;
-}
-
-.header__menu > button {
-  height: 200px !important;
-  width: 200px !important;
 }
 
 .header__functionButton {
