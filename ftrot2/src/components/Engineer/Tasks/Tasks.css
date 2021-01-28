@@ -1,24 +1,102 @@
 .engineer.tasks.tasks__background {
   display: flex;
-  height: 100%;
+  min-height: inherit;
   width: 100%;
   justify-content: center;
   align-items: center;
+  color: #efefef;
 }
 
 .engineer.tasks.tasks__container {
   display: flex;
   height: 100%;
+
   width: 80vw;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.engineer.tasks.tasks__weekTitle {
+  margin-bottom: 35px;
+  background-color: #1d1d1f;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+.engineer.tasks.tasks__weekTitle > b {
+  color: #b0b0b0;
+  font-weight: bolder;
 }
 
 .engineer.tasks.tasks__week {
   display: flex;
 }
 
-.engineer.tasks.tasks__container > .MuiSvgIcon-root {
+.engineer.tasks.tasks__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.engineer.tasks.tasks__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.engineer.tasks.tasks__arrow > .MuiSvgIcon-root {
   height: 200px;
   width: auto;
+  transition: transform 0.2s ease-in;
+}
+
+.engineer.tasks.tasks__arrow > .MuiSvgIcon-root:hover {
+  height: 200px;
+  width: auto;
+  color: #b0b0b0;
+  transform: scale(1.07);
+  cursor: pointer;
+}
+
+.engineer.tasks.tasks__day {
+  padding: 10px;
+  margin: 0 1.25vw;
+  min-width: 14vw;
+  height: 60vh;
+  background-color: #262729;
+  overflow-y: scroll;
+}
+
+.engineer.tasks.tasks__day::-webkit-scrollbar {
+  display: none;
+}
+
+.engineer.tasks.tasks__dayInfo {
+  background-color: #262729;
+  color: #c9c9c9;
+  position: sticky;
+  top: 0;
+}
+
+.engineer.tasks.tasks__dayName {
+  text-align: center;
+  padding: 10px;
+}
+.engineer.tasks.tasks__dayDate {
+  text-align: center;
+  padding: 10px;
+}
+
+.engineer.tasks.tasks__task {
+  background-color: #1e1f21;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  color: #93c5fd;
+  transition: transform 0.2s ea;
+}
+
+.engineer.tasks.tasks__task:hover {
+  transform: scale(1.07);
 }

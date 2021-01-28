@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EngineerBoard.css";
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut, Line } from "react-chartjs-2";
 import moment from "moment";
 
 const contentInfo = {
@@ -11,6 +11,8 @@ const contentInfo = {
   supervisor: "Wojciech Zabiegło",
   joinedAt: moment(Date.now()).calendar(),
   picture: "",
+  FTRORTratio: 0.05,
+  unfinishedTasks: 10,
   currentTasks: [
     { name: "Wypełnić Ftrot", status: 0.9, estimatedTime: 4 },
     { name: "Zrobić rysunek", status: 1, estimatedTime: 4 },
@@ -18,6 +20,25 @@ const contentInfo = {
     { name: "Zrobić model Pedału", status: 1, estimatedTime: 4 },
     { name: "Zrobić wniosek Patentowy", status: 0.9, estimatedTime: 4 },
     { name: "Zrobić efficieny", status: 1, estimatedTime: 4 },
+  ],
+};
+
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "First time right",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: false,
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)",
+    },
+    {
+      label: "Unfinished tasks",
+      data: [33, 25, 35, 51, 54, 76],
+      fill: false,
+      borderColor: "#742774",
+    },
   ],
 };
 
@@ -54,6 +75,14 @@ const EngineerBoard = () => {
               <b>Joined at:</b> {contentInfo.joinedAt}
             </p>
           </div>
+          <div className="engineer board board__statsColumn">
+            <p className="engineer board board__stat">
+              <b>Ftrot ratio:</b> {contentInfo.FTRORTratio * 100}%
+            </p>
+            <p className="engineer board board__stat">
+              <b>Unfinished tasks:</b> {contentInfo.unfinishedTasks}
+            </p>
+          </div>
         </article>
         <article className="engineer board board__panel">
           <ul className="engineer board board__tasks">
@@ -88,6 +117,14 @@ const EngineerBoard = () => {
               options={{ maintainAspectRatio: false, legend: false }}
             ></Doughnut>
           </div>
+        </article>
+        <article className="engineer board board__ftrotPanel">
+          <Line
+            data={data}
+            width={100}
+            height={50}
+            options={{ maintainAspectRatio: false }}
+          />
         </article>
       </section>
     </main>

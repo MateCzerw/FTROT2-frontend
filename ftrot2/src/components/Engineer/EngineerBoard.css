@@ -32,6 +32,7 @@
   border-radius: 10%;
 }
 .engineer.board.board__statsColumn {
+  font-size: 20px;
 }
 
 .engineer.board.board__stat > b {
@@ -74,6 +75,12 @@
   list-style: none;
   width: 100%;
   font-weight: 700;
+  transition: transform 0.2s ease-in;
+}
+
+.engineer.board.board__task:hover {
+  transform: scale(1.07);
+  font-size: 15px;
 }
 
 .engineer.board.board__taskStatus {
@@ -86,15 +93,24 @@
 .engineer.board.board__panel {
   width: 100%;
   display: flex;
+  align-items: center;
   padding: 10px;
   background-color: #262729;
   min-height: 30vh;
-  width: 100%;
 }
 .engineer.board.board__graph {
   width: 50%;
-  height: 100%;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.engineer.board.board__ftrotPanel {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  padding: 10px;
+  background-color: #262729;
+  min-height: 30vh;
 }
