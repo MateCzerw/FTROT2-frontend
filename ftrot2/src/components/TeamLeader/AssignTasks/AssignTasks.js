@@ -123,7 +123,7 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className="tasks__dayContainer"
+            className="teamLeader assignTasks tasks__dayContainer"
             style={{
               background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
             }}
@@ -139,7 +139,7 @@ const generateColumnForOneDay = (columnId, tasks, dayName) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className="tasks__eachTask"
+                        className="teamLeader assignTasks tasks__eachTask"
                         style={{
                           backgroundColor: snapshot.isDragging
                             ? "#263B4A"
@@ -331,8 +331,8 @@ const AssignTasks = () => {
         )
       }
     >
-      <div className="tasks__container">
-        <div className="tasks__unassignedTasksBoard">
+      <div className="teamLeader assignTasks tasks__container">
+        <div className="teamLeader assignTasks tasks__unassignedTasksBoard">
           <div key={unassignedTasks.columnId}>
             <h2>{`${unassignedTasks.name} | ${calculateTotalHoursInColumn(
               unassignedTasks.tasks
@@ -345,7 +345,7 @@ const AssignTasks = () => {
               {(provided, snapshot) => {
                 return (
                   <div
-                    className="tasks__unasignedTasksColumn"
+                    className="teamLeader assignTasks tasks__unasignedTasksColumn"
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     style={{
@@ -391,17 +391,17 @@ const AssignTasks = () => {
           </div>
         </div>
 
-        <div className="tasks__engineersBoard">
+        <div className="teamLeader assignTasks  tasks__engineersBoard">
           {columnsFTROT.map((column, index) => {
             return (
-              <div className="tasks__engineer">
+              <div className="teamLeader assignTasks  tasks__engineer">
                 {column.schedule.map((day) => {
                   const { columnId, dayName, tasks } = day;
                   return generateColumnForOneDay(columnId, tasks, dayName);
                 })}
-                <div className="tasks__engineerInfo">
-                  <div className="tasks__engineerDetails">
-                    <div className="tasks__engineerName">
+                <div className="teamLeader assignTasks tasks__engineerInfo">
+                  <div className="teamLeader assignTasks tasks__engineerDetails">
+                    <div className="teamLeader assignTasks tasks__engineerName">
                       <p>Name: {column.name}</p>
                       <p>Surname: {column.surname}</p>
                     </div>
@@ -410,7 +410,7 @@ const AssignTasks = () => {
                       alt="User"
                     ></img>
                   </div>
-                  <div className="tasks__chart">
+                  <div className="teamLeader assignTasks tasks__chart">
                     <Doughnut
                       data={{
                         labels: ["Assigned", "Unassiged", "Overtime"],
@@ -442,7 +442,7 @@ const AssignTasks = () => {
                         },
                       }}
                     ></Doughnut>
-                    <p className="tasks__chartText">{`${calculateTotalHoursInRow(
+                    <p className="teamLeader assignTasks tasks__chartText">{`${calculateTotalHoursInRow(
                       column.schedule
                     )} / 40`}</p>
                   </div>

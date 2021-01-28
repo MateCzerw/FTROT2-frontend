@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import "./EngineerBoard.css";
-import Slider from "@material-ui/core/Slider";
 import { Doughnut, Pie } from "react-chartjs-2";
-
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import moment from "moment";
 
 const contentInfo = {

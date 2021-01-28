@@ -1,28 +1,24 @@
-.board {
+.teamLeader.board.board__background {
   display: flex;
   width: 100%;
   height: 100%;
+  color: #efefef;
   justify-content: center;
 }
 
-.board__container {
-  margin-top: 20px;
-  width: 60vw;
+.teamLeader.board.board__container {
+  margin: 20px 10px;
+  width: 60%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-}
-
-.board__title {
-  padding: 10px;
-  background-color: rgb(6, 143, 143);
-  display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.board__info {
+.teamLeader.board.board__info {
   margin-top: 20px;
-  background-color: rgb(6, 143, 143);
+  background-color: #1d1d1f;
   width: 100%;
   padding: 10px;
   display: flex;
@@ -31,7 +27,7 @@
   flex-direction: column;
 }
 
-.board__details {
+.teamLeader.board.board__details {
   width: 100%;
   padding-top: 10px;
   display: flex;
@@ -39,34 +35,39 @@
   justify-content: space-between;
 }
 
-.board__column {
+.teamLeader.board.board__column {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-content: flex-start;
 }
-.board__column > img {
-  border-radius: 25%;
-  object-fit: contain;
-  height: 100px;
+
+.teamLeader.board.board__stat > b {
+  color: #b0b0b0;
+  font-weight: bolder;
+}
+.teamLeader.board.board__column > img {
+  object-fit: fill;
+  width: 100 px;
+  border-radius: 10%;
 }
 
-.board__statistics {
-  margin-top: 20px;
+.teamLeader.board.board__statistics {
+  margin-top: 10px;
+  width: 100%;
   display: flex;
-
   padding: 10px;
-  background-color: rgb(6, 143, 143);
+  background-color: #262729;
   min-height: 30vh;
   width: 100%;
 }
 
-.board__workPackages {
+.teamLeader.board.board__workPackages {
   flex: 0.5;
   height: 300px;
 }
 
-.board__workPackage {
+.teamLeader.board.board__workPackage {
   background-color: black;
   color: white;
   position: relative;
@@ -76,18 +77,18 @@
   width: 100%;
 }
 
-.board__graph {
+.teamLeader.board.board__graph {
   flex: 0.5;
 }
 
-.board__description {
+.teamLeader.board.board__description {
   position: absolute;
   padding: 10px;
   width: 100%;
   height: 100%;
   color: white;
 }
-.board__status {
+.teamLeader.board.board__status {
   position: absolute;
   background-color: red;
   height: 100%;

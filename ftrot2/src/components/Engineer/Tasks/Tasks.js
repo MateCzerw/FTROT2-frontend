@@ -57,23 +57,25 @@ const Tasks = () => {
   //   }, []);
 
   return (
-    <div className="engineer tasks tasks__container">
-      <NavigateBeforeIcon></NavigateBeforeIcon>
-      <div className="engineer tasks tasks__week">
-        {schedule.roster.map((day) => (
-          <div className="engineer tasks tasks__day">
-            {day.tasks.map((task) => (
-              <div className="engineer tasks tasks__task">
-                {console.log(task)}
-                <p>name: {task.name}</p>
-                <p>duration: {task.duration}</p>
-                <p>status: {task.status}</p>
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className="engineer tasks tasks__background">
+      <div className="engineer tasks tasks__container">
+        <NavigateBeforeIcon></NavigateBeforeIcon>
+        <div className="engineer tasks tasks__week">
+          {schedule.roster.map((day) => (
+            <div className="engineer tasks tasks__day">
+              {day.tasks.map((task) => (
+                <div className="engineer tasks tasks__task">
+                  {console.log(task)}
+                  <p>name: {task.name}</p>
+                  <p>duration: {task.duration}</p>
+                  <p>status: {task.status}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <NavigateNextIcon></NavigateNextIcon>
       </div>
-      <NavigateNextIcon></NavigateNextIcon>
     </div>
   );
 };

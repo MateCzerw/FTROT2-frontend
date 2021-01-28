@@ -33,51 +33,49 @@ const LeadEngineerBoard = () => {
   const [userDetails, setUserDetails] = useState(userInfo);
 
   return (
-    <div className="board">
-      <div className="board__container">
-        <div className="board__title">
-          <h2>Technical Project Manager Dashboard</h2>
-        </div>
-
-        <div className="board__info">
-          <h3>User Details</h3>
-          <div className="board__details">
-            <div className="board__column">
+    <div className="leadEngineer board board__background">
+      <div className="leadEngineer board board__container">
+        <div className="leadEngineer board board__info">
+          <div className="leadEngineer board board__details">
+            <div className="leadEngineer board board__column">
               <img src={userDetails.picture} alt="User"></img>
             </div>
-            <div className="board__column">
-              <p>
+            <div className="leadEngineer board board__column">
+              <p className="leadEngineer board board__stat">
                 <b>Name:</b> {userDetails.name}
               </p>
-              <p>
+              <p className="leadEngineer board board__stat">
                 <b>Surname:</b> {userDetails.surname}
               </p>
             </div>
-            <div className="board__column">
-              <p>
+            <div className="leadEngineer board board__column">
+              <p className="leadEngineer board board__stat">
                 <b>Joined at:</b> {userDetails.joinedAt}
               </p>
-              <p>
+              <p className="leadEngineer board board__stat">
                 <b>Role:</b> {userDetails.role}
               </p>
             </div>
-            <div className="board__column">
-              <p>
+            <div className="leadEngineer board board__column">
+              <p className="leadEngineer board board__stat">
                 <b>Team:</b> {userDetails.team}
               </p>
-              <p>
+              <p className="leadEngineer board board__stat">
                 <b>Supervisor:</b> {userDetails.supervisor}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="board__statistics">
-          <ul className="board__workPackages">
+        <div className="leadEngineer board board__statistics">
+          <ul className="leadEngineer board board__workPackages">
             {userDetails.workPackages.map((workPackage) => (
-              <li className="board__workPackage">
-                <div className="board__status" style={{ width: "50%" }}></div>
-                <p className="board__description">
+              <li className="leadEngineer board board__workPackage">
+                <div
+                  className="leadEngineer board board__status"
+                  style={{ width: "50%" }}
+                ></div>
+                <p className="leadEngineer board board__description">
                   {`Name:
             ${workPackage.name} Status: ${
                     workPackage.tasksStatus * 100
@@ -87,7 +85,7 @@ const LeadEngineerBoard = () => {
               </li>
             ))}
           </ul>
-          <div className="board__graph">
+          <div className="leadEngineer board board__graph">
             <Doughnut
               data={{
                 labels: ["Done", "In progress", "Deleyed"],
