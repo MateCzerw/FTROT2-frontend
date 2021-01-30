@@ -68,6 +68,9 @@ const Task = ({
           handleTaskDetailsClose={handleTaskStatusEditClose}
           name={name}
           status={status}
+          updateStatus={(status) =>
+            actions.handleChangeStatus(dayId, taskId, status)
+          }
         ></TaskStatusEdit>
         <Action
           Icon={InfoIcon}

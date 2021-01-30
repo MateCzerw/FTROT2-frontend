@@ -139,7 +139,8 @@ const Tasks = () => {
   const actions = {
     handleSetDoneStatus: (dayId, taskId) => setDoneStatus(dayId, taskId),
     handleOnHoldStatus: (dayId, taskId) => setOnHoldStatus(dayId, taskId),
-    handleChangeStatus: TaskActions.changeStatus,
+    handleChangeStatus: (dayId, taskId, status) =>
+      setNewStatus(dayId, taskId, status),
   };
 
   // actions.setDoneStatus();

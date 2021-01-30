@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -60,7 +60,14 @@ const TaskStatusEdit = ({
   handleTaskDetailsClose,
   status,
   name,
+  updateStatus,
 }) => {
+  const [sliderStatus, setSliderStatus] = useState(status);
+  const handleSubmitValue = () => {
+    updateStatus(sliderStatus / 100);
+    handleTaskDetailsClose();
+  };
+
   return (
     <Dialog
       onClose={handleTaskDetailsClose}
@@ -83,11 +90,15 @@ const TaskStatusEdit = ({
           valueLabelDisplay="auto"
           step={10}
           marks={marks}
+          onChangeCommitted={(e, value) => setSliderStatus(value)}
           // min={10}
           // max={100}
         />
       </DialogContent>
       <DialogActions>
+        <Button onClick={handleSubmitValue} color="primary">
+          Submit
+        </Button>
         <Button onClick={handleTaskDetailsClose} color="primary">
           Cancel
         </Button>
