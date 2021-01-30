@@ -1,0 +1,28 @@
+.engineer.tasks.task__container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1e1f21;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  color: #93c5fd;
+}
+
+.engineer.tasks.task__container.done {
+  opacity: 0.5;
+}
+
+.engineer.tasks.task__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+}
+
+.engineer.tasks.task__actions {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: solid 1px #93c5fd;
+}

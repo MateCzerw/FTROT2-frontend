@@ -59,7 +59,7 @@ const Task = ({
         ></TaskDetails>
 
         <Tooltip title="Task Edit">
-          <IconButton aria-label="Edit Task" onClick={handleTaskEditOpen}>
+          <IconButton aria-label="Task Edit" onClick={handleTaskEditOpen}>
             <EditIcon></EditIcon>
           </IconButton>
         </Tooltip>
