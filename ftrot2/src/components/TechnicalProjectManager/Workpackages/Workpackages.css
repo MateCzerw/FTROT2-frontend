@@ -1,26 +1,25 @@
 .tpjm.workpackages {
   display: flex;
-  background-color: rgb(79, 184, 184);
+  background-color: #1d1d1f;
   width: 100%;
   min-height: 100vh;
   justify-content: center;
-  color: black;
+  color: #efefef;
 }
 
 .tpjm.workpackages__container {
   margin: 20px 10px 10px 10px;
   padding: 10px;
   display: flex;
-  background-color: rgb(6, 143, 143);
   width: 60%;
   flex-direction: column;
 }
 
 .tpjm.workpackages__header {
   margin: 10px 10px 10px 10px;
-  padding: 10px;
-  background-color: rgb(6, 143, 143);
-  color: white;
+
+  background-color: #262729;
+
   display: flex;
   height: 20px;
   align-items: center;
@@ -28,6 +27,7 @@
 }
 
 .tpjm.workpackages__titleContainer {
+  padding: 10px;
   flex: 1;
   display: flex;
   justify-content: center;

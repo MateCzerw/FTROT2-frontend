@@ -46,57 +46,15 @@
 }
 
 .engineer.tasks.tasks__arrow > .MuiSvgIcon-root {
-  height: 200px;
+  height: 100px;
   width: auto;
   transition: transform 0.2s ease-in;
 }
 
 .engineer.tasks.tasks__arrow > .MuiSvgIcon-root:hover {
-  height: 200px;
+  height: 100px;
   width: auto;
   color: #b0b0b0;
   transform: scale(1.07);
   cursor: pointer;
-}
-
-.engineer.tasks.tasks__day {
-  padding: 10px;
-  margin: 0 1.25vw;
-  min-width: 14vw;
-  height: 60vh;
-  background-color: #262729;
-  overflow-y: scroll;
-}
-
-.engineer.tasks.tasks__day::-webkit-scrollbar {
-  display: none;
-}
-
-.engineer.tasks.tasks__dayInfo {
-  background-color: #262729;
-  color: #c9c9c9;
-  position: sticky;
-  top: 0;
-}
-
-.engineer.tasks.tasks__dayName {
-  text-align: center;
-  padding: 10px;
-}
-.engineer.tasks.tasks__dayDate {
-  text-align: center;
-  padding: 10px;
-}
-
-.engineer.tasks.tasks__task {
-  background-color: #1e1f21;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 10px;
-  color: #93c5fd;
-  transition: transform 0.2s ea;
-}
-
-.engineer.tasks.tasks__task:hover {
-  transform: scale(1.07);
 }
