@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import DoneIcon from "@material-ui/icons/Done";
 import "./Task.css";
 import Action from "./Action/Action";
-import PanToolIcon from "@material-ui/icons/PanTool";
+import StopIcon from "@material-ui/icons/Stop";
 import InfoIcon from "@material-ui/icons/Info";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import TaskDetails from "./Action/TaskDetails";
 import CloseIcon from "@material-ui/icons/Close";
@@ -17,6 +18,7 @@ const Task = ({
   actions,
   dayId,
   isDone,
+  isOnHold,
 }) => {
   const [isTaskDetailsOpen, setIsTaskDetailsOpen] = useState(false);
   const [isTaskStatusEditOpen, setIsTaskStatusEditOpen] = useState(false);
@@ -37,6 +39,11 @@ const Task = ({
     setIsTaskStatusEditOpen(false);
   };
 
+  const handleSetDoneStatus = () => {
+    actions.handleSetDoneStatus(dayId, taskId);
+    if (isDone) handleTaskStatusEditOpen();
+  };
+
   return (
     <div
       className={`engineer tasks task__container ${isDone === true && "done"}`}
@@ -50,12 +57,12 @@ const Task = ({
       <div className="engineer tasks task__actions">
         <Action
           Icon={!isDone ? DoneIcon : CloseIcon}
-          tooltip={!isDone ? "Done" : "set undone"}
-          action={() => actions.handleSetDoneStatus(dayId, taskId)}
+          tooltip={!isDone ? "Done" : "Set undone"}
+          action={() => handleSetDoneStatus()}
         ></Action>
         <Action
-          Icon={PanToolIcon}
-          tooltip={"On hold"}
+          Icon={!isOnHold ? StopIcon : PlayArrowIcon}
+          tooltip={!isOnHold ? "On hold" : "Start"}
           action={() => actions.handleOnHoldStatus(dayId, taskId)}
         ></Action>
         <Action

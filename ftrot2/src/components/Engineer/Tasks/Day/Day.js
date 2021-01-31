@@ -17,6 +17,7 @@ const Day = ({ dayName, date, tasks, actions, dayId }) => {
           duration={task.duration}
           status={task.status}
           isDone={task.isDone}
+          isOnHold={task.isOnHold}
           workpackage={task.workpackage}
           actions={actions}
         ></Task>

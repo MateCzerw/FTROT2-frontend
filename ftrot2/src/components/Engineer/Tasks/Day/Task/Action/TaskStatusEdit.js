@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,6 +7,7 @@ import {
   DialogTitle,
   Slider,
 } from "@material-ui/core";
+import "./TaskStatusEdit.css";
 
 const marks = [
   {
@@ -35,7 +36,7 @@ const marks = [
   },
   {
     value: 60,
-    label: "70%",
+    label: "60%",
   },
   {
     value: 70,
@@ -62,7 +63,12 @@ const TaskStatusEdit = ({
   name,
   updateStatus,
 }) => {
-  const [sliderStatus, setSliderStatus] = useState(status);
+  const [sliderStatus, setSliderStatus] = useState();
+
+  useEffect(() => {
+    setSliderStatus(status * 100);
+  }, [status]);
+
   const handleSubmitValue = () => {
     updateStatus(sliderStatus / 100);
     handleTaskDetailsClose();
@@ -74,6 +80,8 @@ const TaskStatusEdit = ({
       aria-labelledby="customized-dialog-title"
       disableBackdropClick
       open={isTaskDetailsOpen}
+      maxWidth={false}
+      className="test"
     >
       <DialogTitle
         id="customized-dialog-title"
@@ -81,9 +89,10 @@ const TaskStatusEdit = ({
       >
         <p>Change task status</p>
       </DialogTitle>
-      <DialogContent dividers>
+      <DialogContent dividers className="test2">
         <p>Task: {name}</p>
         <Slider
+          className="engineer tasks tasks__slider"
           defaultValue={status * 100}
           // getAriaValueText={}
           aria-labelledby="discrete-slider"

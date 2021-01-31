@@ -8,7 +8,195 @@ import { uuid } from "uuidv4";
 import "./Tasks.css";
 import Day from "./Day/Day";
 
-const initialTasks = [
+const initialTasksMonday = [
+  {
+    id: uuid(),
+    name: "CAD model of pedal",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "FEM of housing",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "DFMEA",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Design review",
+    workpackage: "DAF",
+    duration: 10,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Meeting with supplier",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+];
+const initialTasksTuesday = [
+  {
+    id: uuid(),
+    name: "CAD model of pedal",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "FEM of housing",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "DFMEA",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Design review",
+    workpackage: "DAF",
+    duration: 10,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Meeting with supplier",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+];
+const initialTasksWednesday = [
+  {
+    id: uuid(),
+    name: "CAD model of pedal",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "FEM of housing",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "DFMEA",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Design review",
+    workpackage: "DAF",
+    duration: 10,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Meeting with supplier",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+];
+const initialTasksThursday = [
+  {
+    id: uuid(),
+    name: "CAD model of pedal",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "FEM of housing",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "DFMEA",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Design review",
+    workpackage: "DAF",
+    duration: 10,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+  {
+    id: uuid(),
+    name: "Meeting with supplier",
+    workpackage: "DAF",
+    duration: 2,
+    status: 0.5,
+    isDone: false,
+    isOnHold: false,
+  },
+];
+const initialTasksFriday = [
   {
     id: uuid(),
     name: "CAD model of pedal",
@@ -60,26 +248,36 @@ const week = {
   id: uuid(),
   week: "CW02",
   roster: [
-    { id: uuid(), dayName: "Monday", date: "27.01.2021", tasks: initialTasks },
+    {
+      id: uuid(),
+      dayName: "Monday",
+      date: "27.01.2021",
+      tasks: initialTasksMonday,
+    },
     {
       id: uuid(),
       dayName: "Thuesday",
       date: "28.01.2021",
-      tasks: initialTasks,
+      tasks: initialTasksTuesday,
     },
     {
       id: uuid(),
       dayName: "Wednesday",
       date: "29.01.2021",
-      tasks: initialTasks,
+      tasks: initialTasksWednesday,
     },
     {
       id: uuid(),
       dayName: "Thursday",
       date: "30.01.2021",
-      tasks: initialTasks,
+      tasks: initialTasksThursday,
     },
-    { id: uuid(), dayName: "Friday", date: "31.01.2021", tasks: initialTasks },
+    {
+      id: uuid(),
+      dayName: "Friday",
+      date: "31.01.2021",
+      tasks: initialTasksFriday,
+    },
   ],
 };
 const Tasks = () => {
@@ -91,6 +289,7 @@ const Tasks = () => {
         day.tasks.map((task) => {
           if (task.id === taskId) {
             task.isDone = !task.isDone;
+            task.status = 1;
             return task;
           }
           return task;
@@ -99,7 +298,6 @@ const Tasks = () => {
       return day;
     });
     setSchedule({ ...schedule, roster: copiedRoster });
-    console.log(schedule);
   };
 
   const setOnHoldStatus = (dayId, taskId) => {
@@ -125,6 +323,7 @@ const Tasks = () => {
         day.tasks.map((task) => {
           if (task.id === taskId) {
             task.status = status;
+            if (status === 1) task.isDone = true;
             return task;
           }
           return task;
@@ -133,7 +332,6 @@ const Tasks = () => {
       return day;
     });
     setSchedule({ ...schedule, roster: copiedRoster });
-    console.log(schedule);
   };
 
   const actions = {
