@@ -1,32 +1,33 @@
-.tpjm.workpackages {
+.tpjm.workpackages.workpackages__background {
   display: flex;
-  background-color: #1d1d1f;
+  background-color: #303133;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 58px);
   justify-content: center;
   color: #efefef;
 }
 
-.tpjm.workpackages__container {
-  margin: 20px 10px 10px 10px;
+.tpjm.workpackages.workpackages__container {
+  margin: 10px 0 0 0;
   padding: 10px;
   display: flex;
-  width: 60%;
+  width: 80%;
   flex-direction: column;
 }
 
-.tpjm.workpackages__header {
-  margin: 10px 10px 10px 10px;
+.tpjm.workpackages.workpackages__header {
+  background-color: #1d1d1f;
 
-  background-color: #262729;
-
+  position: relative;
   display: flex;
-  height: 20px;
   align-items: center;
-  padding: 10px;
+}
+.tpjm.workpackages.workpackages__header > button {
+  position: absolute;
+  left: 10px;
 }
 
-.tpjm.workpackages__titleContainer {
+.tpjm.workpackages.workpackages__title {
   padding: 10px;
   flex: 1;
   display: flex;
