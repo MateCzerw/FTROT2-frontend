@@ -5,6 +5,7 @@ import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
 import EngineerDetails from "./TasksRow/EngineerDetails/EngineerDetails";
+import TasksRow from "./TasksRow/TasksRow";
 const itemsFromBackend = [
   { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
@@ -394,27 +395,8 @@ const AssignTasks = () => {
         </div>
 
         <div className="teamLeader assignTasks  tasks__engineersBoard">
-          {columnsFTROT.map((column, index) => {
-            return (
-              <div className="teamLeader assignTasks  tasks__engineer">
-                {column.schedule.map((day) => {
-                  const { columnId, dayName, tasks } = day;
-                  return (
-                    <TasksColumn
-                      columnId={columnId}
-                      tasks={tasks}
-                      dayName={dayName}
-                    ></TasksColumn>
-                  );
-                  // return generateColumnForOneDay(columnId, tasks, dayName);
-                })}
-                <EngineerDetails
-                  name={column.name}
-                  surname={column.surname}
-                  schedule={column.schedule}
-                />
-              </div>
-            );
+          {columnsFTROT.map((column) => {
+            return <TasksRow column={column} />;
           })}
         </div>
       </div>
