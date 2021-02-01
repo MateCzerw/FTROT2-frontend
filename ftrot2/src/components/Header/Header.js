@@ -11,7 +11,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const options = [
-  { role: "Engineer", link: "/" },
+  { role: "Engineer", link: "/engineer/board" },
   {
     role: "Technical Project Manager",
     link: "/technical-project-manager/board",

@@ -32,19 +32,15 @@ const TechnicalProjectManagerBoard = () => {
   const [userDetails, setUserDetails] = useState(userInfo);
 
   return (
-    <div className="board">
-      <div className="board__container">
-        <div className="board__title">
-          <h2>Technical Project Manager Dashboard</h2>
-        </div>
-
-        <div className="board__info">
+    <div className="tpjm board board__background">
+      <div className="tpjm board board__container">
+        <div className="tpjm board board__info">
           <h3>User Details</h3>
-          <div className="board__details">
-            <div className="board__column">
+          <div className="tpjm board board__details">
+            <div className="tpjm board board__column">
               <img src={userDetails.picture} alt="User"></img>
             </div>
-            <div className="board__column">
+            <div className="tpjm board board__column">
               <p>
                 <b>Name:</b> {userDetails.name}
               </p>
@@ -52,7 +48,7 @@ const TechnicalProjectManagerBoard = () => {
                 <b>Surname:</b> {userDetails.surname}
               </p>
             </div>
-            <div className="board__column">
+            <div className="tpjm board board__column">
               <p>
                 <b>Joined at:</b> {userDetails.joinedAt}
               </p>
@@ -60,7 +56,7 @@ const TechnicalProjectManagerBoard = () => {
                 <b>Role:</b> {userDetails.role}
               </p>
             </div>
-            <div className="board__column">
+            <div className="tpjm board board__column">
               <p>
                 <b>Team:</b> {userDetails.team}
               </p>
@@ -71,12 +67,15 @@ const TechnicalProjectManagerBoard = () => {
           </div>
         </div>
 
-        <div className="board__statistics">
-          <ul className="board__workPackages">
+        <div className="tpjm board board__statistics">
+          <ul className="tpjm board board__workPackages">
             {userDetails.workPackages.map((workPackage) => (
-              <li className="board__workPackage">
-                <div className="board__status" style={{ width: "50%" }}></div>
-                <p className="board__description">
+              <li className="tpjm board board__workPackage">
+                <div
+                  className="tpjm board board__status"
+                  style={{ width: "50%" }}
+                ></div>
+                <p className="tpjm board board__description">
                   {`Name:
               ${workPackage.name} Status: ${
                     workPackage.tasksStatus * 100
@@ -86,7 +85,7 @@ const TechnicalProjectManagerBoard = () => {
               </li>
             ))}
           </ul>
-          <div className="board__graph">
+          <div className="tpjm board board__graph">
             <Doughnut
               data={{
                 labels: ["Done", "In progress", "Deleyed"],

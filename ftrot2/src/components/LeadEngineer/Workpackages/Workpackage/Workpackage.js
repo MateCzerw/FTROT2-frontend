@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Workpackage.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import moment from "moment";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -37,30 +38,50 @@ const initialState = [
     name: "CAD model of pedal",
     duration: 2,
     status: 0.5,
+    details: {
+      assignedEngineer: "Jan Kowalski",
+      plannedAt: moment(Date.now()).calendar(),
+    },
   },
   {
     id: uuid(),
     name: "FEM of housing",
     duration: 2,
     status: 0.5,
+    details: {
+      assignedEngineer: "Jan Kowalski",
+      plannedAt: moment(Date.now()).calendar(),
+    },
   },
   {
     id: uuid(),
     name: "DFMEA",
     duration: 2,
     status: 0.5,
+    details: {
+      assignedEngineer: "Jan Kowalski",
+      plannedAt: moment(Date.now()).calendar(),
+    },
   },
   {
     id: uuid(),
     name: "Design review",
     duration: 10,
     status: 0.5,
+    details: {
+      assignedEngineer: "Jan Kowalski",
+      plannedAt: moment(Date.now()).calendar(),
+    },
   },
   {
     id: uuid(),
     name: "Meeting with supplier",
     duration: 2,
     status: 0.5,
+    details: {
+      assignedEngineer: "Jan Kowalski",
+      plannedAt: moment(Date.now()).calendar(),
+    },
   },
 ];
 

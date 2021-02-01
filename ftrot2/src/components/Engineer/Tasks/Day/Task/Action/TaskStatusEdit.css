@@ -1,0 +1,29 @@
+.MuiSlider-root.engineer.tasks.tasks__slider {
+  width: 500px;
+}
+
+.engineer.tasks.tasks__slider > .MuiSlider-rail {
+  height: 10px;
+}
+
+.engineer.tasks.tasks__slider > .MuiSlider-track {
+  height: 10px;
+}
+
+.engineer.tasks.tasks__slider > .MuiSlider-thumb {
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+}
+
+.test .MuiDialog-paper {
+  width: 600px;
+  background-color: #424242;
+  color: #ffffff;
+}
+
+.test2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

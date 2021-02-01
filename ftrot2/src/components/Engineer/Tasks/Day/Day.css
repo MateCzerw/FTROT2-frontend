@@ -1,0 +1,29 @@
+.engineer.tasks.tasks__day {
+  padding: 0 10px 10px 10px;
+  margin: 0 1.25vw;
+  min-width: 14vw;
+  height: 60vh;
+  background-color: #262729;
+  overflow-y: scroll;
+}
+
+.engineer.tasks.tasks__day::-webkit-scrollbar {
+  display: none;
+}
+
+.engineer.tasks.tasks__dayInfo {
+  background-color: #262729;
+  color: #c9c9c9;
+  position: sticky;
+  z-index: 999;
+  top: 0;
+}
+
+.engineer.tasks.tasks__dayName {
+  text-align: center;
+  padding: 10px;
+}
+.engineer.tasks.tasks__dayDate {
+  text-align: center;
+  padding: 10px;
+}

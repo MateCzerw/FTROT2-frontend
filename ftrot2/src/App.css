@@ -4,7 +4,7 @@
 }
 
 .app__body {
-  background-color: rgb(79, 184, 184);
+  background-color: #303133;
   width: 100%;
   min-height: calc(100vh - 58px);
 }

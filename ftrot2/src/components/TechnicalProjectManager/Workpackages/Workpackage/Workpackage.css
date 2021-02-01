@@ -1,20 +1,71 @@
-.tpjm.workpackage {
+.tpjm.workpackages.workpackage {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  margin: 10px;
-  background-color: rgb(79, 184, 184);
-}
-.tpjm.workpackage__details {
-  color: rgb(2, 26, 11);
+
+  margin: 20px 0;
+  color: #efefef;
 }
 
-.tpjm.workpackage__actions {
+.tpjm.workpackages.workpackage__description {
+  background-color: #262729;
+  padding: 10px;
+  width: 60%;
+  height: 200px;
+
+  overflow-y: scroll;
+}
+
+.tpjm.workpackages.workpackage__description > h3 {
+  padding: 10px;
+}
+
+.tpjm.workpackages.workpackage__description > p {
+  width: 100%;
+}
+
+.tpjm.workpackages.workpackage__description::-webkit-scrollbar {
+  display: none;
+}
+
+.tpjm.workpackages.workpackage__details {
+  background-color: #262729;
+  margin-right: 10px;
+  padding: 10px;
+  width: 25%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
-.tpjm.workpackage__actions > button {
+.tpjm.workpackages.workpackage__actions {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #262729;
+  width: 15%;
+}
+
+.tpjm.workpackages.workpackage__actions > button {
   margin: 5px;
+  width: 80%;
+  color: #93c5fd;
+  background-color: #00000033;
+  display: flex;
+  align-items: center;
+}
+
+.tpjm.workpackages.workpackage__actions .MuiButton-label {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tpjm.workpackages.workpackage__info {
+  font-size: 15px;
+}
+
+.tpjm.workpackages.workpackage__info > b {
+  color: #b0b0b0;
+  font-weight: bolder;
 }

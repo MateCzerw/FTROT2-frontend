@@ -1,0 +1,15 @@
+.engineer.tasks.action {
+  color: #93c5fd;
+}
+
+.engineer.tasks.action > .MuiSvgIcon-root {
+  height: 20px;
+  color: #93c5fd;
+  transition: transform 0.2s ease-in;
+}
+
+.engineer.tasks.action:hover > .MuiSvgIcon-root {
+  color: #3d94f8;
+  transform: scale(1.57);
+  cursor: pointer;
+}

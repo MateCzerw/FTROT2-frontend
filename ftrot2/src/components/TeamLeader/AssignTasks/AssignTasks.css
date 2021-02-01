@@ -1,10 +1,10 @@
-.tasks__container {
+.teamLeader.assignTasks.tasks__container {
   width: 100%;
   height: 100%;
   display: flex;
 }
 
-.tasks__unassignedTasksBoard {
+.teamLeader.assignTasks.tasks__unassignedTasksBoard {
   flex: 0.15;
   margin: 10px;
   height: calc(100vh - 58px);
@@ -14,24 +14,24 @@
   overflow-y: scroll;
 }
 
-.tasks__unassignedTasksBoard::-webkit-scrollbar {
+.teamLeader.assignTasks.tasks__unassignedTasksBoard::-webkit-scrollbar {
   display: none;
 }
 
-.tasks__unassignedTasksBoard h2 {
+.teamLeader.assignTasks.tasks__unassignedTasksBoard h2 {
   text-align: center;
   padding: 10px;
   border-bottom: solid 1px white;
 }
 
-.tasks__engineersBoard {
+.teamLeader.assignTasks.tasks__engineersBoard {
   flex: 0.85;
   height: calc(100vh - 58px);
   background-color: silver;
   overflow-y: scroll;
 }
 
-.tasks__engineer {
+.teamLeader.assignTasks.tasks__engineer {
   padding: 10px;
   width: 100%;
   display: flex;
@@ -40,7 +40,7 @@
   background-color: steelblue;
 }
 
-.tasks__dayContainer {
+.teamLeader.assignTasks.tasks__dayContainer {
   margin: 0 10px;
   display: flex;
   flex-direction: column;
@@ -52,17 +52,17 @@
   overflow-y: scroll;
 }
 
-.tasks__dayContainer > h3 {
+.teamLeader.assignTasks.tasks__dayContainer > h3 {
   text-align: center;
   padding: 10px;
   border-bottom: solid 1px white;
 }
 
-.tasks__dayContainer::-webkit-scrollbar {
+.teamLeader.assignTasks.tasks__dayContainer::-webkit-scrollbar {
   display: none;
 }
 
-.tasks__eachTask {
+.teamLeader.assignTasks.tasks__eachTask {
   margin: 10px 0;
   padding: 10px;
   width: 200px;
@@ -73,7 +73,7 @@
   justify-content: space-between;
 }
 
-.tasks__engineerInfo {
+.teamLeader.assignTasks.tasks__engineerInfo {
   margin: 0 10px;
   padding: 10px;
   width: 100%;
@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: center;
 }
-.tasks__engineerDetails {
+.teamLeader.assignTasks.tasks__engineerDetails {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -92,11 +92,11 @@
   display: flex;
 }
 
-.tasks__engineerDetails > img {
+.teamLeader.assignTasks.tasks__engineerDetails > img {
   height: 100px;
   object-fit: contain;
 }
-.tasks__engineerName {
+.teamLeader.assignTasks.tasks__engineerName {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -104,7 +104,7 @@
   align-items: flex-start;
 }
 
-.tasks__chart {
+.teamLeader.assignTasks.tasks__chart {
   padding: 10px;
   width: 100%;
   height: 250px;
@@ -114,7 +114,7 @@
   position: relative;
 }
 
-.tasks__chartText {
+.teamLeader.assignTasks.tasks__chartText {
   position: absolute;
   font-weight: bold;
   font-size: 30px;
