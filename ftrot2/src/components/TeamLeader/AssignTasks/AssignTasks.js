@@ -4,6 +4,7 @@ import { uuid } from "uuidv4";
 import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
+import EngineerDetails from "./TasksRow/EngineerDetails/EngineerDetails";
 const itemsFromBackend = [
   { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
@@ -407,54 +408,11 @@ const AssignTasks = () => {
                   );
                   // return generateColumnForOneDay(columnId, tasks, dayName);
                 })}
-                <div className="teamLeader assignTasks tasks__engineerInfo">
-                  <div className="teamLeader assignTasks tasks__engineerDetails">
-                    <div className="teamLeader assignTasks tasks__engineerName">
-                      <p>Name: {column.name}</p>
-                      <p>Surname: {column.surname}</p>
-                    </div>
-                    <img
-                      src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-                      alt="User"
-                    ></img>
-                  </div>
-                  <div className="teamLeader assignTasks tasks__chart">
-                    <Doughnut
-                      data={{
-                        labels: ["Assigned", "Unassiged", "Overtime"],
-                        datasets: [
-                          {
-                            data: [
-                              calculateTotalHoursInRow(column.schedule) > 40
-                                ? 40
-                                : calculateTotalHoursInRow(column.schedule),
-                              40 - calculateTotalHoursInRow(column.schedule) > 0
-                                ? 40 - calculateTotalHoursInRow(column.schedule)
-                                : 0,
-                              calculateTotalHoursInRow(column.schedule) - 40 > 0
-                                ? calculateTotalHoursInRow(column.schedule) - 40
-                                : 0,
-                            ],
-                            backgroundColor: ["green", "gray", "red"],
-                          },
-                        ],
-                      }}
-                      width={"100%"}
-                      height={"100%"}
-                      options={{
-                        maintainAspectRatio: false,
-                        legend: false,
-                        centerText: {
-                          display: true,
-                          text: `90%`,
-                        },
-                      }}
-                    ></Doughnut>
-                    <p className="teamLeader assignTasks tasks__chartText">{`${calculateTotalHoursInRow(
-                      column.schedule
-                    )} / 40`}</p>
-                  </div>
-                </div>
+                <EngineerDetails
+                  name={column.name}
+                  surname={column.surname}
+                  schedule={column.schedule}
+                />
               </div>
             );
           })}
