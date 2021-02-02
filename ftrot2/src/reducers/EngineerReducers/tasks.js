@@ -1,5 +1,10 @@
 import { uuid } from "uuidv4";
-import { GET_TASKS, SET_TASK_DONE } from "../../actions/types";
+import {
+  GET_TASKS,
+  SET_TASK_DONE,
+  CHANGE_TASK_STATUS,
+  SET_TASK_HOLD,
+} from "../../actions/types";
 
 const initialTasksMonday = [
   {
@@ -278,7 +283,7 @@ const initialState = {
   schedule: week,
 };
 
-export default function (state = initialState, action) {
+const tasksReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case GET_TASKS:
@@ -303,7 +308,49 @@ export default function (state = initialState, action) {
           }),
         },
       };
+    case SET_TASK_HOLD:
+      return {
+        ...state,
+        schedule: {
+          ...state.schedule,
+          roster: state.schedule.roster.map((day) => {
+            if (day.id === payload.dayId) {
+              day.tasks.map((task) => {
+                if (task.id === payload.taskId) {
+                  task.isOnHold = !task.isOnHold;
+                  return task;
+                }
+                return task;
+              });
+            }
+            return day;
+          }),
+        },
+      };
+    case CHANGE_TASK_STATUS:
+      return {
+        ...state,
+        schedule: {
+          ...state.schedule,
+          roster: state.schedule.roster.map((day) => {
+            if (day.id === payload.dayId) {
+              day.tasks.map((task) => {
+                if (task.id === payload.taskId) {
+                  task.status = payload.status;
+                  if (payload.status === 1) task.isDone = true;
+                  return task;
+                }
+                return task;
+              });
+            }
+            return day;
+          }),
+        },
+      };
+
     default:
       return state;
   }
-}
+};
+
+export default tasksReducer;

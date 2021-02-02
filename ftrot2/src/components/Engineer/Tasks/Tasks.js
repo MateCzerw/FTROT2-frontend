@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useSelector, useDispatch } from "react-redux";
-import { setTaskDoneAction } from "../../../actions/EngineerActions/tasksActions";
+import {
+  ChangeTaskStatusAction,
+  setTaskDoneAction,
+  setTaskOnHold,
+} from "../../../actions/EngineerActions/tasksActions";
 import moment from "moment";
 import { uuid } from "uuidv4";
 import "./Tasks.css";
@@ -18,37 +22,11 @@ const Tasks = () => {
   };
 
   const setOnHoldStatus = (dayId, taskId) => {
-    let copiedRoster = schedule.roster.map((day) => {
-      if (day.id === dayId) {
-        day.tasks.map((task) => {
-          if (task.id === taskId) {
-            task.isOnHold = !task.isOnHold;
-            return task;
-          }
-          return task;
-        });
-      }
-      return day;
-    });
-    // setSchedule({ ...schedule, roster: copiedRoster });
-    console.log(schedule);
+    dispatch(setTaskOnHold(dayId, taskId));
   };
 
   const setNewStatus = (dayId, taskId, status) => {
-    let copiedRoster = schedule.roster.map((day) => {
-      if (day.id === dayId) {
-        day.tasks.map((task) => {
-          if (task.id === taskId) {
-            task.status = status;
-            if (status === 1) task.isDone = true;
-            return task;
-          }
-          return task;
-        });
-      }
-      return day;
-    });
-    // setSchedule({ ...schedule, roster: copiedRoster });
+    dispatch(ChangeTaskStatusAction(dayId, taskId, status));
   };
 
   const actions = {
