@@ -6,3 +6,7 @@ export const LOGOUT = "LOGOUT";
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+// ENGINEER TYPES
+export const GET_TASKS = "GET_TASKS";
+export const SET_TASK_DONE = "SET_TASK_DONE";

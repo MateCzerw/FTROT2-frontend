@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import EngineerBoard from "./components/Engineer/EngineerBoard";
 import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
+
 import Sidebar from "./components/Sidebar/Sidebar";
 import engineerSidebarActions from "./components/Engineer/engineerSidebarActions";
 import technicalProjectManagerSidebarActions from "./components/TechnicalProjectManager/technicalProjectManagerSidebarActions";
@@ -95,7 +95,7 @@ function App() {
                 <Route
                   path="/"
                   exact
-                  component={isLogged ? EngineerBoard : Home}
+                  component={isLogged && EngineerBoard}
                 ></Route>
                 <Route
                   path="/engineer/board"
