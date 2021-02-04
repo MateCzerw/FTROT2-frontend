@@ -2,47 +2,11 @@ import React, { useEffect, useState } from "react";
 import Workpackage from "./Workpackage/Workpackage";
 import moment from "moment";
 import "./Workpackages.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const Workpackages = () => {
-  const [workpackages, setWorkpackages] = useState([]);
-  useEffect(() => {
-    const initialState = [
-      {
-        id: 1,
-        name: "HMC",
-        tasksQuantity: 5,
-        finishedTasks: 3,
-        pid: 32568,
-        endDate: moment(Date.now()).calendar(),
-        predictedFinish: moment(Date.now()).calendar(),
-        description:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus eveniet, reprehenderit amet sint possimus est? Tempora doloribus quis nam quos ut iste, obcaecati sed eaque odit! Perspiciatis sapiente recusandae illo.",
-      },
-      {
-        id: 2,
-        name: "Volvo",
-        tasksQuantity: 5,
-        finishedTasks: 3,
-        pid: 32568,
-        endDate: moment(Date.now()).calendar(),
-        predictedFinish: moment(Date.now()).calendar(),
-        description:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus eveniet, reprehenderit amet sint possimus est? Tempora doloribus quis nam quos ut iste, obcaecati sed eaque odit! Perspiciatis sapiente recusandae illo.",
-      },
-      {
-        id: 3,
-        name: "BMC",
-        tasksQuantity: 5,
-        finishedTasks: 3,
-        pid: 32568,
-        endDate: moment(Date.now()).calendar(),
-        predictedFinish: moment(Date.now()).calendar(),
-        description:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus eveniet, reprehenderit amet sint possimus est? Tempora doloribus quis nam quos ut iste, obcaecati sed eaque odit! Perspiciatis sapiente recusandae illo.",
-      },
-    ];
-    setWorkpackages(initialState);
-  }, []);
+  const workpackages = useSelector((state) => state.leadEngineer.workpackages);
+  const dispatch = useDispatch();
   return (
     <div className="leadEngineer workpackages">
       <div className="leadEngineer workpackages__container">
@@ -59,6 +23,7 @@ const Workpackages = () => {
             endDate,
             predictedFinish,
             description,
+            tasks,
           } = workpackage;
           return (
             <Workpackage
@@ -70,6 +35,7 @@ const Workpackages = () => {
               endDate={endDate}
               predictedFinish={predictedFinish}
               description={description}
+              tasks={tasks}
             ></Workpackage>
           );
         })}

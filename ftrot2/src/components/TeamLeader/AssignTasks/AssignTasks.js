@@ -3,6 +3,9 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
 import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
+import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
+import EngineerDetails from "./TasksRow/EngineerDetails/EngineerDetails";
+import TasksRow from "./TasksRow/TasksRow";
 const itemsFromBackend = [
   { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
@@ -113,68 +116,6 @@ const unassignedTasksFromBackend = {
   columnId: uuid(),
   name: "Unassigned",
   tasks: itemsFromBackend,
-};
-
-const generateColumnForOneDay = (columnId, tasks, dayName) => {
-  return (
-    <Droppable droppableId={columnId} key={columnId}>
-      {(provided, snapshot) => {
-        return (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className="teamLeader assignTasks tasks__dayContainer"
-            style={{
-              background: snapshot.isDraggingOver ? "lightblue" : "lightgrey",
-            }}
-          >
-            <h3>{`${dayName} | ${calculateTotalHoursInColumn(tasks)}h`}</h3>
-
-            {tasks.map((task, index) => {
-              return (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="teamLeader assignTasks tasks__eachTask"
-                        style={{
-                          backgroundColor: snapshot.isDragging
-                            ? "#263B4A"
-                            : "tomato",
-                          ...provided.draggableProps.style,
-                        }}
-                      >
-                        <p>{task.content}</p>
-                        <p>{task.duration}</p>
-                      </div>
-                    );
-                  }}
-                </Draggable>
-              );
-            })}
-            {provided.placeholder}
-          </div>
-        );
-      }}
-    </Droppable>
-  );
-};
-
-const calculateTotalHoursInColumn = (tasks) => {
-  let counter = 0;
-  tasks.forEach((task) => (counter += task.duration));
-  return counter;
-};
-
-const calculateTotalHoursInRow = (schedule) => {
-  let counter = 0;
-  schedule.forEach((day) => {
-    day.tasks.forEach((task) => (counter += task.duration));
-  });
-  return counter;
 };
 
 const onDragEnd = (
@@ -333,122 +274,16 @@ const AssignTasks = () => {
     >
       <div className="teamLeader assignTasks tasks__container">
         <div className="teamLeader assignTasks tasks__unassignedTasksBoard">
-          <div key={unassignedTasks.columnId}>
-            <h2>{`${unassignedTasks.name} | ${calculateTotalHoursInColumn(
-              unassignedTasks.tasks
-            )}h`}</h2>
-
-            <Droppable
-              droppableId={unassignedTasks.columnId}
-              key={unassignedTasks.columnId}
-            >
-              {(provided, snapshot) => {
-                return (
-                  <div
-                    className="teamLeader assignTasks tasks__unasignedTasksColumn"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    style={{
-                      background: snapshot.isDraggingOver
-                        ? "lightblue"
-                        : "lightgrey",
-                    }}
-                  >
-                    {unassignedTasks.tasks.map((task, index) => {
-                      return (
-                        <Draggable
-                          key={task.id}
-                          draggableId={task.id}
-                          index={index}
-                        >
-                          {(provided, snapshot) => {
-                            return (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className="tasks__eachTask"
-                                style={{
-                                  backgroundColor: snapshot.isDragging
-                                    ? "#263B4A"
-                                    : "tomato",
-                                  ...provided.draggableProps.style,
-                                }}
-                              >
-                                <p>{task.content}</p>
-                                <p>{task.duration}</p>
-                              </div>
-                            );
-                          }}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </div>
-                );
-              }}
-            </Droppable>
-          </div>
+          <TasksColumn
+            columnId={unassignedTasks.columnId}
+            tasks={unassignedTasks.tasks}
+            dayName={unassignedTasks.name}
+          />
         </div>
 
         <div className="teamLeader assignTasks  tasks__engineersBoard">
-          {columnsFTROT.map((column, index) => {
-            return (
-              <div className="teamLeader assignTasks  tasks__engineer">
-                {column.schedule.map((day) => {
-                  const { columnId, dayName, tasks } = day;
-                  return generateColumnForOneDay(columnId, tasks, dayName);
-                })}
-                <div className="teamLeader assignTasks tasks__engineerInfo">
-                  <div className="teamLeader assignTasks tasks__engineerDetails">
-                    <div className="teamLeader assignTasks tasks__engineerName">
-                      <p>Name: {column.name}</p>
-                      <p>Surname: {column.surname}</p>
-                    </div>
-                    <img
-                      src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-                      alt="User"
-                    ></img>
-                  </div>
-                  <div className="teamLeader assignTasks tasks__chart">
-                    <Doughnut
-                      data={{
-                        labels: ["Assigned", "Unassiged", "Overtime"],
-                        datasets: [
-                          {
-                            data: [
-                              calculateTotalHoursInRow(column.schedule) > 40
-                                ? 40
-                                : calculateTotalHoursInRow(column.schedule),
-                              40 - calculateTotalHoursInRow(column.schedule) > 0
-                                ? 40 - calculateTotalHoursInRow(column.schedule)
-                                : 0,
-                              calculateTotalHoursInRow(column.schedule) - 40 > 0
-                                ? calculateTotalHoursInRow(column.schedule) - 40
-                                : 0,
-                            ],
-                            backgroundColor: ["green", "gray", "red"],
-                          },
-                        ],
-                      }}
-                      width={"100%"}
-                      height={"100%"}
-                      options={{
-                        maintainAspectRatio: false,
-                        legend: false,
-                        centerText: {
-                          display: true,
-                          text: `90%`,
-                        },
-                      }}
-                    ></Doughnut>
-                    <p className="teamLeader assignTasks tasks__chartText">{`${calculateTotalHoursInRow(
-                      column.schedule
-                    )} / 40`}</p>
-                  </div>
-                </div>
-              </div>
-            );
+          {columnsFTROT.map((column) => {
+            return <TasksRow column={column} />;
           })}
         </div>
       </div>
