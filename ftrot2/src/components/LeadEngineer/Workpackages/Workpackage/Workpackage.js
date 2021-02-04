@@ -69,15 +69,25 @@ const Workpackage = ({
     <div className="leadEngineer workpackage">
       <div className="leadEngineer workpackage__details">
         <div className="leadEngineer workpackage__info">
-          <h3>Name: {name}</h3>
-          <h4>PID: {pid}</h4>
-          <h4>finished tasks: {finishedTasks}</h4>
-          <h4>Due to: {endDate}</h4>
-          <h4>Predicted due to: {predictedFinish}</h4>
+          <h3>{name}</h3>
+          <h4>
+            <b>PID:</b> {pid}
+          </h4>
+          <h4>
+            <b>finished</b> tasks: {finishedTasks}
+          </h4>
+          <h4>
+            <b>Due to:</b> {endDate}
+          </h4>
+          <h4>
+            <b>Predicted due to:</b> {predictedFinish}
+          </h4>
         </div>
         <div className="leadEngineer workpackage__description">
           <h3>Description:</h3>
-          <p>{description}</p>
+          <p className="leadEngineer workpackage__descriptionText">
+            {description}
+          </p>
         </div>
       </div>
       <div className="leadEngineer workpackage__tasks">

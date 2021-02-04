@@ -6,21 +6,11 @@
   display: none;
 }
 
-.tasks__header {
-  display: flex;
-  width: 100%;
+.tasks__headerRow th {
+  background-color: #303133;
+  color: #c0c0c0;
 }
 
-.tasks__title--name {
-  width: 25%;
-}
-
-.tasks__title--duration {
-  width: 25%;
-}
-.tasks__title--status {
-  width: 25%;
-}
 .tasks__title--actions {
-  width: 25%;
+  padding-left: 80px;
 }

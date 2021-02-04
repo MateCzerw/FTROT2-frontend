@@ -1,5 +1,18 @@
+.tasks__task {
+  background-color: #1e1f21;
+}
+
+.tasks__task td {
+  background-color: #1e1f21;
+  color: #93c5fd;
+}
+
 .tasks__actions {
   width: 100%;
-  display: flex !important;
+  display: flex;
   justify-content: space-evenly;
+}
+
+.tasks__actions > button {
+  color: #93c5fd;
 }
