@@ -41,6 +41,11 @@
   justify-content: space-around;
   align-content: flex-start;
 }
+
+.tpjm.board.board__stat > b {
+  color: #b0b0b0;
+  font-weight: bolder;
+}
 .tpjm.board.board__column > img {
   border-radius: 25%;
   object-fit: contain;

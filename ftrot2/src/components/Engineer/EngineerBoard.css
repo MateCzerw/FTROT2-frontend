@@ -78,11 +78,6 @@
   transition: transform 0.2s ease-in;
 }
 
-.engineer.board.board__task:hover {
-  transform: scale(1.07);
-  font-size: 15px;
-}
-
 .engineer.board.board__taskStatus {
   position: absolute;
   background-color: #bb432c;
