@@ -114,7 +114,7 @@ const EngineerBoard = () => {
               }}
               width={"100%"}
               height={"100%"}
-              options={{ maintainAspectRatio: false, legend: false }}
+              options={{ maintainAspectRatio: false }}
             ></Doughnut>
           </div>
         </article>

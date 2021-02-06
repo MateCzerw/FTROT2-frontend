@@ -19,19 +19,25 @@
 
 .engineer.board.board__userDetails {
   margin: 10px 0;
-  padding: 20px;
-  width: 100%;
+  padding: 10px;
   background-color: #1d1d1f;
+  width: 100%;
+  padding-top: 10px;
   display: flex;
+
   justify-content: space-between;
 }
 
 .engineer.board.board__userDetails > img {
   object-fit: fill;
-  width: 100 px;
+  width: 100px;
   border-radius: 10%;
 }
 .engineer.board.board__statsColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: flex-start;
   font-size: 20px;
 }
 
@@ -54,8 +60,7 @@
   flex: 0.5;
 }
 .engineer.board.board__tasks {
-  width: 50%;
-
+  flex: 0.5;
   padding: 10px;
 
   display: flex;
@@ -75,14 +80,12 @@
   list-style: none;
   width: 100%;
   font-weight: 700;
-  transition: transform 0.2s ease-in;
 }
 
 .engineer.board.board__taskStatus {
   position: absolute;
   background-color: #bb432c;
   height: 100%;
-  transition: 2s ease-in;
 }
 
 .engineer.board.board__panel {
@@ -94,7 +97,7 @@
   min-height: 30vh;
 }
 .engineer.board.board__graph {
-  width: 50%;
+  flex: 0.5;
   height: 80%;
   display: flex;
   justify-content: center;

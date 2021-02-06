@@ -12,6 +12,8 @@ const userInfo = {
   team: "DLSC2",
   supervisor: "Łukasz Biernatowski",
   joinedAt: moment(Date.now()).calendar(),
+  finishedWorkpackages: 25,
+  unFinishedWorkpackages: 5,
   workPackages: [
     { name: "HMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
     { name: "BMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
@@ -33,14 +35,14 @@ const data = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   datasets: [
     {
-      label: "First time right",
+      label: "Finished workpackages",
       data: [33, 53, 85, 41, 44, 65],
       fill: false,
       backgroundColor: "rgba(75,192,192,0.2)",
       borderColor: "rgba(75,192,192,1)",
     },
     {
-      label: "Unfinished tasks",
+      label: "Unfinished workpackages",
       data: [33, 25, 35, 51, 54, 76],
       fill: false,
       borderColor: "#742774",
@@ -83,18 +85,28 @@ const TechnicalProjectManagerBoard = () => {
                 <b>Supervisor:</b> {userDetails.supervisor}
               </p>
             </div>
+            <div className="tpjm board board__column">
+              <p className="tpjm board board__stat">
+                <b>Finished workpackages:</b> {userDetails.finishedWorkpackages}
+              </p>
+              <p className="tpjm board board__stat">
+                <b>Unfinished workpackages:</b>{" "}
+                {userDetails.unFinishedWorkpackages}
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="tpjm board board__statistics">
-          <ul className="tpjm board board__workPackages">
+          <ul className="tpjm board board__workpackages">
+            <h3>Tasks for 27.01.2021</h3>
             {userDetails.workPackages.map((workPackage) => (
-              <li className="tpjm board board__workPackage">
+              <li className="tpjm board board__workpackage">
                 <div
-                  className="tpjm board board__status"
+                  className="tpjm board board__workpackageStatus"
                   style={{ width: "50%" }}
                 ></div>
-                <p className="tpjm board board__description">
+                <p className="tpjm board board__workpackageDescription">
                   {`Name:
               ${workPackage.name} Status: ${
                     workPackage.tasksStatus * 100
@@ -119,8 +131,7 @@ const TechnicalProjectManagerBoard = () => {
               height={"100%"}
               options={{
                 maintainAspectRatio: false,
-                fontColor: "black",
-                legend: false,
+                position: "right",
               }}
             ></Doughnut>
           </div>
