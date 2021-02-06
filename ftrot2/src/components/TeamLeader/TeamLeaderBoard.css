@@ -4,6 +4,7 @@
   height: 100%;
   color: #efefef;
   justify-content: center;
+  font-size: 14px;
 }
 
 .teamLeader.board.board__container {
@@ -17,7 +18,7 @@
 }
 
 .teamLeader.board.board__info {
-  margin-top: 20px;
+  margin: 10px 0;
   background-color: #1d1d1f;
   width: 100%;
   padding: 10px;
@@ -40,6 +41,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-content: flex-start;
+  font-size: 20px;
 }
 
 .teamLeader.board.board__stat > b {
@@ -47,59 +49,61 @@
   font-weight: bolder;
 }
 .teamLeader.board.board__column > img {
-  object-fit: fill;
-  width: 100 px;
   border-radius: 10%;
+  object-fit: fill;
+  width: 100px;
 }
 
 .teamLeader.board.board__statistics {
-  margin-top: 10px;
-  width: 100%;
+  margin-top: 20px;
   display: flex;
+
   padding: 10px;
   background-color: #262729;
+  align-items: center;
   min-height: 30vh;
   width: 100%;
 }
 
-.teamLeader.board.board__workPackages {
+.teamLeader.board.board__workpackages {
   flex: 0.5;
-  height: 300px;
+
+  padding: 10px;
 }
 
-.teamLeader.board.board__workPackage {
-  background-color: black;
+.teamLeader.board.board__workpackage {
+  background-color: #414244;
   color: white;
   position: relative;
-  margin: 10px 0;
+  margin: 20px 0;
   height: 40px;
   list-style: none;
   width: 100%;
+  font-weight: 700;
+}
+
+.teamLeader.board.board__workpackages > h3 {
+  text-align: center;
+  padding: 10px;
 }
 
 .teamLeader.board.board__graph {
   flex: 0.5;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.teamLeader.board.board__description {
+.teamLeader.board.board__workpackageDescription {
   position: absolute;
   padding: 10px;
   width: 100%;
   height: 100%;
   color: white;
 }
-.teamLeader.board.board__status {
+.teamLeader.board.board__workpackageStatus {
   position: absolute;
-  background-color: red;
+  background-color: #bb432c;
   height: 100%;
-  /* animation: fade 0.9s ease-in; */
 }
-
-/* @keyframes fade {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-} */
