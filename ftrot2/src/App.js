@@ -19,6 +19,7 @@ import teamLeaderSidebarActions from "./components/TeamLeader/teamLeaderSidebarA
 import AssignTasks from "./components/TeamLeader/AssignTasks/AssignTasks";
 import { StylesProvider } from "@material-ui/core/styles";
 import store from "./store";
+import Account from "./components/Account/Account";
 
 function App() {
   const [isLogged, setIsLogged] = useState(true);
@@ -97,6 +98,7 @@ function App() {
                   exact
                   component={isLogged && EngineerBoard}
                 ></Route>
+                <Route path="/account" exact component={Account}></Route>
                 <Route
                   path="/engineer/board"
                   exact
