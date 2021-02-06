@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LeadEngineerBoard.css";
 import moment from "moment";
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, Line } from "react-chartjs-2";
 
 const userInfo = {
   name: "Mateusz",
@@ -12,6 +12,8 @@ const userInfo = {
   team: "DLSC2",
   supervisor: "Wojciech Zabiegło",
   joinedAt: moment(Date.now()).calendar(),
+  finishedWorkpackages: 25,
+  unFinishedWorkpackages: 5,
   workPackages: [
     { name: "HMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
     { name: "BMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
@@ -25,6 +27,25 @@ const userInfo = {
       name: "Iveco",
       tasksStatus: 0.5,
       dueTo: moment(Date.now()).calendar(),
+    },
+  ],
+};
+
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "Finished workpackages",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: false,
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)",
+    },
+    {
+      label: "Unfinished workpackages",
+      data: [33, 25, 35, 51, 54, 76],
+      fill: false,
+      borderColor: "#742774",
     },
   ],
 };
@@ -64,23 +85,33 @@ const LeadEngineerBoard = () => {
                 <b>Supervisor:</b> {userDetails.supervisor}
               </p>
             </div>
+            <div className="leadEngineer board board__column">
+              <p className="leadEngineer board board__stat">
+                <b>Finished workpackages:</b> {userDetails.finishedWorkpackages}
+              </p>
+              <p className="leadEngineer board board__stat">
+                <b>Unfinished workpackages:</b>{" "}
+                {userDetails.unFinishedWorkpackages}
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="leadEngineer board board__statistics">
-          <ul className="leadEngineer board board__workPackages">
+          <ul className="leadEngineer board board__workpackages">
+            <h3>Workpackages with upcoming deadline</h3>
             {userDetails.workPackages.map((workPackage) => (
-              <li className="leadEngineer board board__workPackage">
+              <li className="leadEngineer board board__workpackage">
                 <div
-                  className="leadEngineer board board__status"
+                  className="leadEngineer board board__workpackageStatus"
                   style={{ width: "50%" }}
                 ></div>
-                <p className="leadEngineer board board__description">
+                <p className="leadEngineer board board__workpackageDescription">
                   {`Name:
-            ${workPackage.name} Status: ${
+              ${workPackage.name} Status: ${
                     workPackage.tasksStatus * 100
                   }% Due to: 
-            ${workPackage.dueTo}`}
+              ${workPackage.dueTo}`}
                 </p>
               </li>
             ))}
@@ -98,10 +129,21 @@ const LeadEngineerBoard = () => {
               }}
               width={"100%"}
               height={"100%"}
-              options={{ maintainAspectRatio: false, fontColor: "black" }}
+              options={{
+                maintainAspectRatio: false,
+                position: "right",
+              }}
             ></Doughnut>
           </div>
         </div>
+        <article className="engineer board board__ftrotPanel">
+          <Line
+            data={data}
+            width={100}
+            height={50}
+            options={{ maintainAspectRatio: false }}
+          />
+        </article>
       </div>
     </div>
   );

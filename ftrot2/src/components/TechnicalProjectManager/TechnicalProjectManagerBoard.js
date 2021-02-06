@@ -99,7 +99,7 @@ const TechnicalProjectManagerBoard = () => {
 
         <div className="tpjm board board__statistics">
           <ul className="tpjm board board__workpackages">
-            <h3>Tasks for 27.01.2021</h3>
+            <h3>Workpackages with upcoming deadline</h3>
             {userDetails.workPackages.map((workPackage) => (
               <li className="tpjm board board__workpackage">
                 <div
