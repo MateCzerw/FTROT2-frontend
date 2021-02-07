@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import React from "react";
 import Information from "./Information/Information";
 import Password from "./Password/Password";
@@ -28,6 +28,9 @@ const Account = () => {
           <Grid item xs={12} sm={6}>
             <StyledPaper square>
               <Information />
+              <Button variant="contained" color="primary">
+                test
+              </Button>
             </StyledPaper>
           </Grid>
         </Grid>

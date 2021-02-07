@@ -48,11 +48,12 @@ const WorkpackageEdit = ({
           id="customized-dialog-title"
           onClose={handleWorkpackageEditClose}
         >
-          Modal title
+          Edit Work Package
         </DialogTitle>
         <DialogContent dividers>
           <TextField
             fullWidth
+            variant="outlined"
             id="name"
             name="name"
             label="name"
@@ -65,6 +66,7 @@ const WorkpackageEdit = ({
 
           <TextField
             fullWidth
+            variant="outlined"
             id="description"
             name="description"
             label="description"
@@ -80,11 +82,15 @@ const WorkpackageEdit = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleWorkpackageEditClose} color="primary">
-            Cancel
-          </Button>
-          <Button autoFocus type="submit" color="primary">
+          <Button autoFocus type="submit" color="primary" variant="contained">
             Submit
+          </Button>
+          <Button
+            onClick={handleWorkpackageEditClose}
+            color="primary"
+            variant="contained"
+          >
+            Cancel
           </Button>
         </DialogActions>
       </form>
