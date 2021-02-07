@@ -3,19 +3,37 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledIconButton = styled(IconButton)`
+  margin: 5px 0 5px 20px;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  color: #efefef;
+
+  &:hover {
+    background-color: rgb(239, 239, 239, 0.4);
+  }
+`;
+const StyledDrawer = styled(Drawer)`
+  width: 500px;
+`;
+const StyledListItemIcon = styled(ListItem)`
+  margin: 0 20px 0 5px;
+  width: 10px;
+  color: #efefef;
+`;
 
 const Sidebar = ({ isSidebarOpen, handleSidebarClose, actions }) => {
   return (
-    <Drawer anchor="left" open={isSidebarOpen} variant="persistent">
-      <div>
-        <IconButton onClick={handleSidebarClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
+    <StyledDrawer anchor="left" open={isSidebarOpen} variant="persistent">
+      <StyledIconButton onClick={handleSidebarClose}>
+        <ChevronLeftIcon />
+      </StyledIconButton>
       <Divider />
       <List>
         {actions.map((action, index) => {
@@ -26,15 +44,15 @@ const Sidebar = ({ isSidebarOpen, handleSidebarClose, actions }) => {
               button
               key={action.name}
             >
-              <ListItemIcon>
+              <StyledListItemIcon>
                 <action.icon />
-              </ListItemIcon>
+              </StyledListItemIcon>
               <ListItemText primary={action.name} />
             </ListItem>
           );
         })}
       </List>
-    </Drawer>
+    </StyledDrawer>
   );
 };
 

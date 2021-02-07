@@ -8,6 +8,19 @@ export const theme = createMuiTheme({
   },
 
   overrides: {
+    MuiDrawer: {
+      root: {},
+      paper: {
+        backgroundColor: "#303133",
+        width: "200px",
+        color: "#efefef",
+
+        // "&:hover": {
+        //   backgroundColor: "rgb(239, 239, 239, 0.4)",
+        // },
+      },
+    },
+
     MuiDivider: {
       root: { backgroundColor: "#efefef" },
     },
