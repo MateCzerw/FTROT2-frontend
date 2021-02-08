@@ -14,24 +14,13 @@ const StyledBackground = styled.div`
   align-items: flex-start;
 `;
 
-const StyledPaper = styled(Paper)`
-  width: 100%;
-  background-color: #262729;
-  color: #efefef; ;
-`;
-
 const Account = () => {
   return (
     <StyledBackground>
       <Grid container spacing={1} justify={"center"}>
         <Grid item container xs={12} justify={"center"}>
           <Grid item xs={12} sm={6}>
-            <StyledPaper square>
-              <Information />
-              <Button variant="contained" color="primary">
-                test
-              </Button>
-            </StyledPaper>
+            <Information />
           </Grid>
         </Grid>
         {/* <Grid item xs={12} sm={6}>

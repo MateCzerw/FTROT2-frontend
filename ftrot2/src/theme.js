@@ -87,6 +87,8 @@ export const theme = createMuiTheme({
       root: {
         margin: "10px",
         color: "#efefef",
+        height: "25px",
+        fontSize: "10px",
         backgroundColor: "rgba(0,0,0,0.1)",
         "&:hover": {
           backgroundColor: "#000",
@@ -100,6 +102,14 @@ export const theme = createMuiTheme({
     MuiButton: {
       containedPrimary: {
         color: "#93c5fd",
+      },
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor: "#262729",
+        color: "#efefef",
+        padding: "10px",
+        marginTop: "10px",
       },
     },
   },
