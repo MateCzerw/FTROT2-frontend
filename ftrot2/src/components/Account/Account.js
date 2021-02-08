@@ -23,9 +23,11 @@ const Account = () => {
             <Information />
           </Grid>
         </Grid>
-        {/* <Grid item xs={12} sm={6}>
-          <Password></Password>
-        </Grid> */}
+        <Grid item container xs={12} justify={"center"}>
+          <Grid item xs={12} sm={6}>
+            <Password></Password>
+          </Grid>
+        </Grid>
       </Grid>
     </StyledBackground>
   );
