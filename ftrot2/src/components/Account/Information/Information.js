@@ -98,6 +98,7 @@ const Information = () => {
             variant="outlined"
             type="date"
             name="date"
+            InputLabelProps={{ shrink: true }}
             value={formik.values.date}
             onChange={formik.handleChange}
             error={formik.touched.date && Boolean(formik.errors.date)}
