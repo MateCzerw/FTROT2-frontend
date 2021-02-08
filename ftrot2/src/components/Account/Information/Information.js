@@ -27,14 +27,20 @@ const userInfo = {
 };
 
 const validationSchema = yup.object({
-  // name: yup
-  //   .string("Enter your name")
-  //   .min(5, "Name should be of minimum 5 characters length")
-  //   .required("Name is required"),
-  // description: yup
-  //   .string("Enter workpackage description")
-  //   .min(10, "Description should be of minimum 10 characters length")
-  //   .required("Description is required"),
+  name: yup
+    .string("Enter your name")
+    .min(3, "Name should be of minimum 3 characters length")
+    .max(20)
+    .required("Name is required"),
+  surname: yup
+    .string("Enter your surname")
+    .min(3, "Surname should be of minimum 3 characters length")
+    .required("Description is required"),
+  email: yup
+    .string("Enter your email")
+    .email("Please enter valid email address")
+    .required("email is required"),
+  date: yup.date("Enter data of birth").required("Date is required"),
 });
 
 const Information = () => {
@@ -98,11 +104,15 @@ const Information = () => {
             helperText={formik.touched.date && formik.errors.date}
           ></StyledTextField>
         </div>
-        <StyledButton variant="contained" color="primary" type="submit">
+        <StyledButton
+          autoFocus
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
           UPDATE
         </StyledButton>
       </form>
-      <h6>{userInfo.dateOfBirth}</h6>
     </Paper>
   );
 };

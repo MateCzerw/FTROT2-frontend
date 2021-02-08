@@ -53,6 +53,7 @@ export const theme = createMuiTheme({
     MuiInputLabel: {
       root: {
         color: "#efefef",
+        fontSize: "1.1rem",
         "&.Mui-focused": {
           // increase the specificity for the pseudo class
           color: "rgb(239,239,239,1)",
@@ -87,8 +88,8 @@ export const theme = createMuiTheme({
       root: {
         margin: "10px",
         color: "#efefef",
-        height: "25px",
-        fontSize: "10px",
+        height: "2.2rem",
+        fontSize: "1.1rem",
         backgroundColor: "rgba(0,0,0,0.1)",
         "&:hover": {
           backgroundColor: "#000",
