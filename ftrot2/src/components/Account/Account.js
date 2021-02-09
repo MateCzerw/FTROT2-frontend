@@ -3,6 +3,7 @@ import React from "react";
 import Information from "./Information/Information";
 import Password from "./Password/Password";
 import styled from "styled-components";
+import PictureUpload from "./PictureUpload/PictureUpload";
 
 const StyledBackground = styled.div`
   width: 100%;
@@ -21,6 +22,11 @@ const Account = () => {
         <Grid item container xs={12} justify={"center"}>
           <Grid item xs={12} sm={6}>
             <Information />
+          </Grid>
+        </Grid>
+        <Grid item container xs={12} justify={"center"}>
+          <Grid item xs={12} sm={6}>
+            <PictureUpload></PictureUpload>
           </Grid>
         </Grid>
         <Grid item container xs={12} justify={"center"}>

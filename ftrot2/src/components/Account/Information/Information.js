@@ -14,6 +14,9 @@ const Title = styled.h3`
 const StyledTextField = styled(TextField)`
   margin-top: 10px;
   width: 50%;
+
+  /* input[type="time"]::-webkit-calendar-picker-indicator]
+  display: none; */
 `;
 const StyledButton = styled(Button)`
   margin: 10px 10px 0px 10px;
