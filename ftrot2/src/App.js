@@ -19,10 +19,11 @@ import AssignTasks from "./components/TeamLeader/AssignTasks/AssignTasks";
 import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import store from "./store";
 import Account from "./components/Account/Account";
+import Login from "./components/Login/Login";
 import { theme } from "./theme";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogOut = () => {
@@ -94,6 +95,11 @@ function App() {
 
               <div className="app__body">
                 <Switch>
+                <Route
+                    path="/login"
+                    exact
+                    component={Login}
+                  ></Route>
                   <Route
                     path="/"
                     exact
