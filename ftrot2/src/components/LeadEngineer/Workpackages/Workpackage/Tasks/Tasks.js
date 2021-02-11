@@ -14,7 +14,7 @@ const Tasks = ({ tasks, handleTaskDelete, handleTaskEdit }) => {
     <TableContainer className="tasks__container">
       <Table stickyHeader aria-label="sticky table">
         <TableHead className="tasks__header">
-          <TableRow>
+          <TableRow className="tasks__headerRow">
             <TableCell className="tasks__title--name">Name:</TableCell>
             <TableCell className="tasks__title--duration">Duration:</TableCell>
             <TableCell className="tasks__title--status">Status:</TableCell>

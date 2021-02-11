@@ -42,7 +42,7 @@ const Task = ({
   };
 
   return (
-    <TableRow hover role="checkbox" tabIndex={-1} key={id}>
+    <TableRow role="checkbox" tabIndex={-1} key={id} className="tasks__task">
       <TableCell>{name}</TableCell>
       <TableCell>{duration}h</TableCell>
       <TableCell>{status * 100}%</TableCell>
