@@ -22,7 +22,10 @@ export const theme = createMuiTheme({
     },
 
     MuiDivider: {
-      root: { backgroundColor: "#efefef" },
+      root: { backgroundColor: "#efefef" ,
+      opacity: "0.6",
+      margin: "10px 0",
+    width: "100%"},
     },
 
     MuiDialog: {
