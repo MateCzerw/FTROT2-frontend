@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core";
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00000033",
+      main: "#93c5fd",
     },
   },
 
@@ -22,10 +22,12 @@ export const theme = createMuiTheme({
     },
 
     MuiDivider: {
-      root: { backgroundColor: "#efefef" ,
-      opacity: "0.6",
-      margin: "10px 0",
-    width: "100%"},
+      root: {
+        backgroundColor: "#efefef",
+        opacity: "0.6",
+        margin: "10px 0",
+        width: "100%",
+      },
     },
 
     MuiDialog: {
@@ -105,7 +107,12 @@ export const theme = createMuiTheme({
 
     MuiButton: {
       containedPrimary: {
+        backgroundColor: "#00000033",
         color: "#93c5fd",
+
+        "&:hover": {
+          color: "#000",
+        },
       },
     },
     MuiPaper: {
