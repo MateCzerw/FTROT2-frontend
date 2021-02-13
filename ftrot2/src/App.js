@@ -21,6 +21,7 @@ import store from "./store";
 import Account from "./components/Account/Account";
 import Login from "./components/Login/Login";
 import { theme } from "./theme";
+import Register from "./components/Register/Register";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -95,11 +96,8 @@ function App() {
 
               <div className="app__body">
                 <Switch>
-                <Route
-                    path="/login"
-                    exact
-                    component={Login}
-                  ></Route>
+                  <Route path="/login" exact component={Login}></Route>
+                  <Route path="/register" exact component={Register}></Route>
                   <Route
                     path="/"
                     exact
