@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./EngineerBoard.css";
 import { Doughnut, Line } from "react-chartjs-2";
 import moment from "moment";
+import { AppBar, Tab, Tabs } from "@material-ui/core";
+import TabPanel from "./board/TabPanel";
 
 const contentInfo = {
   name: "Mateusz",
@@ -43,6 +45,12 @@ const data = {
 };
 
 const EngineerBoard = () => {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const handleTabChange = (e, newValue) => {
+    setSelectedTab(newValue);
+  };
+
   return (
     <main className="engineer board board__background">
       <section className="engineer board board__container">
@@ -119,12 +127,25 @@ const EngineerBoard = () => {
           </div>
         </article>
         <article className="engineer board board__ftrotPanel">
-          <Line
-            data={data}
-            width={100}
-            height={50}
-            options={{ maintainAspectRatio: false }}
-          />
+          <AppBar position="static">
+            <Tabs
+              value={selectedTab}
+              onChange={handleTabChange}
+              aria-label="simple tabs example"
+            >
+              <Tab label="Item One" />
+              <Tab label="Item Two" />
+              <Tab label="Item Three" />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={selectedTab} index={0}>
+            <Line
+              data={data}
+              width={100}
+              height={50}
+              options={{ maintainAspectRatio: false }}
+            />
+          </TabPanel>
         </article>
       </section>
     </main>

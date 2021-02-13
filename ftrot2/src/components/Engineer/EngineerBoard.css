@@ -94,7 +94,7 @@
   align-items: center;
   padding: 10px;
   background-color: #262729;
-  min-height: 30vh;
+  min-height: 40vh;
 }
 .engineer.board.board__graph {
   flex: 0.5;
@@ -108,7 +108,8 @@
   width: 100%;
   margin-top: 10px;
   display: flex;
+  flex-direction: column;
   padding: 10px;
   background-color: #262729;
-  min-height: 30vh;
+  height: 50vh;
 }

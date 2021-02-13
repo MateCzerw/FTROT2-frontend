@@ -123,5 +123,31 @@ export const theme = createMuiTheme({
         marginTop: "10px",
       },
     },
+    MuiAppBar: {
+      root: {},
+      colorPrimary: {
+        backgroundColor: "#3C3D3F",
+        paddingBottom: "0px",
+        paddingTop: "0px",
+      },
+    },
+
+    MuiTabs: {
+      indicator: {
+        backgroundColor: "#BB432C",
+      },
+    },
+
+    MuiTab: {
+      root: {
+        "& > .MuiTab-wrapper": {
+          color: "#c0c0c0",
+        },
+
+        "&.Mui-selected": {
+          backgroundColor: "#262729",
+        },
+      },
+    },
   },
 });

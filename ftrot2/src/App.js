@@ -24,7 +24,7 @@ import { theme } from "./theme";
 import Register from "./components/Register/Register";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogOut = () => {
