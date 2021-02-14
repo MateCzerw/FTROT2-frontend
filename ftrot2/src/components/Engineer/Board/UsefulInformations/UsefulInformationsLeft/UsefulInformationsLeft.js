@@ -2,14 +2,23 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const StyledTasksList = styled.ul`
-  height: 40vh;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
+const StyledContainer = styled.div`
+  width: 100%;
 
   & > h3 {
     padding: 10px;
+  }
+`;
+
+const StyledListOfTasks = styled.ul`
+  height: 400px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
   & > li {
@@ -17,7 +26,7 @@ const StyledTasksList = styled.ul`
     color: white;
     position: relative;
     margin: 10px 0;
-    height: 40px;
+    height: 200px;
     list-style: none;
     width: 100%;
     font-weight: 700;
@@ -49,20 +58,22 @@ const StyledTasksList = styled.ul`
 const UsefulInformationsLeft = () => {
   const contentInfo = useSelector((state) => state.engineer.userInfo);
   return (
-    <StyledTasksList>
+    <StyledContainer>
       <h3>Tasks for 27.01.2021</h3>
-      {contentInfo.currentTasks.map((task) => (
-        <li>
-          <div style={{ width: "50%" }}></div>
+      <StyledListOfTasks>
+        {contentInfo.currentTasks.map((task) => (
+          <li>
+            <div style={{ width: "50%" }}></div>
 
-          <p>{task.name}</p>
-          <p>
-            {`Estimated time: 
+            <p>{task.name}</p>
+            <p>
+              {`Estimated time: 
               ${task.estimatedTime}`}
-          </p>
-        </li>
-      ))}
-    </StyledTasksList>
+            </p>
+          </li>
+        ))}
+      </StyledListOfTasks>
+    </StyledContainer>
   );
 };
 
