@@ -149,5 +149,23 @@ export const theme = createMuiTheme({
         },
       },
     },
+
+    MuiToggleButtonGroup: {
+      root: {
+        backgroundColor: "#00000033",
+      },
+    },
+
+    MuiToggleButton: {
+      root: {
+        backgroundColor: "#262729",
+        color: "#efefef",
+
+        "&.Mui-selected": {
+          backgroundColor: "#414244",
+          color: "#efefef",
+        },
+      },
+    },
   },
 });

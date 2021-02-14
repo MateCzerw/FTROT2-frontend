@@ -6,6 +6,14 @@ import "./AssignTasks.css";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
 import EngineerDetails from "./TasksRow/EngineerDetails/EngineerDetails";
 import TasksRow from "./TasksRow/TasksRow";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import styled from "styled-components";
+
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+  margin: 10px 0 10px 10px;
+`;
+
 const itemsFromBackend = [
   { id: uuid(), content: "First task", duration: 8 },
   { id: uuid(), content: "Second task", duration: 2 },
@@ -67,6 +75,7 @@ const columnsFTROT = [
     surname: "Czerwiński",
     week: 1,
     schedule: [
+      { columnId: uuid(), dayName: "Backlog", tasks: [] },
       { columnId: uuid(), dayName: "Monday", tasks: items1 },
       { columnId: uuid(), dayName: "Tuesday", tasks: items2 },
       { columnId: uuid(), dayName: "Wednesday", tasks: items3 },
@@ -79,6 +88,7 @@ const columnsFTROT = [
     surname: "Kozłowski",
     week: 1,
     schedule: [
+      { columnId: uuid(), dayName: "Backlog", tasks: [] },
       { columnId: uuid(), dayName: "Monday", tasks: [] },
       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
@@ -91,6 +101,7 @@ const columnsFTROT = [
     surname: "Leszczuk",
     week: 1,
     schedule: [
+      { columnId: uuid(), dayName: "Backlog", tasks: [] },
       { columnId: uuid(), dayName: "Monday", tasks: [] },
       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
@@ -103,6 +114,7 @@ const columnsFTROT = [
     surname: "Repeła",
     week: 1,
     schedule: [
+      { columnId: uuid(), dayName: "Backlog", tasks: [] },
       { columnId: uuid(), dayName: "Monday", tasks: [] },
       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
@@ -254,11 +266,16 @@ const onDragEnd = (
 };
 
 const AssignTasks = () => {
-  // const [columns, setColumns] = useState(columnsFromBackend);
   const [columns, setColumns] = useState(columnsFTROT);
   const [unassignedTasks, setUnassignedTasks] = useState(
     unassignedTasksFromBackend
   );
+
+  const [formats, setFormats] = React.useState(() => ["bold", "italic"]);
+
+  const handleFormat = (event, newFormats) => {
+    setFormats(newFormats);
+  };
 
   return (
     <DragDropContext
@@ -272,6 +289,19 @@ const AssignTasks = () => {
         )
       }
     >
+      <StyledToggleButtonGroup
+        value={formats}
+        onChange={handleFormat}
+        aria-label="text formatting"
+      >
+        <ToggleButton value="bold" aria-label="bold">
+          Show Unassgined Tasks
+        </ToggleButton>
+        <ToggleButton value="italic" aria-label="italic">
+          Show Engineer panel
+        </ToggleButton>
+      </StyledToggleButtonGroup>
+
       <div className="teamLeader assignTasks tasks__container">
         <div className="teamLeader assignTasks tasks__unassignedTasksBoard">
           <TasksColumn
