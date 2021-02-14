@@ -30,14 +30,14 @@ const UserDetails = () => {
   const contentInfo = useSelector((state) => state.engineer.userInfo);
   return (
     <StyledPaper>
-      <Grid container spacing={2} justify="space-between">
+      <Grid container spacing={4} justify="space-between">
         <Grid item xs={4} md={1}>
           <img
             src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
             alt="Mateusz Czerwiński"
           ></img>
         </Grid>
-        <Grid item container xs={8} md={11} justify="space-evenly">
+        <Grid item container xs={8} md={11} justify="space-around">
           <StyledInfoColumn
             item
             container
@@ -77,10 +77,10 @@ const UserDetails = () => {
             xl={3}
           >
             <p>
-              <b>Supervisor:</b> {contentInfo.supervisor}
+              <b>Ftrot ratio:</b> {contentInfo.FTRORTratio * 100}%
             </p>
             <p>
-              <b>Joined at:</b> {contentInfo.joinedAt}
+              <b>Unfinished tasks:</b> {contentInfo.unfinishedTasks}
             </p>
           </StyledInfoColumn>
           <StyledInfoColumn
@@ -92,10 +92,10 @@ const UserDetails = () => {
             xl={3}
           >
             <p>
-              <b>Ftrot ratio:</b> {contentInfo.FTRORTratio * 100}%
+              <b>Supervisor:</b> {contentInfo.supervisor}
             </p>
             <p>
-              <b>Unfinished tasks:</b> {contentInfo.unfinishedTasks}
+              <b>Joined at:</b> {contentInfo.joinedAt}
             </p>
           </StyledInfoColumn>
         </Grid>
