@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import { Doughnut, Line } from "react-chartjs-2";
-import moment from "moment";
+
 import { AppBar, Grid, Paper, Tab, Tabs } from "@material-ui/core";
 import TabPanel from "./board/TabPanel";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const StyledBackground = styled.main`
   display: flex;
@@ -71,6 +72,8 @@ const StyledDoughnutContainer = styled.div`
 `;
 
 const StyledTasksList = styled.ul`
+  height: 40vh;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 
@@ -112,27 +115,7 @@ const StyledTasksList = styled.ul`
   }
 `;
 
-const contentInfo = {
-  name: "Mateusz",
-  surname: "Czerwiński",
-  team: "DLSC2",
-  role: "Lead Eangineer",
-  supervisor: "Wojciech Zabiegło",
-  joinedAt: moment(Date.now()).calendar(),
-  picture: "",
-  FTRORTratio: 0.05,
-  unfinishedTasks: 10,
-  currentTasks: [
-    { name: "Wypełnić Ftrot", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić rysunek", status: 1, estimatedTime: 4 },
-    { name: "Zrobić model obudowy", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić model Pedału", status: 1, estimatedTime: 4 },
-    { name: "Zrobić wniosek Patentowy", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić efficieny", status: 1, estimatedTime: 4 },
-  ],
-};
-
-const data = {
+const graphData = {
   labels: [
     "Jan",
     "Feb",
@@ -150,7 +133,6 @@ const data = {
   datasets: [
     {
       label: "Rework hours",
-      data: [5, 6, 7, 8, 5, 4, 3, 2, 5, 9, 12, 11],
       fill: true,
       backgroundColor: "rgba(75,192,192,0.2)",
       borderColor: "rgba(75,192,192,1)",
@@ -160,6 +142,8 @@ const data = {
 
 const EngineerBoard = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const contentInfo = useSelector((state) => state.board.userInfo);
+  const reworkHours = useSelector((state) => state.board.reworkHours);
 
   const handleTabChange = (e, newValue) => {
     setSelectedTab(newValue);
@@ -271,7 +255,7 @@ const EngineerBoard = () => {
                         labels: ["Planned", "Unassigned", "Overwork hours"],
                         datasets: [
                           {
-                            data: [35, 5, 5],
+                            data: contentInfo.statusOfWorkInCurrentWeek,
                             backgroundColor: ["green", "gray", "red"],
                           },
                         ],
@@ -301,7 +285,15 @@ const EngineerBoard = () => {
             </AppBar>
             <TabPanel value={selectedTab} index={0}>
               <Line
-                data={data}
+                data={{
+                  ...graphData,
+                  datasets: [
+                    {
+                      ...graphData.datasets[0],
+                      data: reworkHours,
+                    },
+                  ],
+                }}
                 width={100}
                 height={50}
                 options={{ maintainAspectRatio: false }}

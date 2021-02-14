@@ -4,6 +4,7 @@ import message from "./MessageReducers/message";
 import tasks from "./EngineerReducers/tasks";
 import workpackages from "./TechnicalProjectManagerReducers/workpackages";
 import leadEngineer from "./LeadEngineerReducers/leadEngineer";
+import board from "./EngineerReducers/board";
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   tasks,
   workpackages,
   leadEngineer,
+  board,
 });

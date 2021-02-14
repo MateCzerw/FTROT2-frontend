@@ -8,6 +8,10 @@ export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 // ENGINEER TYPES
+
+// Board
+export const GET_INFO = "GET_INFO";
+
 export const GET_TASKS = "GET_TASKS";
 export const SET_TASK_DONE = "SET_TASK_DONE";
 export const SET_TASK_HOLD = "HOLD";
