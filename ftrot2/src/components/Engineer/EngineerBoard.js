@@ -1,9 +1,116 @@
 import React, { useState } from "react";
-import "./EngineerBoard.css";
+
 import { Doughnut, Line } from "react-chartjs-2";
 import moment from "moment";
-import { AppBar, Tab, Tabs } from "@material-ui/core";
+import { AppBar, Grid, Paper, Tab, Tabs } from "@material-ui/core";
 import TabPanel from "./board/TabPanel";
+import styled from "styled-components";
+
+const StyledBackground = styled.main`
+  display: flex;
+  padding: 10px 12px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  color: #efefef;
+  font-size: 14px;
+`;
+
+const StyledUserDetails = styled(Paper)`
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #1d1d1f;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & img {
+    object-fit: fill;
+    width: 100px;
+    border-radius: 10%;
+  }
+`;
+
+const StyledUsefulInformations = styled(Paper)`
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+`;
+
+const StyledInfoColumn = styled(Grid)`
+  font-size: 20px;
+  & b {
+    color: #b0b0b0;
+    font-weight: bolder;
+  }
+`;
+
+const StyledGraphs = styled(Paper)`
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  height: 40vh;
+`;
+
+const StyledDoughnutContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  & > h3 {
+    margin-left: 10px;
+    padding: 10px;
+  }
+  & > div {
+    align-self: center;
+    width: 80%;
+    height: 80%;
+    min-height: 300px;
+  }
+`;
+
+const StyledTasksList = styled.ul`
+  display: flex;
+  flex-direction: column;
+
+  & > h3 {
+    padding: 10px;
+  }
+
+  & > li {
+    background-color: #414244;
+    color: white;
+    position: relative;
+    margin: 10px 0;
+    height: 40px;
+    list-style: none;
+    width: 100%;
+    font-weight: 700;
+
+    & > div {
+      position: absolute;
+      background-color: #bb432c;
+      height: 100%;
+    }
+
+    & > p {
+      position: absolute;
+      padding: 10px;
+      width: 60%;
+      height: 100%;
+    }
+
+    & > p:last-child {
+      text-align: end;
+      position: absolute;
+      right: 0;
+      padding: 10px;
+      width: 40%;
+      height: 100%;
+    }
+  }
+`;
 
 const contentInfo = {
   name: "Mateusz",
@@ -26,20 +133,27 @@ const contentInfo = {
 };
 
 const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  labels: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
   datasets: [
     {
-      label: "First time right",
-      data: [33, 53, 85, 41, 44, 65],
-      fill: false,
+      label: "Rework hours",
+      data: [5, 6, 7, 8, 5, 4, 3, 2, 5, 9, 12, 11],
+      fill: true,
       backgroundColor: "rgba(75,192,192,0.2)",
       borderColor: "rgba(75,192,192,1)",
-    },
-    {
-      label: "Unfinished tasks",
-      data: [33, 25, 35, 51, 54, 76],
-      fill: false,
-      borderColor: "#742774",
     },
   ],
 };
@@ -52,103 +166,152 @@ const EngineerBoard = () => {
   };
 
   return (
-    <main className="engineer board board__background">
-      <section className="engineer board board__container">
-        <article className="engineer board board__userDetails">
-          <img
-            src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-            alt="Mateusz Czerwiński"
-          ></img>
-          <div className="engineer board board__statsColumn">
-            <p className="engineer board board__stat">
-              <b>Name:</b> {contentInfo.name}
-            </p>
-            <p className="engineer board board__stat">
-              <b>Surname:</b> {contentInfo.surname}
-            </p>
-          </div>
-          <div className="engineer board board__statsColumn">
-            <p className="engineer board board__stat">
-              <b>Team:</b> {contentInfo.team}
-            </p>
-            <p className="engineer board board__stat">
-              <b>Role:</b> {contentInfo.role}
-            </p>
-          </div>
-          <div className="engineer board board__statsColumn">
-            <p className="engineer board board__stat">
-              <b>Supervisor:</b> {contentInfo.supervisor}
-            </p>
-            <p className="engineer board board__stat">
-              <b>Joined at:</b> {contentInfo.joinedAt}
-            </p>
-          </div>
-          <div className="engineer board board__statsColumn">
-            <p className="engineer board board__stat">
-              <b>Ftrot ratio:</b> {contentInfo.FTRORTratio * 100}%
-            </p>
-            <p className="engineer board board__stat">
-              <b>Unfinished tasks:</b> {contentInfo.unfinishedTasks}
-            </p>
-          </div>
-        </article>
-        <article className="engineer board board__panel">
-          <ul className="engineer board board__tasks">
-            <h3>Tasks for 27.01.2021</h3>
-            {contentInfo.currentTasks.map((task) => (
-              <li className="engineer board board__task">
-                <div
-                  className="engineer board board__taskStatus"
-                  style={{ width: "50%" }}
-                ></div>
-                <p className="engineer board board__taskDescription">
-                  {`Name:
-              ${task.name} Status: ${task.status * 100}% Estimated time: 
+    <StyledBackground>
+      <Grid container spacing={3} justify="center">
+        {/* <section className="engineer board board__container"> */}
+        <Grid item xs={8}>
+          <StyledUserDetails>
+            <Grid container spacing={2} justify="space-between">
+              <Grid item xs={4} md={1}>
+                <img
+                  src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
+                  alt="Mateusz Czerwiński"
+                ></img>
+              </Grid>
+              <Grid item container xs={8} md={11} justify="space-evenly">
+                <StyledInfoColumn
+                  item
+                  container
+                  xs={12}
+                  sm={6}
+                  xl={3}
+                  justify="flex-start"
+                >
+                  <p>
+                    <b>Name:</b> {contentInfo.name}
+                  </p>
+                  <p>
+                    <b>Surname:</b> {contentInfo.surname}
+                  </p>
+                </StyledInfoColumn>
+                <StyledInfoColumn
+                  item
+                  container
+                  justify="flex-start"
+                  xs={12}
+                  sm={6}
+                  xl={3}
+                >
+                  <p>
+                    <b>Team:</b> {contentInfo.team}
+                  </p>
+                  <p>
+                    <b>Role:</b> {contentInfo.role}
+                  </p>
+                </StyledInfoColumn>
+                <StyledInfoColumn
+                  item
+                  container
+                  justify="flex-start"
+                  xs={12}
+                  sm={6}
+                  xl={3}
+                >
+                  <p>
+                    <b>Supervisor:</b> {contentInfo.supervisor}
+                  </p>
+                  <p>
+                    <b>Joined at:</b> {contentInfo.joinedAt}
+                  </p>
+                </StyledInfoColumn>
+                <StyledInfoColumn
+                  item
+                  container
+                  justify="flex-start"
+                  xs={12}
+                  sm={6}
+                  xl={3}
+                >
+                  <p>
+                    <b>Ftrot ratio:</b> {contentInfo.FTRORTratio * 100}%
+                  </p>
+                  <p>
+                    <b>Unfinished tasks:</b> {contentInfo.unfinishedTasks}
+                  </p>
+                </StyledInfoColumn>
+              </Grid>
+            </Grid>
+          </StyledUserDetails>
+        </Grid>
+        <Grid item container xs={8}>
+          <StyledUsefulInformations>
+            <Grid item container>
+              <Grid item xs={12} md={6}>
+                <StyledTasksList>
+                  <h3>Tasks for 27.01.2021</h3>
+                  {contentInfo.currentTasks.map((task) => (
+                    <li>
+                      <div style={{ width: "50%" }}></div>
+
+                      <p>{task.name}</p>
+                      <p>
+                        {`Estimated time: 
               ${task.estimatedTime}`}
-                </p>
-              </li>
-            ))}
-          </ul>
-          <div className="engineer board board__graph">
-            <Doughnut
-              data={{
-                labels: ["Done", "In progress", "Deleyed"],
-                datasets: [
-                  {
-                    data: [90, 32, 30],
-                    backgroundColor: ["green", "orange", "gray"],
-                  },
-                ],
-              }}
-              width={"100%"}
-              height={"100%"}
-              options={{ maintainAspectRatio: false }}
-            ></Doughnut>
-          </div>
-        </article>
-        <article className="engineer board board__ftrotPanel">
-          <AppBar position="static">
-            <Tabs
-              value={selectedTab}
-              onChange={handleTabChange}
-              aria-label="simple tabs example"
-            >
-              <Tab label="Item One" />
-              <Tab label="Item Two" />
-              <Tab label="Item Three" />
-            </Tabs>
-          </AppBar>
-          <TabPanel value={selectedTab} index={0}>
-            <Line
-              data={data}
-              width={100}
-              height={50}
-              options={{ maintainAspectRatio: false }}
-            />
-          </TabPanel>
-        </article>
-      </section>
-    </main>
+                      </p>
+                    </li>
+                  ))}
+                </StyledTasksList>
+              </Grid>
+              <Grid item container xs={12} md={6}>
+                <StyledDoughnutContainer>
+                  <h3>Work in CW06:</h3>
+                  <div>
+                    <Doughnut
+                      data={{
+                        labels: ["Planned", "Unassigned", "Overwork hours"],
+                        datasets: [
+                          {
+                            data: [35, 5, 5],
+                            backgroundColor: ["green", "gray", "red"],
+                          },
+                        ],
+                      }}
+                      width={"100%"}
+                      height={"100%"}
+                      options={{ maintainAspectRatio: false }}
+                    ></Doughnut>
+                  </div>
+                </StyledDoughnutContainer>
+              </Grid>
+            </Grid>
+          </StyledUsefulInformations>
+        </Grid>
+        <Grid item xs={8}>
+          <StyledGraphs>
+            <AppBar position="static">
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                aria-label="simple tabs example"
+              >
+                <Tab label="Rework hours" />
+                <Tab label="Stopped tasks" />
+                <Tab label="Other" />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={selectedTab} index={0}>
+              <Line
+                data={data}
+                width={100}
+                height={50}
+                options={{ maintainAspectRatio: false }}
+              />
+            </TabPanel>
+          </StyledGraphs>
+          {/* </section> */}
+        </Grid>
+      </Grid>
+    </StyledBackground>
   );
 };
 

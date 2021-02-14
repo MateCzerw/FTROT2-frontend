@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledContainer = styled.div`
   margin-top: 10px;
-  height: 100%;
+  height: calc(100% - 58px);
 `;
 
 const TabPanel = ({ value, index, children }) => {
