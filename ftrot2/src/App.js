@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import EngineerBoard from "./components/Engineer/EngineerBoard";
+import EngineerBoard from "./components/Engineer/Board/EngineerBoard";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import engineerSidebarActions from "./components/Engineer/engineerSidebarActions";
