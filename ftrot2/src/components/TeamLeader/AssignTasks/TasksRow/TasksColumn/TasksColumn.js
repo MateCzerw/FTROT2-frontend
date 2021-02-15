@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core";
+import { Card, Grid } from "@material-ui/core";
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
@@ -9,8 +9,8 @@ const StyledColumn = styled(Card)`
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
-  min-width: 220px;
-  height: 40vh;
+  width: 100%;
+  height: ${(props) => (props.isUnassignedTasks ? "100vh" : "40vh")};
 
   & > h3 {
     text-align: center;
@@ -34,12 +34,12 @@ const calculateTotalHoursInColumn = (tasks) => {
   return counter;
 };
 
-const TasksColumn = ({ columnId, tasks, dayName }) => {
+const TasksColumn = ({ columnId, tasks, dayName, isUnassignedTasks }) => {
   return (
     <Droppable droppableId={columnId} key={columnId}>
       {(provided, snapshot) => {
         return (
-          <StyledColumn>
+          <StyledColumn isUnassignedTasks={isUnassignedTasks}>
             <h3>{`${dayName} | ${calculateTotalHoursInColumn(tasks)}h`}</h3>
             <StyledDroppableContainer
               {...provided.droppableProps}

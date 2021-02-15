@@ -15,7 +15,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
 
 const StyledMainContainer = styled.main`
   width: 100%;
-  height: calc(100% - 102px);
+  height: 100%;
   display: flex;
 `;
 
@@ -23,8 +23,6 @@ const StyledUnassignedTasksContainer = styled(Paper)`
   margin: 10px;
   height: 100%;
   width: 15%;
-  display: flex;
-  justify-content: center;
 
   overflow-y: scroll;
 
@@ -341,6 +339,7 @@ const AssignTasks = () => {
               columnId={unassignedTasks.columnId}
               tasks={unassignedTasks.tasks}
               dayName={unassignedTasks.name}
+              isUnassignedTasks={true}
             />
           </StyledUnassignedTasksContainer>
         )}

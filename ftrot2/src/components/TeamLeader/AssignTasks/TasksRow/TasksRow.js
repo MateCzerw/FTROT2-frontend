@@ -12,16 +12,18 @@ const StyledPaper = styled(Paper)`
 const TasksRow = ({ column, isProfileOpen }) => {
   return (
     <StyledPaper>
-      <Grid container>
-        <Grid item container xs={isProfileOpen ? 10 : 12}>
+      <Grid container spacing={3}>
+        <Grid item container spacing={2} xs={isProfileOpen ? 10 : 12}>
           {column.schedule.map((day) => {
             const { columnId, dayName, tasks } = day;
             return (
-              <TasksColumn
-                columnId={columnId}
-                tasks={tasks}
-                dayName={dayName}
-              ></TasksColumn>
+              <Grid item xs={2}>
+                <TasksColumn
+                  columnId={columnId}
+                  tasks={tasks}
+                  dayName={dayName}
+                ></TasksColumn>
+              </Grid>
             );
             // return generateColumnForOneDay(columnId, tasks, dayName);
           })}
