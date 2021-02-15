@@ -2,6 +2,7 @@ import { Card, Grid } from "@material-ui/core";
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import Task from "./Task/Task";
 
 const StyledColumn = styled(Card)`
   margin: 0 10px;
@@ -51,21 +52,12 @@ const TasksColumn = ({ columnId, tasks, dayName, isUnassignedTasks }) => {
                   <Draggable key={task.id} draggableId={task.id} index={index}>
                     {(provided, snapshot) => {
                       return (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="teamLeader assignTasks tasks__eachTask"
-                          style={{
-                            backgroundColor: snapshot.isDragging
-                              ? "#263B4A"
-                              : "tomato",
-                            ...provided.draggableProps.style,
-                          }}
-                        >
-                          <p>{task.content}</p>
-                          <p>{task.duration}</p>
-                        </div>
+                        <Task
+                          provided={provided}
+                          snapshot={snapshot}
+                          content={task.content}
+                          duration={task.duration}
+                        ></Task>
                       );
                     }}
                   </Draggable>

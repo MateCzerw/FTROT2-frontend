@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
-import "./AssignTasks.css";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
 import TasksRow from "./TasksRow/TasksRow";
 import ToggleButton from "@material-ui/lab/ToggleButton";
