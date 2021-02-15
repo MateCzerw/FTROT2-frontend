@@ -20,7 +20,7 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 const StyledDrawer = styled(Drawer)`
-  width: 500px;
+  /* width: 700px; */
 `;
 const StyledListItemIcon = styled(ListItem)`
   margin: 0 20px 0 5px;

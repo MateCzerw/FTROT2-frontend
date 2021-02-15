@@ -1,17 +1,46 @@
 import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
-import { Doughnut } from "react-chartjs-2";
 import "./AssignTasks.css";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
-import EngineerDetails from "./TasksRow/EngineerDetails/EngineerDetails";
 import TasksRow from "./TasksRow/TasksRow";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import styled from "styled-components";
+import { Paper } from "@material-ui/core";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
-  margin: 10px 0 10px 10px;
+  margin: 10px 0 0 10px;
+`;
+
+const StyledMainContainer = styled.main`
+  width: 100%;
+  height: calc(100% - 102px);
+  display: flex;
+`;
+
+const StyledUnassignedTasksContainer = styled(Paper)`
+  margin: 10px;
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StyledEngineersContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 58px);
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const itemsFromBackend = [
@@ -271,7 +300,10 @@ const AssignTasks = () => {
     unassignedTasksFromBackend
   );
 
-  const [formats, setFormats] = React.useState(() => ["bold", "italic"]);
+  const [formats, setFormats] = React.useState(() => [
+    "showUnassigneTasks",
+    "showEngineerProfile",
+  ]);
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -294,29 +326,37 @@ const AssignTasks = () => {
         onChange={handleFormat}
         aria-label="text formatting"
       >
-        <ToggleButton value="bold" aria-label="bold">
-          Show Unassgined Tasks
+        <ToggleButton value="showUnassigneTasks" aria-label="bold">
+          Show unassgined tasks
         </ToggleButton>
-        <ToggleButton value="italic" aria-label="italic">
-          Show Engineer panel
+        <ToggleButton value="showEngineerProfile" aria-label="italic">
+          Show engineer profile
         </ToggleButton>
       </StyledToggleButtonGroup>
 
-      <div className="teamLeader assignTasks tasks__container">
-        <div className="teamLeader assignTasks tasks__unassignedTasksBoard">
-          <TasksColumn
-            columnId={unassignedTasks.columnId}
-            tasks={unassignedTasks.tasks}
-            dayName={unassignedTasks.name}
-          />
-        </div>
-
-        <div className="teamLeader assignTasks  tasks__engineersBoard">
+      <StyledMainContainer>
+        {formats.find((element) => element === "showUnassigneTasks") && (
+          <StyledUnassignedTasksContainer>
+            <TasksColumn
+              columnId={unassignedTasks.columnId}
+              tasks={unassignedTasks.tasks}
+              dayName={unassignedTasks.name}
+            />
+          </StyledUnassignedTasksContainer>
+        )}
+        <StyledEngineersContainer>
           {columnsFTROT.map((column) => {
-            return <TasksRow column={column} />;
+            return (
+              <TasksRow
+                column={column}
+                isProfileOpen={formats.find(
+                  (element) => element === "showEngineerProfile"
+                )}
+              />
+            );
           })}
-        </div>
-      </div>
+        </StyledEngineersContainer>
+      </StyledMainContainer>
     </DragDropContext>
   );
 };

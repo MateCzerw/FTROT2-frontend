@@ -8,11 +8,17 @@ export const theme = createMuiTheme({
   },
 
   overrides: {
+    MuiCard: {
+      root: {
+        backgroundColor: "#424242",
+      },
+    },
+
     MuiDrawer: {
       root: {},
       paper: {
         backgroundColor: "#303133",
-        width: "200px",
+        width: "240px",
         color: "#efefef",
 
         // "&:hover": {
