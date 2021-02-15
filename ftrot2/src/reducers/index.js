@@ -4,6 +4,7 @@ import message from "./MessageReducers/message";
 import engineer from "./EngineerReducers/engineerReducer";
 import workpackages from "./TechnicalProjectManagerReducers/workpackages";
 import leadEngineer from "./LeadEngineerReducers/leadEngineer";
+import teamLeader from "./TeamLeaderReducers/teamLeaderReducer";
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   engineer,
   workpackages,
   leadEngineer,
+  teamLeader,
 });

@@ -140,164 +140,132 @@ const columnsFTROT = [
     surname: "Repeła",
     week: 1,
     schedule: [
-      { columnId: uuid(), dayName: "Backlog", tasks: [] },
-      { columnId: uuid(), dayName: "Monday", tasks: [] },
-      { columnId: uuid(), dayName: "Tuesday", tasks: [] },
-      { columnId: uuid(), dayName: "Wednesday", tasks: [] },
-      { columnId: uuid(), dayName: "Thursday", tasks: [] },
-      { columnId: uuid(), dayName: "Friday", tasks: [] },
+      { columnId: uuid(), columnName: "Backlog", tasks: [] },
+      { columnId: uuid(), columnName: "Monday", tasks: [] },
+      { columnId: uuid(), columnName: "Tuesday", tasks: [] },
+      { columnId: uuid(), columnName: "Wednesday", tasks: [] },
+      { columnId: uuid(), columnName: "Thursday", tasks: [] },
+      { columnId: uuid(), columnName: "Friday", tasks: [] },
+    ],
+  },
+  {
+    name: "Unassigned",
+    isUnassignedTasks: true,
+    schedule: [
+      {
+        columnId: uuid(),
+        columnName: "Unassigned",
+        tasks: itemsFromBackend,
+      },
     ],
   },
 ];
 
-const unassignedTasksFromBackend = {
-  columnId: uuid(),
-  name: "Unassigned",
-  tasks: itemsFromBackend,
-};
-
-const onDragEnd = (
-  result,
-  columns,
-  unassignedTasks,
-  setColumns,
-  setUnassignedTasks
-) => {
-  if (!result.destination) return;
-  console.log("Result: ", result);
-  console.log("Columns: ", columns);
-  console.log("setColumns: ", setColumns);
-  const { source, destination } = result;
-
-  const unassignedTaskId = unassignedTasks.columnId;
-
-  //UNASSIGNED TASKS SERVICE
-
-  if (
-    unassignedTaskId === source.droppableId &&
-    unassignedTaskId !== destination.droppableId
-  ) {
-    const destinationRow = columns.find((engineer) =>
-      engineer.schedule.some(
-        (item) => item.columnId === destination.droppableId
-      )
-    );
-
-    const destColumn = destinationRow.schedule.find(
-      (item) => item.columnId === destination.droppableId
-    );
-
-    const unassignedTasksCopy = unassignedTasks;
-
-    const destTasks = [...destColumn.tasks];
-    const [removed] = unassignedTasksCopy.tasks.splice(source.index, 1);
-    destTasks.splice(destination.index, 0, removed);
-    destColumn.tasks = destTasks;
-
-    setColumns([...columns, destinationRow]);
-    setUnassignedTasks(unassignedTasksCopy);
-
-    return;
-  }
-
-  if (
-    unassignedTaskId !== source.droppableId &&
-    unassignedTaskId === destination.droppableId
-  ) {
-    const sourceRow = columns.find((engineer) =>
-      engineer.schedule.some((item) => item.columnId === source.droppableId)
-    );
-
-    const sourceColumn = sourceRow.schedule.find(
-      (item) => item.columnId === source.droppableId
-    );
-
-    const unassignedTasksCopy = unassignedTasks;
-
-    const sourceTasks = [...sourceColumn.tasks];
-    const [removed] = sourceTasks.splice(source.index, 1);
-    unassignedTasksCopy.tasks.splice(destination.index, 0, removed);
-    sourceColumn.tasks = sourceTasks;
-
-    setColumns([...columns, sourceRow]);
-    setUnassignedTasks(unassignedTasksCopy);
-
-    return;
-  }
-
-  if (
-    unassignedTaskId === source.droppableId &&
-    unassignedTaskId === destination.droppableId
-  ) {
-    const unassignedTasksCopy = unassignedTasks;
-
-    const tasks = [...unassignedTasks.tasks];
-    //   const copiedItems = [...tasks];
-    const [removed] = tasks.splice(source.index, 1);
-    tasks.splice(destination.index, 0, removed);
-    unassignedTasksCopy.tasks = tasks;
-    //   sourceColumn.tasks = copiedItems;
-    setUnassignedTasks(unassignedTasksCopy);
-    return;
-  }
-
-  const sourceRow = columns.find((engineer) =>
-    engineer.schedule.some((item) => item.columnId === source.droppableId)
-  );
-
-  const destinationRow = columns.find((engineer) =>
-    engineer.schedule.some((item) => item.columnId === destination.droppableId)
-  );
-
-  const sourceColumn = sourceRow.schedule.find(
-    (item) => item.columnId === source.droppableId
-  );
-
-  const destColumn = destinationRow.schedule.find(
-    (item) => item.columnId === destination.droppableId
-  );
-
-  //MODIFICATION WITHIN 2 DIFFERENT ENGINEERS
-  if (sourceRow !== destinationRow) {
-    const sourceTasks = [...sourceColumn.tasks];
-    const destTasks = [...destColumn.tasks];
-    const [removed] = sourceTasks.splice(source.index, 1);
-    destTasks.splice(destination.index, 0, removed);
-    sourceColumn.tasks = sourceTasks;
-    destColumn.tasks = destTasks;
-
-    setColumns([...columns, sourceRow, destinationRow]);
-  }
-
-  //MODIFICATION WITHIN 1 ENGINEER TASKS (SAME ENGINEER DIFFERENT DAY)
-  if (sourceRow === destinationRow && sourceColumn !== destColumn) {
-    const sourceTasks = [...sourceColumn.tasks];
-    const destTasks = [...destColumn.tasks];
-    const [removed] = sourceTasks.splice(source.index, 1);
-    destTasks.splice(destination.index, 0, removed);
-    sourceColumn.tasks = sourceTasks;
-    destColumn.tasks = destTasks;
-    setColumns([...columns, sourceRow]);
-  }
-
-  //MODIFICATION WITHIN 1 DAY (SAME ENGINEER SAME DAY)
-  if (sourceRow === destinationRow && sourceColumn === destColumn) {
-    const tasks = [...sourceColumn.tasks];
-    const copiedItems = [...tasks];
-    const [removed] = copiedItems.splice(source.index, 1);
-    copiedItems.splice(destination.index, 0, removed);
-    sourceColumn.tasks = copiedItems;
-    setColumns([...columns, sourceRow]);
-  }
-};
-
 const AssignTasks = () => {
   const [columns, setColumns] = useState(columnsFTROT);
-  const [unassignedTasks, setUnassignedTasks] = useState(
-    unassignedTasksFromBackend
-  );
 
-  const [formats, setFormats] = React.useState(() => [
+  const findColumn = (id) => {
+    let foundColumn = [];
+    columns.forEach((eachEngineer) => {
+      let tempTasks = eachEngineer.schedule.find(
+        (column) => column.columnId === id
+      );
+      if (tempTasks !== undefined) foundColumn = tempTasks;
+    });
+
+    return foundColumn;
+  };
+
+  const saveColumnState = (
+    sourceColumnId,
+    sourceTaskIndex,
+    destinationColumnId,
+    destinationIndex,
+    sourceColumn,
+    destinationColumn
+  ) => {
+    if (sourceColumnId !== destinationColumnId) {
+      const sourceTasks = [...sourceColumn.tasks];
+      const destinationTasks = [...destinationColumn.tasks];
+      const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
+      destinationTasks.splice(destinationIndex, 0, removed);
+      sourceColumn.tasks = sourceTasks;
+      destinationColumn.tasks = destinationTasks;
+
+      let source = columns.find((eachEngineer) =>
+        eachEngineer.schedule.some(
+          (column) => column.columnId === sourceColumnId
+        )
+      );
+
+      let destination = columns.find((eachEngineer) =>
+        eachEngineer.schedule.some(
+          (column) => column.columnId === destinationColumnId
+        )
+      );
+
+      source = {
+        ...source,
+        schedule: source.schedule.map((column) => {
+          if (column.columnId === sourceColumnId) return { sourceColumn };
+          else return column;
+        }),
+      };
+
+      destination = {
+        ...destination,
+        schedule: destination.schedule.map((column) => {
+          if (column.columnId === destinationColumnId)
+            return { destinationColumn };
+          else return column;
+        }),
+      };
+
+      setColumns([...columns, source, destination]);
+    } else {
+      const sourceTasks = [...sourceColumn.tasks];
+      const copiedItems = [...sourceTasks];
+      const [removed] = copiedItems.splice(sourceTaskIndex, 1);
+      copiedItems.splice(destinationIndex, 0, removed);
+      sourceColumn.tasks = copiedItems;
+
+      let source = columns.find((eachEngineer) =>
+        eachEngineer.schedule.some(
+          (column) => column.columnId === sourceColumnId
+        )
+      );
+
+      source = {
+        ...source,
+        schedule: source.schedule.map((column) => {
+          if (column.columnId === sourceColumnId) return { sourceColumn };
+          else return column;
+        }),
+      };
+
+      setColumns([...columns, source]);
+    }
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    const columnSource = findColumn(source.droppableId);
+    const columnDestination = findColumn(destination.droppableId);
+
+    console.log(columnSource);
+    console.log(columnDestination);
+    saveColumnState(
+      source.droppableId,
+      source.index,
+      destination.droppableId,
+      destination.index,
+      columnSource,
+      columnDestination
+    );
+  };
+
+  const [formats, setFormats] = useState(() => [
     "showUnassigneTasks",
     "showEngineerProfile",
   ]);
@@ -307,17 +275,7 @@ const AssignTasks = () => {
   };
 
   return (
-    <DragDropContext
-      onDragEnd={(result) =>
-        onDragEnd(
-          result,
-          columns,
-          unassignedTasks,
-          setColumns,
-          setUnassignedTasks
-        )
-      }
-    >
+    <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
       <StyledToggleButtonGroup
         value={formats}
         onChange={handleFormat}
@@ -335,24 +293,35 @@ const AssignTasks = () => {
         {formats.find((element) => element === "showUnassigneTasks") && (
           <StyledUnassignedTasksContainer>
             <TasksColumn
-              columnId={unassignedTasks.columnId}
-              tasks={unassignedTasks.tasks}
-              dayName={unassignedTasks.name}
+              columnId={
+                columnsFTROT.find((column) => column.isUnassignedTasks)
+                  .schedule[0].columnId
+              }
+              tasks={
+                columnsFTROT.find((column) => column.isUnassignedTasks)
+                  .schedule[0].tasks
+              }
+              dayName={
+                columnsFTROT.find((column) => column.isUnassignedTasks)
+                  .schedule[0].name
+              }
               isUnassignedTasks={true}
             />
           </StyledUnassignedTasksContainer>
         )}
         <StyledEngineersContainer>
-          {columnsFTROT.map((column) => {
-            return (
-              <TasksRow
-                column={column}
-                isProfileOpen={formats.find(
-                  (element) => element === "showEngineerProfile"
-                )}
-              />
-            );
-          })}
+          {columnsFTROT
+            .filter((column) => !column.isUnassignedTasks)
+            .map((column) => {
+              return (
+                <TasksRow
+                  column={column}
+                  isProfileOpen={formats.find(
+                    (element) => element === "showEngineerProfile"
+                  )}
+                />
+              );
+            })}
         </StyledEngineersContainer>
       </StyledMainContainer>
     </DragDropContext>
