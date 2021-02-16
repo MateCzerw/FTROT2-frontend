@@ -13,7 +13,7 @@ import EngineerTasks from "./components/Roles/Engineer/Tasks/Tasks";
 import LeadEngineerBoard from "./components/Roles/LeadEngineer/Board/LeadEngineerBoard";
 import LeadEngineerWorkpackages from "./components/Roles/LeadEngineer/Workpackages/Workpackages";
 import leadEngineerSidebarActions from "./components/Roles/LeadEngineer/leadEngineerSidebarActions";
-import TeamLeaderBoard from "./components/Roles/TeamLeader/TeamLeaderBoard";
+import TeamLeaderBoard from "./components/Roles/TeamLeader/Board/TeamLeaderBoard";
 import teamLeaderSidebarActions from "./components/Roles/TeamLeader/teamLeaderSidebarActions";
 import AssignTasks from "./components/Roles/TeamLeader/AssignTasks/AssignTasks";
 import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
