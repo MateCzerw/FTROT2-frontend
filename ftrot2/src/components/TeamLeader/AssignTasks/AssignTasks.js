@@ -129,6 +129,7 @@ const AssignTasks = () => {
             .map((column) => {
               return (
                 <TasksRow
+                  key={column.rowId}
                   column={column}
                   isProfileOpen={formats.find(
                     (element) => element === "showEngineerProfile"
