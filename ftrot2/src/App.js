@@ -10,7 +10,7 @@ import technicalProjectManagerSidebarActions from "./components/Roles/TechnicalP
 import TechnicalProjectManagerBoard from "./components/Roles/TechnicalProjectManager/TechnicalProjectManagerBoard";
 import Workpackages from "./components/Roles/TechnicalProjectManager/Workpackages/Workpackages";
 import EngineerTasks from "./components/Roles/Engineer/Tasks/Tasks";
-import LeadEngineerBoard from "./components/Roles/LeadEngineer/LeadEngineerBoard";
+import LeadEngineerBoard from "./components/Roles/LeadEngineer/Board/LeadEngineerBoard";
 import LeadEngineerWorkpackages from "./components/Roles/LeadEngineer/Workpackages/Workpackages";
 import leadEngineerSidebarActions from "./components/Roles/LeadEngineer/leadEngineerSidebarActions";
 import TeamLeaderBoard from "./components/Roles/TeamLeader/TeamLeaderBoard";

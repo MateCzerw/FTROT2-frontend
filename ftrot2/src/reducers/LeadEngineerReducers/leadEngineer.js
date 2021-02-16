@@ -194,6 +194,34 @@ const initialState = {
       ],
     },
   ],
+  userInfo: {
+    name: "Mateusz",
+    surname: "Czerwiński",
+    picture:
+      "https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo",
+    role: "Lead engineer",
+    team: "DLSC2",
+    supervisor: "Wojciech Zabiegło",
+    joinedAt: moment(Date.now()).calendar(),
+    finishedWorkpackages: 25,
+    unFinishedWorkpackages: 5,
+    workPackages: [
+      { name: "HMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
+      { name: "BMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
+      {
+        name: "Volvo",
+        tasksStatus: 0.5,
+        dueTo: moment(Date.now()).calendar(),
+      },
+      { name: "Daf", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
+      {
+        name: "Iveco",
+        tasksStatus: 0.5,
+        dueTo: moment(Date.now()).calendar(),
+      },
+    ],
+    statusOfWorkpackages: [20, 10, 30],
+  },
 };
 
 const leadEngineer = (state = initialState, action) => {
