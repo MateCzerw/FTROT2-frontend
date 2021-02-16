@@ -15,7 +15,7 @@ import {
 
 const Workpackages = () => {
   const workpackagesFromSelector = useSelector(
-    (state) => state.workpackages.workpackages
+    (state) => state.technicalProjectManager.workpackages
   );
   const workpackages = JSON.parse(JSON.stringify(workpackagesFromSelector));
   const dispatch = useDispatch();

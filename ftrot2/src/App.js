@@ -7,7 +7,7 @@ import Header from "./components/Layout/Header/Header";
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
 import engineerSidebarActions from "./components/Roles/Engineer/engineerSidebarActions";
 import technicalProjectManagerSidebarActions from "./components/Roles/TechnicalProjectManager/technicalProjectManagerSidebarActions";
-import TechnicalProjectManagerBoard from "./components/Roles/TechnicalProjectManager/TechnicalProjectManagerBoard";
+import TechnicalProjectManagerBoard from "./components/Roles/TechnicalProjectManager/Board/TechnicalProjectManagerBoard";
 import Workpackages from "./components/Roles/TechnicalProjectManager/Workpackages/Workpackages";
 import EngineerTasks from "./components/Roles/Engineer/Tasks/Tasks";
 import LeadEngineerBoard from "./components/Roles/LeadEngineer/Board/LeadEngineerBoard";
