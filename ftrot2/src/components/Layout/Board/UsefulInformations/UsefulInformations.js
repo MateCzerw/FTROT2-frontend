@@ -8,18 +8,15 @@ const StyledPaper = styled(Paper)`
   width: 100%;
 `;
 
-const UsefulInformations = ({
-  UsefulInformationsLeft,
-  UsefulInformationRight,
-}) => {
+const UsefulInformations = ({ Left, Right }) => {
   return (
     <StyledPaper>
       <Grid item container>
         <Grid item xs={12} md={6}>
-          <UsefulInformationsLeft />
+          <Left />
         </Grid>
         <Grid item container xs={12} md={6}>
-          <UsefulInformationRight />
+          <Right />
         </Grid>
       </Grid>
     </StyledPaper>

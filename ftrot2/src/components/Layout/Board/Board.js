@@ -15,11 +15,7 @@ const StyledBackground = styled.main`
   font-size: 14px;
 `;
 
-const Board = ({
-  UsefulInformationsLeft,
-  UsefulInformationsRight,
-  Details,
-}) => {
+const Board = ({ Left, Right, Details }) => {
   return (
     <StyledBackground>
       <Grid container spacing={3} justify="center">
@@ -27,10 +23,7 @@ const Board = ({
           <UserDetails Details={Details} />
         </Grid>
         <Grid item container xs={8}>
-          <UsefulInformations
-            UsefulInformationsLeft={UsefulInformationsLeft}
-            UsefulInformationsRight={UsefulInformationsRight}
-          />
+          <UsefulInformations Left={Left} Right={Right} />
         </Grid>
         <Grid item xs={8}>
           <Diagrams />
