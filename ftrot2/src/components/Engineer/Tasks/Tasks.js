@@ -14,7 +14,8 @@ import Day from "./Day/Day";
 
 const Tasks = () => {
   // const [schedule, setSchedule] = useState(week);
-  const schedule = useSelector((state) => state.engineer.schedule);
+  const scheduleFromSelector = useSelector((state) => state.engineer.schedule);
+  const schedule = JSON.parse(JSON.stringify(scheduleFromSelector));
   const dispatch = useDispatch();
 
   const setDoneStatus = (dayId, taskId) => {

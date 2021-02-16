@@ -5,7 +5,10 @@ import "./Workpackages.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const Workpackages = () => {
-  const workpackages = useSelector((state) => state.leadEngineer.workpackages);
+  const workpackagesFromSelector = useSelector(
+    (state) => state.leadEngineer.workpackages
+  );
+  const workpackages = JSON.parse(JSON.stringify(workpackagesFromSelector));
   const dispatch = useDispatch();
   return (
     <div className="leadEngineer workpackages">

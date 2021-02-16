@@ -14,7 +14,10 @@ import {
 } from "../../../actions/TechnicalProjectManagerActions/workpackagesActions";
 
 const Workpackages = () => {
-  const workpackages = useSelector((state) => state.workpackages.workpackages);
+  const workpackagesFromSelector = useSelector(
+    (state) => state.workpackages.workpackages
+  );
+  const workpackages = JSON.parse(JSON.stringify(workpackagesFromSelector));
   const dispatch = useDispatch();
   const [isWorkPackageAddOpen, setIsWorkPackageAddOpen] = useState(false);
 
