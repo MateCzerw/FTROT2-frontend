@@ -8,10 +8,7 @@ export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 // ENGINEER TYPES
-
-// Board
 export const GET_INFO = "GET_INFO";
-
 export const GET_TASKS = "GET_TASKS";
 export const SET_TASK_DONE = "SET_TASK_DONE";
 export const SET_TASK_HOLD = "HOLD";
@@ -26,3 +23,6 @@ export const DELETE_WORKPACKAGE = "DELETE_WORKPACKAGE";
 export const ADD_TASK = "ADD_TASK";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK";
+
+// TEAM LEADER TYPES
+export const ASSIGN_TASK = "ASSIGN_TASK";
