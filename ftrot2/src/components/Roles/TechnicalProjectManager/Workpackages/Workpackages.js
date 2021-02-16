@@ -11,7 +11,7 @@ import {
   createWorkpackage,
   deleteWorkpackage,
   editWorkpackage,
-} from "../../../actions/TechnicalProjectManagerActions/workpackagesActions";
+} from "../../../../actions/TechnicalProjectManagerActions/workpackagesActions";
 
 const Workpackages = () => {
   const workpackagesFromSelector = useSelector(

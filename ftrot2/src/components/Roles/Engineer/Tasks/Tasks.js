@@ -6,7 +6,7 @@ import {
   ChangeTaskStatusAction,
   setTaskDoneAction,
   setTaskOnHold,
-} from "../../../actions/EngineerActions/tasksActions";
+} from "../../../../actions/EngineerActions/tasksActions";
 import moment from "moment";
 import { uuid } from "uuidv4";
 import "./Tasks.css";

@@ -8,7 +8,7 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import styled from "styled-components";
 import { Paper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewColumnForTasks } from "../../../actions/TeamLeaderActions/assignTasksActions";
+import { setNewColumnForTasks } from "../../../../actions/TeamLeaderActions/assignTasksActions";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   margin: 10px 0 0 10px;
