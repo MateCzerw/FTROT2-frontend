@@ -5,11 +5,12 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
+  CLEAR_MESSAGE,
 } from "./types";
-
+import jwt_decode from "jwt-decode";
 import AuthService from "../services/auth.service";
 
-export const register = (username, email, password) => (dispatch) => {
+export const register = (username, email, password) => async (dispatch) => {
   return AuthService.register(username, email, password).then(
     (response) => {
       dispatch({
@@ -45,17 +46,30 @@ export const register = (username, email, password) => (dispatch) => {
   );
 };
 
-export const login = (username, password) => (dispatch) => {
-  return AuthService.login(username, password).then(
-    (data) => {
+export const login = (username, password) => async (dispatch) => {
+  return AuthService.login(username, password)
+    .then((data) => {
+      const { token } = data;
+      // store the token in the localStorage
+      const decodedToken = jwt_decode(token);
+      const user = { ...decodedToken, token };
+      console.log(user);
+      localStorage.setItem("user", JSON.stringify(user));
+
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { user: data },
+        payload: { user },
+      });
+
+      dispatch({
+        type: CLEAR_MESSAGE,
       });
 
       return Promise.resolve();
-    },
-    (error) => {
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(error.response);
       const message =
         (error.response &&
           error.response.data &&
@@ -66,15 +80,15 @@ export const login = (username, password) => (dispatch) => {
       dispatch({
         type: LOGIN_FAIL,
       });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
+      if (error.response.status === 403) {
+        dispatch({
+          type: SET_MESSAGE,
+          payload: "Wrong username or password",
+        });
+      }
 
       return Promise.reject();
-    }
-  );
+    });
 };
 
 export const logout = () => (dispatch) => {

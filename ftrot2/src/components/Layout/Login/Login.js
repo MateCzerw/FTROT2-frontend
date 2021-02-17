@@ -4,19 +4,24 @@ import {
   CircularProgress,
   Divider,
   Paper,
+  Snackbar,
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { login } from "../../../actions/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { Alert } from "@material-ui/lab";
 
 const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -35,6 +40,11 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledAlert = styled(Alert)`
+  margin: 10px 0;
+  width: 900px;
 `;
 
 const StyledDetails = styled.div`
@@ -77,26 +87,32 @@ const StyledBackdrop = styled(Backdrop)`
 `;
 
 const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Please enter valid email address")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
+  username: yup.string("Enter your username").required("Username is required"),
+  password: yup.string("Enter your password").required("Password is required"),
 });
 
-const Login = () => {
+const Login = (values) => {
   const [loading, setLoading] = useState(false);
+
+  const message = useSelector((state) => state.message.message);
+  const dispatch = useDispatch();
+
+  const handleLogin = (username, password) => {
+    setLoading(true);
+
+    dispatch(login(username, password)).finally(() => {
+      setLoading(false);
+    });
+  };
 
   const formik = useFormik({
     initialValues: {
-      email: "",
       password: "",
+      username: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 3000);
-      console.log(values);
+      handleLogin(values.username, values.password);
     },
   });
   return (
@@ -105,6 +121,7 @@ const Login = () => {
         <CircularProgress color="primary" size={200} />
       </StyledBackdrop>
       <StyledContainer>
+        {message && <StyledAlert severity="error">{message}</StyledAlert>}
         <StyledPaper>
           <StyledDetails>
             <h1>First time right on time</h1>
@@ -115,15 +132,15 @@ const Login = () => {
           </StyledDetails>
           <StyledForm onSubmit={formik.handleSubmit}>
             <StyledTextField
-              label="Email"
+              label="Username"
               variant="outlined"
-              type="email"
-              name="email"
+              type="text"
+              name="username"
               autoComplete="none"
-              value={formik.values.email}
+              value={formik.values.username}
               onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
             ></StyledTextField>
 
             <StyledTextField
