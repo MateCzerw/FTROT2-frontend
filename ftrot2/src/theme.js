@@ -17,7 +17,7 @@ export const theme = createMuiTheme({
     MuiDrawer: {
       root: {
         "& .MuiDivider-root": {
-          margin: "0px",
+          marginTop: "5px",
         },
       },
       paper: {

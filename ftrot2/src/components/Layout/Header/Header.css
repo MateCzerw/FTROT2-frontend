@@ -9,6 +9,7 @@
   background-color: #27272a;
   color: #fff;
   width: 100%;
+  min-height: 58px;
 }
 
 .header__menu svg {
@@ -20,6 +21,11 @@
   background-color: #c0c0c0 !important;
 }
 
+.header__plug {
+  width: 48px;
+  height: 100%;
+}
+
 .header__left {
   display: flex;
   align-items: center;
@@ -28,12 +34,7 @@
 }
 
 .header__left.active {
-  transform: translateX(180px);
-}
-.header__logo {
-  margin-left: 15px;
-  display: flex;
-  align-items: center;
+  transform: translateX(160px);
 }
 
 .header__logo > h1 {

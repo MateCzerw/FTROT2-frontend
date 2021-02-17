@@ -40,24 +40,14 @@ const Header = ({ handleDrawerOpen, isDrawerOpen, handleLogOut }) => {
 
   return (
     <header className="header">
-      <div className={`header__left + ${isDrawerOpen ? " active" : ""}`}>
+      <div className={`header__left${isDrawerOpen ? " active" : ""}`}>
         {!isDrawerOpen && (
           <IconButton className="header__menu" onClick={handleDrawerOpen}>
             <MenuIcon></MenuIcon>
           </IconButton>
         )}
+        {isDrawerOpen && <div className="header__plug"></div>}
 
-        <div className="header__logo">
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<BallotIcon />}
-            component={Link}
-            to={"/"}
-          >
-            FTROT2
-          </Button>
-        </div>
         <div className="header__functionButton">
           <Button
             aria-controls="simple-menu"
