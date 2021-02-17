@@ -15,11 +15,17 @@ export const theme = createMuiTheme({
     },
 
     MuiDrawer: {
-      root: {},
+      root: {
+        "& .MuiDivider-root": {
+          margin: "0px",
+        },
+      },
       paper: {
         backgroundColor: "#303133",
         width: "240px",
         color: "#efefef",
+        padding: "0px",
+        marginTop: "0px",
 
         // "&:hover": {
         //   backgroundColor: "rgb(239, 239, 239, 0.4)",

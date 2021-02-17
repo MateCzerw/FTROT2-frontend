@@ -16,7 +16,7 @@ const StyledIconButton = styled(IconButton)`
   color: #efefef;
 
   &:hover {
-    background-color: rgb(239, 239, 239, 0.4);
+    background-color: rgb(239, 239, 239, 0.1);
   }
 `;
 const StyledDrawer = styled(Drawer)`
