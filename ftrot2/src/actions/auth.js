@@ -68,8 +68,6 @@ export const login = (username, password) => async (dispatch) => {
       return Promise.resolve();
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response);
       const message =
         (error.response &&
           error.response.data &&

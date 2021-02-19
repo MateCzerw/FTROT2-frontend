@@ -20,6 +20,11 @@ export const EDIT_WORKPACKAGE = "EDIT_WORKPACKAGE";
 export const DELETE_WORKPACKAGE = "DELETE_WORKPACKAGE";
 
 // LEAD ENGINEER TYPES
+
+// Board
+export const GET_USER_INFO = "GET_USER_INFO";
+export const GET_USER_TASKS = "GET_USER_TASKS";
+
 export const ADD_TASK = "ADD_TASK";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK";

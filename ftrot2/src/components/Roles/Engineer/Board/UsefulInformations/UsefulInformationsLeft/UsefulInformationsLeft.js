@@ -1,6 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getUserTasks } from "../../../../../../actions/EngineerActions/boardActions";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -57,22 +59,39 @@ const StyledListOfTasks = styled.ul`
 
 const UsefulInformationsLeft = () => {
   const contentInfo = useSelector((state) => state.engineer.userInfo);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      dispatch(getUserTasks()).then(setLoading(false));
+    }, 2000);
+  }, []);
+
   return (
     <StyledContainer>
-      <h3>Tasks for 27.01.2021</h3>
-      <StyledListOfTasks>
-        {contentInfo.currentTasks.map((task) => (
-          <li>
-            <div style={{ width: "50%" }}></div>
+      {loading && (
+        <CircularProgress color="primary" size={100}></CircularProgress>
+      )}
+      {!loading && (
+        <>
+          <h3>Tasks for 27.01.2021</h3>
+          <StyledListOfTasks>
+            {contentInfo.currentTasks.map((task) => (
+              <li>
+                <div style={{ width: `${task.status * 100}%` }}></div>
 
-            <p>{task.name}</p>
-            <p>
-              {`Estimated time: 
+                <p>{task.name}</p>
+                <p>
+                  {`Estimated time: 
               ${task.estimatedTime}`}
-            </p>
-          </li>
-        ))}
-      </StyledListOfTasks>
+                </p>
+              </li>
+            ))}
+          </StyledListOfTasks>
+        </>
+      )}
     </StyledContainer>
   );
 };

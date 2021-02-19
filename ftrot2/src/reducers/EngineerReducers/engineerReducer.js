@@ -5,6 +5,8 @@ import {
   SET_TASK_DONE,
   CHANGE_TASK_STATUS,
   SET_TASK_HOLD,
+  GET_USER_INFO,
+  GET_USER_TASKS,
 } from "../../actions/types";
 
 const initialTasksMonday = [
@@ -288,16 +290,9 @@ const userInfo = {
   supervisor: "Wojciech Zabiegło",
   joinedAt: moment(Date.now()).calendar(),
   picture: "",
-  FTRORTratio: 0.05,
+  reworkRatio: 0.05,
   unfinishedTasks: 10,
-  currentTasks: [
-    { name: "Wypełnić Ftrot", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić rysunek", status: 1, estimatedTime: 4 },
-    { name: "Zrobić model obudowy", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić model Pedału", status: 1, estimatedTime: 4 },
-    { name: "Zrobić wniosek Patentowy", status: 0.9, estimatedTime: 4 },
-    { name: "Zrobić efficieny", status: 1, estimatedTime: 4 },
-  ],
+  currentTasks: [],
   statusOfWorkInCurrentWeek: [35, 5, 5],
 };
 
@@ -310,6 +305,30 @@ const initialState = {
 const engineerReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_USER_INFO:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          name: payload.name,
+          surname: payload.surname,
+          team: payload.team,
+          role: payload.role,
+          supervisor: payload.supervisor,
+          joinedAt: payload.joinedAt,
+          reworkRatio: payload.reworkRatio,
+          unfinishedTasks: payload.unfinishedTasks,
+        },
+      };
+
+    case GET_USER_TASKS:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          currentTasks: payload.currentTasks,
+        },
+      };
     case GET_TASKS:
       return { ...state };
     case SET_TASK_DONE:
