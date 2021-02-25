@@ -3,6 +3,7 @@ import Workpackage from "./Workpackage/Workpackage";
 import moment from "moment";
 import "./Workpackages.css";
 import { useDispatch, useSelector } from "react-redux";
+import { getWorkPackagesForTeamLeader } from "../../../../actions/LeadEngineerActions/workpackageActions";
 
 const Workpackages = () => {
   const workpackagesFromSelector = useSelector(
@@ -10,6 +11,11 @@ const Workpackages = () => {
   );
   const workpackages = JSON.parse(JSON.stringify(workpackagesFromSelector));
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getWorkPackagesForTeamLeader());
+  }, []);
+
   return (
     <div className="leadEngineer workpackages">
       <div className="leadEngineer workpackages__container">
@@ -23,7 +29,7 @@ const Workpackages = () => {
             tasksQuantity,
             finishedTasks,
             pid,
-            endDate,
+            deadline,
             predictedFinish,
             description,
             tasks,
@@ -35,7 +41,7 @@ const Workpackages = () => {
               name={name}
               tasksQuantity={tasksQuantity}
               finishedTasks={finishedTasks}
-              endDate={endDate}
+              deadline={deadline}
               predictedFinish={predictedFinish}
               description={description}
               tasks={tasks}

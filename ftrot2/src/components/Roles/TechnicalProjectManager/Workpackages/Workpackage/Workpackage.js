@@ -11,11 +11,12 @@ const Workpackage = ({
   name,
   tasksQuantity,
   finishedTasks,
-  endDate,
+  deadline,
   predictedFinish,
   description,
   handleWorkpackageDelete,
   handleWorkpackageEdit,
+  tasks,
 }) => {
   const [isWorkpackageEditOpen, setIsWorkpackageEditOpen] = useState(false);
   const [isWorkpackageDetailsOpen, setIsWorkpackageDetailsOpen] = useState(
@@ -48,7 +49,7 @@ const Workpackage = ({
           <b>Finished tasks: </b> {finishedTasks}
         </p>
         <p className="tpjm workpackages workpackage__info">
-          <b>Due to: </b> {endDate}
+          <b>Due to: </b> {deadline}
         </p>
         <p className="tpjm workpackages workpackage__info">
           <b>Predicted due to: </b> {predictedFinish}
@@ -69,6 +70,7 @@ const Workpackage = ({
         <WorkpackageDetails
           handleWorkpackageDetailsClose={handleWorkpackageDetailsClose}
           isWorkpackageDetailsOpen={isWorkpackageDetailsOpen}
+          tasks={tasks}
         />
         <Button
           variant="contained"

@@ -7,6 +7,10 @@ import {
   MenuItem,
   TextareaAutosize,
 } from "@material-ui/core";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -18,14 +22,6 @@ import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 
 const validationSchema = yup.object({
-  // email: yup
-  //   .string("Enter your email")
-  //   .email("Enter a valid email")
-  //   .required("Email is required"),
-  // password: yup
-  //   .string("Enter your password")
-  //   .min(8, "Password should be of minimum 8 characters length")
-  //   .required("Password is required"),
   name: yup
     .string("Enter your name")
     .min(5, "Name should be of minimum 5 characters length")
@@ -34,18 +30,15 @@ const validationSchema = yup.object({
     .string("Enter workpackage description")
     .min(10, "Description should be of minimum 10 characters length")
     .required("Description is required"),
-  leadEngineer: yup
-    .string("Enter lead engineer name")
+  leadEngineerUsername: yup
+    .string("Choose lead engineer")
     .required("Lead engineer is required"),
+  teamName: yup.string("Choose team").required("Team is required"),
+  deadline: yup.date("Enter date format").required("Team is required"),
 });
 
-const leadEngineers = [
-  "Mateusz Czerwiński",
-  "Bartosz Kozłowski",
-  "Adam Małysz",
-  "Kamil Nowak",
-  "Jan Kowalski",
-];
+const leadEngineers = ["user3"];
+const teams = ["DLSC1"];
 
 const WorkpackageAdd = ({
   isWorkPackageAddOpen,
@@ -53,11 +46,7 @@ const WorkpackageAdd = ({
   addWorkPackage,
 }) => {
   const formik = useFormik({
-    initialValues: {
-      // // email: "foobar@example.com",
-      // // password: "foobar",
-      // age: "",
-    },
+    initialValues: {},
     validationSchema: validationSchema,
     onSubmit: (values) => {
       addWorkPackage(values);
@@ -136,23 +125,65 @@ const WorkpackageAdd = ({
             <InputLabel id="lead-engineer">Lead Engineer</InputLabel>
             <Select
               labelId="lead-engineer"
-              label="leadEngineer"
-              name="leadEngineer"
-              value={formik.values.leadEngineer}
+              label="Lead Engineer"
+              name="leadEngineerUsername"
+              value={formik.values.leadEngineerUsername}
               fullWidth
               onChange={formik.handleChange}
             >
-              {leadEngineers.map((leadEngineer) => {
-                return <MenuItem value={leadEngineer}>{leadEngineer}</MenuItem>;
+              {leadEngineers.map((leadEngineerUsername) => {
+                return (
+                  <MenuItem value={leadEngineerUsername}>
+                    {leadEngineerUsername}
+                  </MenuItem>
+                );
               })}
               {/* <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
-            {formik.touched.leadEngineer &&
-              Boolean(formik.errors.leadEngineer) && (
-                <FormHelperText>{formik.touched.leadEngineer}</FormHelperText>
+            {formik.touched.leadEngineerUsername &&
+              Boolean(formik.errors.leadEngineerUsername) && (
+                <FormHelperText>
+                  {formik.touched.leadEngineerUsername}
+                </FormHelperText>
               )}
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="team">Team</InputLabel>
+            <Select
+              labelId="teamName"
+              label="teamName"
+              name="teamName"
+              value={formik.values.teamName}
+              fullWidth
+              onChange={formik.handleChange}
+            >
+              {teams.map((team) => {
+                return <MenuItem value={team}>{team}</MenuItem>;
+              })}
+              {/* <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem> */}
+            </Select>
+            {formik.touched.teamName && Boolean(formik.errors.teamName) && (
+              <FormHelperText>{formik.touched.teamName}</FormHelperText>
+            )}
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              id="deadline"
+              label="deadline"
+              type="date"
+              value={formik.values.deadline}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.deadline && Boolean(formik.errors.deadline) && (
+              <FormHelperText>{formik.touched.deadline}</FormHelperText>
+            )}
           </FormControl>
         </DialogContent>
         <DialogActions>

@@ -18,7 +18,7 @@ const Workpackage = ({
   name,
   finishedTasks,
   pid,
-  endDate,
+  deadline,
   predictedFinish,
   description,
   tasks,
@@ -77,7 +77,7 @@ const Workpackage = ({
             <b>finished</b> tasks: {finishedTasks}
           </h4>
           <h4>
-            <b>Due to:</b> {endDate}
+            <b>Due to:</b> {deadline}
           </h4>
           <h4>
             <b>Predicted due to:</b> {predictedFinish}

@@ -7,6 +7,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 const WorkpackageDetails = ({
   handleWorkpackageDetailsClose,
   isWorkpackageDetailsOpen,
+  tasks,
 }) => {
   return (
     <Dialog
@@ -20,7 +21,7 @@ const WorkpackageDetails = ({
       >
         Tasks Status
       </DialogTitle>
-      <DialogContent dividers>Test</DialogContent>
+      <DialogContent dividers>{JSON.stringify(tasks)}</DialogContent>
     </Dialog>
   );
 };

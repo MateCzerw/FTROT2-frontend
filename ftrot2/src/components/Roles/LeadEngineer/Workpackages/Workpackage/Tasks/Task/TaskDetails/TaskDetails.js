@@ -12,7 +12,7 @@ const TaskDetails = ({
   isTaskDetailsOpen,
   handleTaskDetailsClose,
 }) => {
-  const { assignedEngineer, plannedAt } = details;
+  // const { assignedEngineer, plannedAt } = details;
   return (
     <Dialog
       onClose={handleTaskDetailsClose}
@@ -27,8 +27,8 @@ const TaskDetails = ({
         Task Details
       </DialogTitle>
       <DialogContent dividers>
-        <p>Assigned Engineer: {assignedEngineer}</p>
-        <p>Planned at: {plannedAt ? plannedAt : "Not planned"}</p>
+        {/* <p>Assigned Engineer: {assignedEngineer}</p>
+        <p>Planned at: {plannedAt ? plannedAt : "Not planned"}</p> */}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleTaskDetailsClose} color="primary">

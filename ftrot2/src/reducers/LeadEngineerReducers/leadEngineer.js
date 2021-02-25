@@ -1,6 +1,11 @@
 import { uuid } from "uuidv4";
 import moment from "moment";
-import { ADD_TASK, EDIT_TASK, DELETE_TASK } from "../../actions/types";
+import {
+  ADD_TASK,
+  EDIT_TASK,
+  DELETE_TASK,
+  GET_WORKPACKAGES_FOR_TEAM_LEADER,
+} from "../../actions/types";
 
 const initialState = {
   workpackages: [
@@ -227,6 +232,11 @@ const initialState = {
 const leadEngineer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_WORKPACKAGES_FOR_TEAM_LEADER:
+      return {
+        ...state,
+        workpackages: payload,
+      };
     case ADD_TASK:
       return {
         ...state,

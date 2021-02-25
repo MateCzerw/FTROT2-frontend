@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import Workpackage from "./Workpackage/Workpackage";
 import "./Workpackages.css";
-
+import { getWorkPackages } from "../../../../actions/TechnicalProjectManagerActions/workpackagesActions";
 import moment from "moment";
 import WorkpackageAdd from "./WorkpackageAdd/WorkpackageAdd";
 import { uuid } from "uuidv4";
@@ -20,6 +20,10 @@ const Workpackages = () => {
   const workpackages = JSON.parse(JSON.stringify(workpackagesFromSelector));
   const dispatch = useDispatch();
   const [isWorkPackageAddOpen, setIsWorkPackageAddOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(getWorkPackages());
+  }, []);
 
   const handleAddWorkPackageOpen = () => {
     setIsWorkPackageAddOpen(true);
@@ -66,9 +70,10 @@ const Workpackages = () => {
             <Workpackage
               id={workpackage.id}
               name={workpackage.name}
+              tasks={workpackage.tasks}
               tasksQuantity={workpackage.tasksQuantity}
               finishedTasks={workpackage.finishedTasks}
-              endDate={workpackage.endDate}
+              deadline={workpackage.deadline}
               predictedFinish={workpackage.predictedFinish}
               description={workpackage.description}
               handleWorkpackageDelete={handleWorkpackageDelete}
