@@ -1,22 +1,49 @@
 import React, { useEffect, useState } from "react";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ChangeTaskStatusAction,
+  getWeekWithTasks,
   setTaskDoneAction,
   setTaskOnHold,
 } from "../../../../actions/EngineerActions/tasksActions";
-import moment from "moment";
-import { uuid } from "uuidv4";
 import "./Tasks.css";
 import Day from "./Day/Day";
+import styled from "styled-components";
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: 999;
+  position: absolute;
+`;
 
 const Tasks = () => {
-  // const [schedule, setSchedule] = useState(week);
+  const [loading, setLoading] = useState(false);
   const scheduleFromSelector = useSelector((state) => state.engineer.schedule);
   const schedule = JSON.parse(JSON.stringify(scheduleFromSelector));
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(true);
+    dispatch(getWeekWithTasks(1, 2021))
+      .then(setTimeout(() => {}, 3000))
+      .finally(setLoading(false));
+  }, []);
+
+  const handleGetNextWeek = () => {
+    setLoading(true);
+    dispatch(getWeekWithTasks(schedule.weekNumber + 1, schedule.yearNumber))
+      .then(setTimeout(() => {}, 3000))
+      .finally(setLoading(false));
+  };
+
+  const handleGetPreviousWeek = () => {
+    setLoading(true);
+    dispatch(getWeekWithTasks(schedule.weekNumber - 1, schedule.yearNumber))
+      .then(setTimeout(() => {}, 3000))
+      .finally(setLoading(false));
+  };
 
   const setDoneStatus = (dayId, taskId) => {
     dispatch(setTaskDoneAction(dayId, taskId));
@@ -41,25 +68,32 @@ const Tasks = () => {
 
   return (
     <div className="engineer tasks tasks__background">
+      <StyledBackdrop open={loading}>
+        <CircularProgress color="primary" size={200} />
+      </StyledBackdrop>
       <div className="engineer tasks tasks__container">
         <h2 className="engineer tasks tasks__weekTitle">
-          <b>Week</b> - {schedule.week}
+          <b>Week</b> - {schedule.weekNumber}
+          <b> Year</b> - {schedule.yearNumber}
         </h2>
         <div className="engineer tasks tasks__week">
           <div className="engineer tasks tasks__arrow">
-            <NavigateBeforeIcon></NavigateBeforeIcon>
+            <NavigateBeforeIcon
+              onClick={handleGetPreviousWeek}
+            ></NavigateBeforeIcon>
           </div>
-          {schedule.roster.map((day) => (
+          {schedule.days?.map((day) => (
             <Day
               dayId={day.id}
               dayName={day.dayName}
               date={day.date}
               tasks={day.tasks}
               actions={actions}
+              key={day.id}
             ></Day>
           ))}
           <div className="engineer tasks tasks__arrow">
-            <NavigateNextIcon></NavigateNextIcon>
+            <NavigateNextIcon onClick={handleGetNextWeek}></NavigateNextIcon>
           </div>
         </div>
       </div>

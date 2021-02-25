@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getUserInfo } from "../../../../../actions/EngineerActions/boardActions";
 
+const StyledGrid = styled(Grid)`
+  min-height: 140px;
+`;
+
 const StyledInfoColumn = styled(Grid)`
   font-size: 20px;
   & b {
@@ -25,7 +29,7 @@ const UserDetails = () => {
   }, []);
 
   return (
-    <Grid container spacing={4} justify="space-between">
+    <StyledGrid container spacing={4} justify="space-between">
       {loading && <CircularProgress color="primary" size={100} />}
       {!loading && (
         <>
@@ -43,6 +47,7 @@ const UserDetails = () => {
               sm={6}
               xl={3}
               justify="flex-start"
+              direction="column"
             >
               <p>
                 <b>Name:</b> {contentInfo.name}
@@ -58,6 +63,7 @@ const UserDetails = () => {
               xs={12}
               sm={6}
               xl={3}
+              direction="column"
             >
               <p>
                 <b>Team:</b> {contentInfo.team}
@@ -73,6 +79,7 @@ const UserDetails = () => {
               xs={12}
               sm={6}
               xl={3}
+              direction="column"
             >
               <p>
                 <b>Rework ratio:</b> {contentInfo.reworkRatio * 100}%
@@ -88,6 +95,7 @@ const UserDetails = () => {
               xs={12}
               sm={6}
               xl={3}
+              direction="column"
             >
               <p>
                 <b>Supervisor:</b> {contentInfo.supervisor}
@@ -99,7 +107,7 @@ const UserDetails = () => {
           </Grid>
         </>
       )}
-    </Grid>
+    </StyledGrid>
   );
 };
 

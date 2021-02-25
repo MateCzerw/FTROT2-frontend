@@ -78,7 +78,7 @@ const UsefulInformationsLeft = () => {
         <>
           <h3>Tasks for 27.01.2021</h3>
           <StyledListOfTasks>
-            {contentInfo.currentTasks.map((task) => (
+            {contentInfo.currentTasks?.map((task) => (
               <li>
                 <div style={{ width: `${task.status * 100}%` }}></div>
 

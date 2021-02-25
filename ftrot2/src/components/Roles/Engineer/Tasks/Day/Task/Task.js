@@ -13,6 +13,7 @@ const Task = ({
   taskId,
   name,
   duration,
+  description,
   status,
   workpackage,
   actions,
@@ -86,6 +87,7 @@ const Task = ({
         ></Action>
         {isTaskDetailsOpen && (
           <TaskDetails
+            description={description}
             isTaskDetailsOpen={isTaskDetailsOpen}
             handleTaskDetailsClose={handleTaskDetailsClose}
           ></TaskDetails>

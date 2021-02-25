@@ -15,10 +15,11 @@ const Day = ({ dayName, date, tasks, actions, dayId }) => {
           taskId={task.id}
           name={task.name}
           duration={task.duration}
+          description={task.description}
           status={task.status}
           isDone={task.isDone}
           isOnHold={task.isOnHold}
-          workpackage={task.workpackage}
+          workpackage={task.workPackageName}
           actions={actions}
         ></Task>
       ))}

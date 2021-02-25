@@ -7,280 +7,9 @@ import {
   SET_TASK_HOLD,
   GET_USER_INFO,
   GET_USER_TASKS,
+  GET_USER_WEEK,
+  GET_USER_GRAPH_DETAILS,
 } from "../../actions/types";
-
-const initialTasksMonday = [
-  {
-    id: uuid(),
-    name: "CAD model of pedal",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "FEM of housing",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "DFMEA",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Design review",
-    workpackage: "DAF",
-    duration: 10,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Meeting with supplier",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-];
-const initialTasksTuesday = [
-  {
-    id: uuid(),
-    name: "CAD model of pedal",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "FEM of housing",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "DFMEA",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Design review",
-    workpackage: "DAF",
-    duration: 10,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Meeting with supplier",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-];
-const initialTasksWednesday = [
-  {
-    id: uuid(),
-    name: "CAD model of pedal",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "FEM of housing",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "DFMEA",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Design review",
-    workpackage: "DAF",
-    duration: 10,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Meeting with supplier",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-];
-const initialTasksThursday = [
-  {
-    id: uuid(),
-    name: "CAD model of pedal",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "FEM of housing",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "DFMEA",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Design review",
-    workpackage: "DAF",
-    duration: 10,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Meeting with supplier",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-];
-const initialTasksFriday = [
-  {
-    id: uuid(),
-    name: "CAD model of pedal",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "FEM of housing",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "DFMEA",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Design review",
-    workpackage: "DAF",
-    duration: 10,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-  {
-    id: uuid(),
-    name: "Meeting with supplier",
-    workpackage: "DAF",
-    duration: 2,
-    status: 0.5,
-    isDone: false,
-    isOnHold: false,
-  },
-];
-
-const week = {
-  id: uuid(),
-  week: "CW02",
-  roster: [
-    {
-      id: uuid(),
-      dayName: "Monday",
-      date: "27.01.2021",
-      tasks: initialTasksMonday,
-    },
-    {
-      id: uuid(),
-      dayName: "Thuesday",
-      date: "28.01.2021",
-      tasks: initialTasksTuesday,
-    },
-    {
-      id: uuid(),
-      dayName: "Wednesday",
-      date: "29.01.2021",
-      tasks: initialTasksWednesday,
-    },
-    {
-      id: uuid(),
-      dayName: "Thursday",
-      date: "30.01.2021",
-      tasks: initialTasksThursday,
-    },
-    {
-      id: uuid(),
-      dayName: "Friday",
-      date: "31.01.2021",
-      tasks: initialTasksFriday,
-    },
-  ],
-};
 
 const userInfo = {
   name: "Mateusz",
@@ -293,13 +22,13 @@ const userInfo = {
   reworkRatio: 0.05,
   unfinishedTasks: 10,
   currentTasks: [],
-  statusOfWorkInCurrentWeek: [35, 5, 5],
 };
 
 const initialState = {
-  schedule: week,
-  userInfo,
+  schedule: {},
+  userInfo: {},
   reworkHours: [5, 6, 7, 8, 5, 4, 3, 2, 5, 9, 12, 11],
+  statusOfWorkInCurrentWeek: [0, 40, 0],
 };
 
 const engineerReducer = (state = initialState, action) => {
@@ -329,14 +58,21 @@ const engineerReducer = (state = initialState, action) => {
           currentTasks: payload.currentTasks,
         },
       };
+    case GET_USER_GRAPH_DETAILS:
+      return {
+        ...state,
+        statusOfWorkInCurrentWeek: payload,
+      };
     case GET_TASKS:
       return { ...state };
+    case GET_USER_WEEK:
+      return { ...state, schedule: payload.data };
     case SET_TASK_DONE:
       return {
         ...state,
         schedule: {
           ...state.schedule,
-          roster: state.schedule.roster.map((day) => {
+          days: state.schedule.days.map((day) => {
             if (day.id === payload.dayId) {
               day.tasks.map((task) => {
                 if (task.id === payload.taskId) {
@@ -356,7 +92,7 @@ const engineerReducer = (state = initialState, action) => {
         ...state,
         schedule: {
           ...state.schedule,
-          roster: state.schedule.roster.map((day) => {
+          days: state.schedule.days.map((day) => {
             if (day.id === payload.dayId) {
               day.tasks.map((task) => {
                 if (task.id === payload.taskId) {
@@ -375,7 +111,7 @@ const engineerReducer = (state = initialState, action) => {
         ...state,
         schedule: {
           ...state.schedule,
-          roster: state.schedule.roster.map((day) => {
+          days: state.schedule.days.map((day) => {
             if (day.id === payload.dayId) {
               day.tasks.map((task) => {
                 if (task.id === payload.taskId) {

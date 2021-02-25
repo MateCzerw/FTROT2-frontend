@@ -7,7 +7,11 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
-const TaskDetails = ({ isTaskDetailsOpen, handleTaskDetailsClose }) => {
+const TaskDetails = ({
+  isTaskDetailsOpen,
+  handleTaskDetailsClose,
+  description,
+}) => {
   return (
     <Dialog
       onClose={handleTaskDetailsClose}
@@ -22,7 +26,7 @@ const TaskDetails = ({ isTaskDetailsOpen, handleTaskDetailsClose }) => {
         Task Details
       </DialogTitle>
       <DialogContent dividers>
-        <p>test</p>
+        <p>{description}</p>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleTaskDetailsClose} color="primary">
