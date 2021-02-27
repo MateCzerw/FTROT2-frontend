@@ -34,19 +34,7 @@ const Workpackage = ({
   };
 
   const handleTaskAdd = (task) => {
-    const taskAdded = Object.assign(
-      {},
-      { id: uuid() },
-      {
-        ...task,
-        details: {
-          assignedEngineer: "Jan Kowalski",
-          plannedAt: moment(Date.now()).calendar(),
-        },
-      }
-    );
-    console.log(taskAdded);
-    dispatch(addTaskAction(id, taskAdded));
+    dispatch(addTaskAction(id, task));
   };
 
   const handleTaskDelete = (taskId) => {

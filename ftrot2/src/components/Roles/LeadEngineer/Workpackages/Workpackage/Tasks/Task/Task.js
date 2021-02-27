@@ -17,6 +17,7 @@ const Task = ({
   name,
   duration,
   status,
+  description,
   id,
   details,
   handleTaskDelete,
@@ -68,7 +69,7 @@ const Task = ({
           handleTaskEditClose={handleTaskEditClose}
           name={name}
           duration={duration}
-          status={status}
+          description={description}
           id={id}
           handleTaskEdit={handleTaskEdit}
         ></TaskEdit>

@@ -17,16 +17,16 @@ const validationSchema = yup.object({
     .string()
     .min(5, "Name should contain minimum 5 characters length")
     .required("Task name is required"),
+  description: yup
+    .string()
+    .min(10, "Description should contain minimum 10 characters length")
+    .max(50, "Description should contain maximum 50 characters length")
+    .required("Task name is required"),
   duration: yup
     .number()
     .min(0.5, "Duration should last minimum 0,5h")
     .max(8, "Task should last maximum 8h")
     .required("Duration is required"),
-  status: yup
-    .number()
-    .min(0, "Status should be minimum 0")
-    .max(1, "Status should be maximum 1")
-    .required("Status is required"),
 });
 
 const TaskAdd = ({ isTaskAddOpen, handleTaskAddClose, handleTaskAdd }) => {
@@ -34,7 +34,7 @@ const TaskAdd = ({ isTaskAddOpen, handleTaskAddClose, handleTaskAdd }) => {
     initialValues: {
       name: "",
       duration: 0,
-      status: 0,
+      description: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -69,6 +69,21 @@ const TaskAdd = ({ isTaskAddOpen, handleTaskAddClose, handleTaskAdd }) => {
           />
           <TextField
             fullWidth
+            multiline
+            rows={3}
+            id="description"
+            name="description"
+            label="description"
+            type="textarea"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.description && Boolean(formik.errors.description)
+            }
+            helperText={formik.touched.description && formik.errors.description}
+          />
+          <TextField
+            fullWidth
             id="duration"
             name="duration"
             label="duration"
@@ -77,17 +92,6 @@ const TaskAdd = ({ isTaskAddOpen, handleTaskAddClose, handleTaskAdd }) => {
             onChange={formik.handleChange}
             error={formik.touched.duration && Boolean(formik.errors.duration)}
             helperText={formik.touched.duration && formik.errors.duration}
-          />
-          <TextField
-            fullWidth
-            id="status"
-            name="status"
-            label="status"
-            type="number"
-            value={formik.values.status}
-            onChange={formik.handleChange}
-            error={formik.touched.status && Boolean(formik.errors.status)}
-            helperText={formik.touched.status && formik.errors.status}
           />
         </DialogContent>
         <DialogActions>

@@ -12,7 +12,7 @@ const TaskDetails = ({
   isTaskDetailsOpen,
   handleTaskDetailsClose,
 }) => {
-  // const { assignedEngineer, plannedAt } = details;
+  // const { description, assignedEngineer, plannedAt } = details;
   return (
     <Dialog
       onClose={handleTaskDetailsClose}

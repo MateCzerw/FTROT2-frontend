@@ -5,7 +5,6 @@ import {
   DELETE_TASK,
   GET_WORKPACKAGES_FOR_TEAM_LEADER,
   CLEAR_MESSAGE,
-  GET_WORKPACKAGES,
   SET_MESSAGE,
 } from "../types";
 import authHeader from "../../services/auth-header";
@@ -48,14 +47,43 @@ export const getWorkPackagesForTeamLeader = () => async (dispatch) => {
 };
 
 export const addTaskAction = (workpackageId, task) => async (dispatch) => {
-  //setTimeout(() => {}, 2000);
-  dispatch({
-    type: ADD_TASK,
-    payload: {
-      workpackageId,
-      task,
-    },
-  });
+  axios
+    .post(API_URL + "work-packages/" + workpackageId + "/tasks", task, {
+      headers: authHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: ADD_TASK,
+        payload: {
+          workpackageId,
+          task,
+        },
+      });
+
+      dispatch({
+        type: CLEAR_MESSAGE,
+      });
+
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    });
 };
 
 export const deleteTaskAction = (workpackageId, taskId) => async (dispatch) => {
@@ -71,19 +99,68 @@ export const deleteTaskAction = (workpackageId, taskId) => async (dispatch) => {
           taskId,
         },
       })
-    );
+    )
+    .catch((error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    });
 };
 
 export const editTaskAction = (workpackageId, taskId, editedTask) => async (
   dispatch
 ) => {
-  //setTimeout(() => {}, 2000);
-  dispatch({
-    type: EDIT_TASK,
-    payload: {
-      workpackageId,
-      taskId,
+  axios
+    .put(
+      API_URL + "work-packages/" + workpackageId + "/tasks/" + taskId,
       editedTask,
-    },
-  });
+      {
+        headers: authHeader(),
+      }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: EDIT_TASK,
+        payload: {
+          workpackageId,
+          taskId,
+          editedTask,
+        },
+      });
+
+      dispatch({
+        type: CLEAR_MESSAGE,
+      });
+
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    });
+  //setTimeout(() => {}, 2000);
 };
