@@ -23,12 +23,23 @@ const Tasks = ({ tasks, handleTaskDelete, handleTaskEdit }) => {
         </TableHead>
         <TableBody>
           {tasks.map((task) => {
-            const { name, duration, status, id, details, description } = task;
+            const {
+              name,
+              duration,
+              status,
+              id,
+              details,
+              description,
+              plannedAt,
+              assignedEngineerName,
+            } = task;
             return (
               <Task
                 name={name}
                 duration={duration}
                 description={description}
+                plannedAt={plannedAt}
+                assignedEngineerName={assignedEngineerName}
                 status={status}
                 id={id}
                 details={details}

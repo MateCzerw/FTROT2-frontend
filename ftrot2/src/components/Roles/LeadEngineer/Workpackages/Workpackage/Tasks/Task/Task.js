@@ -19,7 +19,8 @@ const Task = ({
   status,
   description,
   id,
-  details,
+  plannedAt,
+  assignedEngineerName,
   handleTaskDelete,
   handleTaskEdit,
 }) => {
@@ -56,7 +57,9 @@ const Task = ({
         <TaskDetails
           isTaskDetailsOpen={isTaskDetailsOpen}
           handleTaskDetailsClose={handleTaskDetailsClose}
-          details={details}
+          plannedAt={plannedAt}
+          assignedEngineerName={assignedEngineerName}
+          description={description}
         ></TaskDetails>
 
         <Tooltip title="Task Edit">
