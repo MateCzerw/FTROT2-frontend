@@ -46,15 +46,15 @@ const StyledDoughnutContainer = styled.div`
   }
 `;
 
-const calculateTotalHoursInRow = (schedule) => {
+const calculateTotalHoursInRow = (weekDetails) => {
   let counter = 0;
-  schedule.forEach((day) => {
-    day.tasks.forEach((task) => (counter += task.duration));
+  weekDetails?.forEach((day) => {
+    day.tasks?.forEach((task) => (counter += task?.duration));
   });
   return counter;
 };
 
-const EngineerDetails = ({ name, surname, schedule }) => {
+const EngineerDetails = ({ name, surname, weekDetails }) => {
   return (
     <StyledContainer>
       <StyledEngineerDetails>
@@ -80,14 +80,14 @@ const EngineerDetails = ({ name, surname, schedule }) => {
             datasets: [
               {
                 data: [
-                  calculateTotalHoursInRow(schedule) > 40
+                  calculateTotalHoursInRow(weekDetails) > 40
                     ? 40
-                    : calculateTotalHoursInRow(schedule),
-                  40 - calculateTotalHoursInRow(schedule) > 0
-                    ? 40 - calculateTotalHoursInRow(schedule)
+                    : calculateTotalHoursInRow(weekDetails),
+                  40 - calculateTotalHoursInRow(weekDetails) > 0
+                    ? 40 - calculateTotalHoursInRow(weekDetails)
                     : 0,
-                  calculateTotalHoursInRow(schedule) - 40 > 0
-                    ? calculateTotalHoursInRow(schedule) - 40
+                  calculateTotalHoursInRow(weekDetails) - 40 > 0
+                    ? calculateTotalHoursInRow(weekDetails) - 40
                     : 0,
                 ],
                 backgroundColor: ["green", "gray", "red"],
@@ -106,7 +106,7 @@ const EngineerDetails = ({ name, surname, schedule }) => {
           }}
         ></Doughnut>
         <p className="teamLeader assignTasks tasks__chartText">{`${calculateTotalHoursInRow(
-          schedule
+          weekDetails
         )} / 40`}</p>
       </StyledDoughnutContainer>
     </StyledContainer>

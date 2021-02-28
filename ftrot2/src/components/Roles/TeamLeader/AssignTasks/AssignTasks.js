@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
 import TasksColumn from "./TasksRow/TasksColumn/TasksColumn";
@@ -8,7 +8,10 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import styled from "styled-components";
 import { Paper } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewColumnForTasks } from "../../../../actions/TeamLeaderActions/assignTasksActions";
+import {
+  getColumns,
+  setNewColumnForTasks,
+} from "../../../../actions/TeamLeaderActions/assignTasksActions";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   margin: 10px 0 0 10px;
@@ -47,6 +50,10 @@ const AssignTasks = () => {
   const columns = JSON.parse(JSON.stringify(columnsFromSelector));
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getColumns());
+  }, []);
 
   const findColumn = (id) => {
     let foundColumn = [];
@@ -107,36 +114,25 @@ const AssignTasks = () => {
         {formats.find((element) => element === "showUnassigneTasks") && (
           <StyledUnassignedTasksContainer>
             <TasksColumn
-              columnId={
-                columns.find((column) => column.isUnassignedTasks).schedule[0]
-                  .columnId
-              }
-              tasks={
-                columns.find((column) => column.isUnassignedTasks).schedule[0]
-                  .tasks
-              }
-              dayName={
-                columns.find((column) => column.isUnassignedTasks).schedule[0]
-                  .name
-              }
+              columnId={0}
+              tasks={columns?.unassignedTasks}
+              dayName={"unassigned tasks"}
               isUnassignedTasks={true}
             />
           </StyledUnassignedTasksContainer>
         )}
         <StyledEngineersContainer>
-          {columns
-            .filter((column) => !column.isUnassignedTasks)
-            .map((column) => {
-              return (
-                <TasksRow
-                  key={column.rowId}
-                  column={column}
-                  isProfileOpen={formats.find(
-                    (element) => element === "showEngineerProfile"
-                  )}
-                />
-              );
-            })}
+          {columns.engineers?.map((engineer) => {
+            return (
+              <TasksRow
+                key={engineer.id}
+                engineer={engineer}
+                isProfileOpen={formats.find(
+                  (element) => element === "showEngineerProfile"
+                )}
+              />
+            );
+          })}
         </StyledEngineersContainer>
       </StyledMainContainer>
     </DragDropContext>

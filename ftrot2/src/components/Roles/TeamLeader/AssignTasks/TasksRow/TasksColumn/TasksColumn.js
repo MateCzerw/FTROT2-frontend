@@ -31,11 +31,11 @@ const StyledDroppableContainer = styled.div`
 
 const calculateTotalHoursInColumn = (tasks) => {
   let counter = 0;
-  tasks.forEach((task) => (counter += task.duration));
+  tasks?.forEach((task) => (counter += task?.duration));
   return counter;
 };
 
-const TasksColumn = ({ columnId, tasks, dayName, isUnassignedTasks }) => {
+const TasksColumn = ({ columnId, dayName, tasks, isUnassignedTasks }) => {
   return (
     <Droppable droppableId={columnId} key={columnId}>
       {(provided, snapshot) => {
@@ -47,7 +47,7 @@ const TasksColumn = ({ columnId, tasks, dayName, isUnassignedTasks }) => {
               ref={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {tasks.map((task, index) => {
+              {tasks?.map((task, index) => {
                 return (
                   <Draggable key={task.id} draggableId={task.id} index={index}>
                     {(provided, snapshot) => {

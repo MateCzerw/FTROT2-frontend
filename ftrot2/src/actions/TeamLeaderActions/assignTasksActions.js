@@ -1,5 +1,95 @@
 import axios from "axios";
-import { ASSIGN_TASK } from "../types";
+import authHeader from "../../services/auth-header";
+import {
+  ASSIGN_TASK,
+  CLEAR_MESSAGE,
+  GET_COLUMNS,
+  SET_MESSAGE,
+  GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
+} from "../types";
+
+const API_URL = "http://localhost:8080/api/v1/team-leader/";
+
+export const getColumns = () => async (dispatch) => {
+  axios
+    .get(API_URL + "assign-tasks/data", { headers: authHeader() })
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: GET_COLUMNS,
+        payload: data,
+      });
+
+      dispatch({
+        type: CLEAR_MESSAGE,
+      });
+
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    });
+};
+
+export const getWeekWithTasksForTeamLeader = (
+  weekNumber,
+  yearNumber,
+  engineerId
+) => async (dispatch) => {
+  axios
+    .get(API_URL + "assign-tasks/weeks", {
+      headers: authHeader(),
+      params: {
+        yearNumber,
+        weekNumber,
+        engineerId,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
+        payload: { data, engineerId },
+      });
+
+      dispatch({
+        type: CLEAR_MESSAGE,
+      });
+
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    });
+};
 
 export const setNewColumnForTasks = (
   sourceColumnId,

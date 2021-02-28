@@ -17,7 +17,7 @@ import { Alert } from "@material-ui/lab";
 
 const StyledContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -27,6 +27,7 @@ const StyledContainer = styled.div`
 const StyledPaper = styled(Paper)`
   width: 900px;
   height: 400px;
+  margin-top: -15vh;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
