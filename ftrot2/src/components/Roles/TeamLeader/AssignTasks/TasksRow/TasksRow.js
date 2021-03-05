@@ -63,7 +63,7 @@ const TasksRow = ({ engineer, isProfileOpen }) => {
               })}
               <Grid item xs={2}>
                 <TasksColumn
-                  key={0}
+                  key={"Backlog_" + engineer.id}
                   columnId={0}
                   tasks={engineer.backlog}
                   dayName={"Backlog"}

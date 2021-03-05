@@ -6,6 +6,12 @@ import {
   GET_COLUMNS,
   SET_MESSAGE,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
+  DELETE_FROM_UNFINISHED_TASKS,
+  DELETE_FROM_BACKLOG,
+  DELETE_FROM_DAY_ID,
+  ADD_TO_UNFINISHED_TASKS,
+  ADD_TO_BACKLOG,
+  ADD_TO_DAY_ID,
 } from "../types";
 
 const API_URL = "http://localhost:8080/api/v1/team-leader/";
@@ -91,74 +97,178 @@ export const getWeekWithTasksForTeamLeader = (
     });
 };
 
+  const findColumn = (id, columns) => {
+    let foundColumn = [];
+    if (source.droppableId === "unassignedTasks") return columns.unassignedTasks;
+    if (source.droppableId.substring(0, 7) === "backlog"){
+
+    if (!isNaN(source.droppableId)) return foundColumn;
+    columns.forEach((eachEngineer) => {
+      let tempTasks = eachEngineer.days.find(
+        (column) => column.columnId === id
+      );
+      if (tempTasks !== undefined) foundColumn = tempTasks;
+    });
+
+    
+  };
+
+
+
+
 export const setNewColumnForTasks = (
-  sourceColumnId,
-  sourceTaskIndex,
-  destinationColumnId,
-  destinationIndex,
-  sourceColumn,
-  destinationColumn,
+  source,
+  destination,
+  // sourceColumnId,
+  // sourceTaskIndex,
+  // destinationColumnId,
+  // destinationIndex,
+  // sourceColumn,
+  // destinationColumn,
   columns
 ) => async (dispatch) => {
-  if (sourceColumnId !== destinationColumnId) {
-    const sourceTasks = [...sourceColumn.tasks];
-    const destinationTasks = [...destinationColumn.tasks];
-    const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
-    destinationTasks.splice(destinationIndex, 0, removed);
-    sourceColumn.tasks = sourceTasks;
-    destinationColumn.tasks = destinationTasks;
 
-    let source = columns.find((eachEngineer) =>
-      eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-    );
+// find task with source column
 
-    let destination = columns.find((eachEngineer) =>
-      eachEngineer.schedule.some(
-        (column) => column.columnId === destinationColumnId
-      )
-    );
+  const sourceColumn = findColumn(source.droppableId);
 
-    source = {
-      ...source,
-      schedule: source.schedule.map((column) => {
-        if (column.columnId === sourceColumnId) return sourceColumn;
-        else return column;
-      }),
-    };
+  const task= sourceColumn.splice(source.index, 1);
 
-    destination = {
-      ...destination,
-      schedule: destination.schedule.map((column) => {
-        if (column.columnId === destinationColumnId) return destinationColumn;
-        else return column;
-      }),
-    };
-
+  //delete task from 1 column
+  if (source.droppableId === "unassignedTasks")
     dispatch({
-      type: ASSIGN_TASK,
-      payload: [source, destination],
+      type: DELETE_FROM_UNFINISHED_TASKS,
+      payload: {
+        index: source.index,
+      },
     });
-  } else {
-    const sourceTasks = [...sourceColumn.tasks];
-    const copiedItems = [...sourceTasks];
-    const [removed] = copiedItems.splice(sourceTaskIndex, 1);
-    copiedItems.splice(destinationIndex, 0, removed);
-    sourceColumn.tasks = copiedItems;
-
-    let source = columns.find((eachEngineer) =>
-      eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-    );
-
-    source = {
-      ...source,
-      schedule: source.schedule.map((column) => {
-        if (column.columnId === sourceColumnId) return sourceColumn;
-        else return column;
-      }),
-    };
+  if (source.droppableId.substring(0, 7) === "backlog")
     dispatch({
-      type: ASSIGN_TASK,
-      payload: [source],
+      type: DELETE_FROM_BACKLOG,
+      payload: {
+        engineerId: parseInt(source.droppableId.substring(8), 10),
+        index: source.index,
+      },
     });
-  }
+  if (!isNaN(source.droppableId))
+    dispatch({
+      type: DELETE_FROM_DAY_ID,
+      payload: {
+        engineerId: parseInt(source.droppableId.substring(8), 10),
+        dayId: source.columnId,
+        index: source.index,
+      },
+    });
+
+
+  
+
+  //add task to 1 column
+  if (destination.droppableId === "unassignedTasks")
+    dispatch({
+      type: ADD_TO_UNFINISHED_TASKS,
+      payload: {
+        index: destination.index,
+        task
+      },
+    });
+  if (destination.droppableId.substring(0, 7) === "backlog")
+    dispatch({
+      type: ADD_TO_BACKLOG,
+      payload: {
+        engineerId: parseInt(destination.droppableId.substring(8), 10),
+        index: destination.index,
+        task
+      },
+    });
+  if (!isNaN(destination.droppableId))
+    dispatch({
+      type: ADD_TO_DAY_ID,
+      payload: {
+        engineerId: parseInt(destination.droppableId.substring(8), 10),
+        dayId: destination.columnId,
+        index: destination.index,
+        task
+      },
+    });
+
+
+  // const findColumn = (id) => {
+  //   let foundColumn = [];
+  //   columns.forEach((eachEngineer) => {
+  //     let tempTasks = eachEngineer.days.find(
+  //       (column) => column.columnId === id
+  //     );
+  //     if (tempTasks !== undefined) foundColumn = tempTasks;
+  //   });
+
+  //   return foundColumn;
+  // };
+
+  // const sourceColumn = findColumn(source.droppableId);
+  // const destinationColumn = findColumn(destination.droppableId);
+  // const sourceColumnId = source.droppableId;
+  // const destinationColumnId = destination.droppableId;
+
+  // if (sourceColumnId !== destinationColumnId) {
+  //   const sourceTasks = [...sourceColumn.tasks];
+  //   const destinationTasks = [...destinationColumn.tasks];
+  //   const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
+  //   destinationTasks.splice(destinationIndex, 0, removed);
+  //   sourceColumn.tasks = sourceTasks;
+  //   destinationColumn.tasks = destinationTasks;
+
+  //   let source = columns.find((eachEngineer) =>
+  //     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
+  //   );
+
+  //   let destination = columns.find((eachEngineer) =>
+  //     eachEngineer.schedule.some(
+  //       (column) => column.columnId === destinationColumnId
+  //     )
+  //   );
+
+  //   source = {
+  //     ...source,
+  //     schedule: source.schedule.map((column) => {
+  //       if (column.columnId === sourceColumnId) return sourceColumn;
+  //       else return column;
+  //     }),
+  //   };
+
+  //   destination = {
+  //     ...destination,
+  //     schedule: destination.schedule.map((column) => {
+  //       if (column.columnId === destinationColumnId) return destinationColumn;
+  //       else return column;
+  //     }),
+  //   };
+
+  //   dispatch({
+  //     type: ASSIGN_TASK,
+  //     payload: [source, destination],
+  //   });
+  // } else {
+  //   const sourceTasks = [...sourceColumn.tasks];
+  //   const copiedItems = [...sourceTasks];
+  //   const [removed] = copiedItems.splice(sourceTaskIndex, 1);
+  //   copiedItems.splice(destinationIndex, 0, removed);
+  //   sourceColumn.tasks = copiedItems;
+
+  //   let source = columns.find((eachEngineer) =>
+  //     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
+  //   );
+
+  //   source = {
+  //     ...source,
+  //     schedule: source.schedule.map((column) => {
+  //       if (column.columnId === sourceColumnId) return sourceColumn;
+  //       else return column;
+  //     }),
+  //   };
+  //   dispatch({
+  //     type: ASSIGN_TASK,
+  //     payload: [source],
+  //   });
+  
 };
