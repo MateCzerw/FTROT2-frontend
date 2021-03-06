@@ -1,136 +1,16 @@
 import { uuid } from "uuidv4";
 import moment from "moment";
 import {
+  ADD_TO_BACKLOG,
+  ADD_TO_DAY_ID,
+  ADD_TO_UNFINISHED_TASKS,
   ASSIGN_TASK,
+  DELETE_FROM_BACKLOG,
+  DELETE_FROM_DAY_ID,
+  DELETE_FROM_UNFINISHED_TASKS,
   GET_COLUMNS,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
 } from "../../actions/types";
-
-// const itemsFromBackend = [
-//   { id: uuid(), content: "First task", duration: 8 },
-//   { id: uuid(), content: "Second task", duration: 2 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-//   { id: uuid(), content: "Fourth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-//   { id: uuid(), content: "Sixth task", duration: 2 },
-//   { id: uuid(), content: "Seventh task", duration: 2 },
-//   { id: uuid(), content: "Eighth task", duration: 2 },
-//   { id: uuid(), content: "Ninth task", duration: 2 },
-//   { id: uuid(), content: "Tenth task", duration: 2 },
-//   { id: uuid(), content: "Eleventh task", duration: 2 },
-//   { id: uuid(), content: "Twelfth task", duration: 2 },
-//   { id: uuid(), content: "Thirteenth task", duration: 2 },
-// ];
-
-// const items1 = [
-//   { id: uuid(), content: "First task", duration: 8 },
-//   { id: uuid(), content: "Second task", duration: 2 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-//   { id: uuid(), content: "Fourth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-
-//   { id: uuid(), content: "Seventh task", duration: 2 },
-// ];
-
-// const items2 = [
-//   { id: uuid(), content: "First task", duration: 2 },
-//   { id: uuid(), content: "Second task", duration: 6 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-// ];
-
-// const items3 = [
-//   { id: uuid(), content: "First task", duration: 2 },
-//   { id: uuid(), content: "Second task", duration: 2 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-// ];
-
-// const items4 = [
-//   { id: uuid(), content: "First task", duration: 2 },
-//   { id: uuid(), content: "Second task", duration: 2 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-// ];
-
-// const items5 = [
-//   { id: uuid(), content: "First task", duration: 2 },
-//   { id: uuid(), content: "Second task", duration: 2 },
-//   { id: uuid(), content: "Third task", duration: 2 },
-//   { id: uuid(), content: "Fourth task", duration: 2 },
-//   { id: uuid(), content: "Fifth task", duration: 2 },
-// ];
-
-// const columnsFTROT = [
-//   {
-//     rowId: uuid(),
-//     name: "Mateusz",
-//     surname: "Czerwiński",
-//     week: 1,
-//     schedule: [
-//       { columnId: uuid(), dayName: "Backlog", tasks: [] },
-//       { columnId: uuid(), dayName: "Monday", tasks: items1 },
-//       { columnId: uuid(), dayName: "Tuesday", tasks: items2 },
-//       { columnId: uuid(), dayName: "Wednesday", tasks: items3 },
-//       { columnId: uuid(), dayName: "Thursday", tasks: items4 },
-//       { columnId: uuid(), dayName: "Friday", tasks: items5 },
-//     ],
-//   },
-//   {
-//     rowId: uuid(),
-//     name: "Bartosz",
-//     surname: "Kozłowski",
-//     week: 1,
-//     schedule: [
-//       { columnId: uuid(), dayName: "Backlog", tasks: [] },
-//       { columnId: uuid(), dayName: "Monday", tasks: [] },
-//       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
-//       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
-//       { columnId: uuid(), dayName: "Thursday", tasks: [] },
-//       { columnId: uuid(), dayName: "Friday", tasks: [] },
-//     ],
-//   },
-//   {
-//     rowId: uuid(),
-//     name: "Agnieszka",
-//     surname: "Leszczuk",
-//     week: 1,
-//     schedule: [
-//       { columnId: uuid(), dayName: "Backlog", tasks: [] },
-//       { columnId: uuid(), dayName: "Monday", tasks: [] },
-//       { columnId: uuid(), dayName: "Tuesday", tasks: [] },
-//       { columnId: uuid(), dayName: "Wednesday", tasks: [] },
-//       { columnId: uuid(), dayName: "Thursday", tasks: [] },
-//       { columnId: uuid(), dayName: "Friday", tasks: [] },
-//     ],
-//   },
-//   {
-//     rowId: uuid(),
-//     name: "Marek",
-//     surname: "Repeła",
-//     week: 1,
-//     schedule: [
-//       { columnId: uuid(), columnName: "Backlog", tasks: [] },
-//       { columnId: uuid(), columnName: "Monday", tasks: [] },
-//       { columnId: uuid(), columnName: "Tuesday", tasks: [] },
-//       { columnId: uuid(), columnName: "Wednesday", tasks: [] },
-//       { columnId: uuid(), columnName: "Thursday", tasks: [] },
-//       { columnId: uuid(), columnName: "Friday", tasks: [] },
-//     ],
-//   },
-//   {
-//     rowId: uuid(),
-//     name: "Unassigned",
-//     isUnassignedTasks: true,
-//     schedule: [
-//       {
-//         columnId: uuid(),
-//         columnName: "Unassigned",
-//         tasks: itemsFromBackend,
-//       },
-//     ],
-//   },
-// ];
 
 const userInfo = {
   name: "Wojciech",
@@ -206,6 +86,108 @@ const teamLeader = (state = initialState, action) => {
           }),
         },
       };
+
+    case DELETE_FROM_UNFINISHED_TASKS: {
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          unassignedTasks: state.columns.unassignedTasks.splice(
+            payload.index,
+            1
+          ),
+        },
+      };
+    }
+    case DELETE_FROM_BACKLOG: {
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          engineers: state.columns.engineers.map((engineer) => {
+            if (engineer.id === payload.engineerId)
+              return {
+                ...engineer,
+                backlog: engineer.backlog.splice(payload.index, 1),
+              };
+            return engineer;
+          }),
+        },
+      };
+    }
+    case DELETE_FROM_DAY_ID: {
+      return {
+        ...state,
+        engineers: state.columns.engineers.map((engineer) => {
+          if (engineer.id === payload.engineerId) {
+            return {
+              ...engineer,
+              week: engineer.week.map((day) => {
+                if (day.id === payload.dayId)
+                  return { ...day, tasks: day.tasks.splice(payload.index, 1) };
+                return day;
+              }),
+            };
+          }
+          return engineer;
+        }),
+      };
+    }
+
+    case ADD_TO_UNFINISHED_TASKS: {
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          unassignedTasks: state.columns.unassignedTasks.splice(
+            payload.index,
+            0,
+            payload.task
+          ),
+        },
+      };
+    }
+    case ADD_TO_BACKLOG: {
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          engineers: state.columns.engineers.map((engineer) => {
+            if (engineer.id === payload.engineerId)
+              return {
+                ...engineer,
+                backlog: engineer.backlog.splice(
+                  payload.index,
+                  0,
+                  payload.task
+                ),
+              };
+            return engineer;
+          }),
+        },
+      };
+    }
+    case ADD_TO_DAY_ID: {
+      return {
+        ...state,
+        engineers: state.columns.engineers.map((engineer) => {
+          if (engineer.id === payload.engineerId) {
+            return {
+              ...engineer,
+              week: engineer.week.map((day) => {
+                if (day.id === payload.dayId)
+                  return {
+                    ...day,
+                    tasks: day.tasks.splice(payload.index, 0, payload.task),
+                  };
+                return day;
+              }),
+            };
+          }
+          return engineer;
+        }),
+      };
+    }
 
     default:
       return state;

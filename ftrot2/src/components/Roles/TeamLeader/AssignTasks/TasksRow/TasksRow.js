@@ -56,6 +56,7 @@ const TasksRow = ({ engineer, isProfileOpen }) => {
                       columnId={id}
                       tasks={tasks}
                       dayName={dayName}
+                      isUnassignedTasks={false}
                     ></TasksColumn>
                   </Grid>
                 );
@@ -66,6 +67,7 @@ const TasksRow = ({ engineer, isProfileOpen }) => {
                   key={"Backlog_" + engineer.id}
                   columnId={0}
                   tasks={engineer.backlog}
+                  isUnassignedTasks={false}
                   dayName={"Backlog"}
                 ></TasksColumn>
               </Grid>

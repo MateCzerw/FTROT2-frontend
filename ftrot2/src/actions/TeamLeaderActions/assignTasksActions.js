@@ -97,24 +97,26 @@ export const getWeekWithTasksForTeamLeader = (
     });
 };
 
-  const findColumn = (id, columns) => {
-    let foundColumn = [];
-    if (source.droppableId === "unassignedTasks") return columns.unassignedTasks;
-    if (source.droppableId.substring(0, 7) === "backlog"){
-
-    if (!isNaN(source.droppableId)) return foundColumn;
-    columns.forEach((eachEngineer) => {
-      let tempTasks = eachEngineer.days.find(
-        (column) => column.columnId === id
-      );
-      if (tempTasks !== undefined) foundColumn = tempTasks;
+const findColumn = (id, columns) => {
+  let foundColumn = [];
+  if (id === "unassignedTasks") return columns.unassignedTasks;
+  if (id.substring(0, 8) === "backlog_") {
+    columns.engineers.forEach((engineer) => {
+      if (engineer.id === id) foundColumn = engineer.backlog;
     });
+  }
 
-    
-  };
+  if (id.substring(0, 4) === "day_") {
+    columns.engineers.forEach(
+      (engineer) =>
+        (foundColumn = engineer.days.find(
+          (day) => day.id === parseInt(id.substring(4), 10)
+        ))
+    );
+  }
 
-
-
+  return foundColumn;
+};
 
 export const setNewColumnForTasks = (
   source,
@@ -127,12 +129,11 @@ export const setNewColumnForTasks = (
   // destinationColumn,
   columns
 ) => async (dispatch) => {
+  // find task with source column
 
-// find task with source column
+  const sourceColumn = findColumn(source.droppableId, columns);
 
-  const sourceColumn = findColumn(source.droppableId);
-
-  const task= sourceColumn.splice(source.index, 1);
+  const task = sourceColumn.splice(source.index, 1);
 
   //delete task from 1 column
   if (source.droppableId === "unassignedTasks")
@@ -142,7 +143,7 @@ export const setNewColumnForTasks = (
         index: source.index,
       },
     });
-  if (source.droppableId.substring(0, 7) === "backlog")
+  if (source.droppableId.substring(0, 8) === "backlog_")
     dispatch({
       type: DELETE_FROM_BACKLOG,
       payload: {
@@ -150,18 +151,15 @@ export const setNewColumnForTasks = (
         index: source.index,
       },
     });
-  if (!isNaN(source.droppableId))
+  if (source.droppableId.substring(0, 4) === "day_")
     dispatch({
       type: DELETE_FROM_DAY_ID,
       payload: {
-        engineerId: parseInt(source.droppableId.substring(8), 10),
+        engineerId: parseInt(source.droppableId.substring(4), 10),
         dayId: source.columnId,
         index: source.index,
       },
     });
-
-
-  
 
   //add task to 1 column
   if (destination.droppableId === "unassignedTasks")
@@ -169,7 +167,7 @@ export const setNewColumnForTasks = (
       type: ADD_TO_UNFINISHED_TASKS,
       payload: {
         index: destination.index,
-        task
+        task,
       },
     });
   if (destination.droppableId.substring(0, 7) === "backlog")
@@ -178,7 +176,7 @@ export const setNewColumnForTasks = (
       payload: {
         engineerId: parseInt(destination.droppableId.substring(8), 10),
         index: destination.index,
-        task
+        task,
       },
     });
   if (!isNaN(destination.droppableId))
@@ -188,10 +186,9 @@ export const setNewColumnForTasks = (
         engineerId: parseInt(destination.droppableId.substring(8), 10),
         dayId: destination.columnId,
         index: destination.index,
-        task
+        task,
       },
     });
-
 
   // const findColumn = (id) => {
   //   let foundColumn = [];
@@ -270,5 +267,4 @@ export const setNewColumnForTasks = (
   //     type: ASSIGN_TASK,
   //     payload: [source],
   //   });
-  
 };
