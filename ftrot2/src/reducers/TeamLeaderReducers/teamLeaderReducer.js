@@ -91,9 +91,8 @@ const teamLeader = (state = initialState, action) => {
         ...state,
         columns: {
           ...state.columns,
-          unassignedTasks: state.columns.unassignedTasks.splice(
-            payload.index,
-            1
+          unassignedTasks: state.columns.unassignedTasks.filter(
+            (task, index) => index !== payload.index
           ),
         },
       };
@@ -151,11 +150,15 @@ const teamLeader = (state = initialState, action) => {
         ...state,
         columns: {
           ...state.columns,
-          unassignedTasks: state.columns.unassignedTasks.splice(
-            payload.index,
-            0,
-            payload.task
-          ),
+          unassignedTasks: addTask(
+            state.columns.unassignedTasks,
+            payload.task,
+            payload.index
+          ), // state.columns.unassignedTasks.splice(
+          //   payload.index,
+          //   0,
+          //   payload.task
+          // ),
         },
       };
     }

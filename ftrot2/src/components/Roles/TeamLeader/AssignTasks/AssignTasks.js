@@ -27,22 +27,21 @@ const StyledUnassignedTasksContainer = styled(Paper)`
   margin: 10px;
   height: 100%;
   width: 15%;
+`;
+
+const StyledEngineersContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 300px);
 
   overflow-y: scroll;
-
   &::-webkit-scrollbar {
     display: none;
   }
 `;
 
-const StyledEngineersContainer = styled.div`
+const StyledTest = styled.div`
   width: 100%;
-  height: calc(100vh - 58px);
-
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  height: 80vh;
 `;
 
 const AssignTasks = () => {
@@ -55,37 +54,11 @@ const AssignTasks = () => {
     dispatch(getColumns());
   }, []);
 
-  // const findColumn = (id) => {
-  //   let foundColumn = [];
-  //   columns.forEach((eachEngineer) => {
-  //     let tempTasks = eachEngineer.schedule.find(
-  //       (column) => column.columnId === id
-  //     );
-  //     if (tempTasks !== undefined) foundColumn = tempTasks;
-  //   });
-
-  //   return foundColumn;
-  // };
-
   const onDragEnd = (result) => {
     if (!result.destination) return;
     const { source, destination } = result;
-    // const columnSource = findColumn(source.droppableId);
-    // const columnDestination = findColumn(destination.droppableId);
 
-    dispatch(
-      setNewColumnForTasks(
-        source,
-        destination,
-        // source.droppableId,
-        // source.index,
-        // destination.droppableId,
-        // destination.index,
-        // columnSource,
-        // columnDestination,
-        columns
-      )
-    );
+    dispatch(setNewColumnForTasks(source, destination, columns));
   };
 
   const [formats, setFormats] = useState(() => [
@@ -99,44 +72,46 @@ const AssignTasks = () => {
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-      <StyledToggleButtonGroup
-        value={formats}
-        onChange={handleFormat}
-        aria-label="text formatting"
-      >
-        <ToggleButton value="showUnassigneTasks" aria-label="bold">
-          Show unassgined tasks
-        </ToggleButton>
-        <ToggleButton value="showEngineerProfile" aria-label="italic">
-          Show engineer profile
-        </ToggleButton>
-      </StyledToggleButtonGroup>
+      <StyledTest>
+        <StyledToggleButtonGroup
+          value={formats}
+          onChange={handleFormat}
+          aria-label="text formatting"
+        >
+          <ToggleButton value="showUnassigneTasks" aria-label="bold">
+            Show unassgined tasks
+          </ToggleButton>
+          <ToggleButton value="showEngineerProfile" aria-label="italic">
+            Show engineer profile
+          </ToggleButton>
+        </StyledToggleButtonGroup>
 
-      <StyledMainContainer>
-        {formats.find((element) => element === "showUnassigneTasks") && (
-          <StyledUnassignedTasksContainer>
+        <StyledMainContainer>
+          {formats.find((element) => element === "showUnassigneTasks") && (
+            // <StyledUnassignedTasksContainer>
             <TasksColumn
               columnId={"unassignedTasks"}
               tasks={columns?.unassignedTasks}
               dayName={"unassigned tasks"}
               isUnassignedTasks={true}
             />
-          </StyledUnassignedTasksContainer>
-        )}
-        <StyledEngineersContainer>
-          {columns.engineers?.map((engineer) => {
-            return (
-              <TasksRow
-                key={engineer.id}
-                engineer={engineer}
-                isProfileOpen={formats.find(
-                  (element) => element === "showEngineerProfile"
-                )}
-              />
-            );
-          })}
-        </StyledEngineersContainer>
-      </StyledMainContainer>
+            // </StyledUnassignedTasksContainer>
+          )}
+          <StyledEngineersContainer>
+            {columns.engineers?.map((engineer) => {
+              return (
+                <TasksRow
+                  key={engineer.id}
+                  engineer={engineer}
+                  isProfileOpen={formats.find(
+                    (element) => element === "showEngineerProfile"
+                  )}
+                />
+              );
+            })}
+          </StyledEngineersContainer>
+        </StyledMainContainer>
+      </StyledTest>
     </DragDropContext>
   );
 };

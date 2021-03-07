@@ -10,8 +10,9 @@ const StyledColumn = styled(Card)`
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
-  width: 100%;
-  height: ${(props) => (props.isUnassignedTasks ? "100vh" : "40vh")};
+  /* width: 100%; */
+  width: ${(props) => (props.isUnassignedTasks ? "300px" : "100%")};
+  height: ${(props) => (props.isUnassignedTasks ? "80vh" : "40vh")};
 
   & > h3 {
     text-align: center;
