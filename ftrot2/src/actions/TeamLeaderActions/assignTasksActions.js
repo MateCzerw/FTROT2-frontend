@@ -158,135 +158,89 @@ export const setNewColumnForTasks = (
 
   const task = sourceColumn[source.index];
 
-  //delete task from 1 column
-  if (source.droppableId === "unassignedTasks")
-    dispatch({
-      type: DELETE_FROM_UNFINISHED_TASKS,
-      payload: {
-        index: source.index,
-      },
-    });
-  if (source.droppableId.substring(0, 8) === "backlog_")
-    dispatch({
-      type: DELETE_FROM_BACKLOG,
-      payload: {
-        engineerId: findEngineerId(source.droppableId, columns),
-        index: source.index,
-      },
-    });
-  if (source.droppableId.substring(0, 4) === "day_")
-    dispatch({
-      type: DELETE_FROM_DAY_ID,
-      payload: {
-        engineerId: findEngineerId(source.droppableId, columns),
-        dayId: parseInt(source.droppableId.substring(4), 10),
-        index: source.index,
-      },
-    });
+  let requestObject;
 
-  //add task to 1 column
-  if (destination.droppableId === "unassignedTasks")
-    dispatch({
-      type: ADD_TO_UNFINISHED_TASKS,
-      payload: {
-        index: destination.index,
-        task,
-      },
-    });
-  if (destination.droppableId.substring(0, 8) === "backlog_")
-    dispatch({
-      type: ADD_TO_BACKLOG,
-      payload: {
-        engineerId: findEngineerId(destination.droppableId, columns),
-        index: destination.index,
-        task,
-      },
-    });
-  if (destination.droppableId.substring(0, 4) === "day_")
-    dispatch({
-      type: ADD_TO_DAY_ID,
-      payload: {
-        engineerId: findEngineerId(destination.droppableId, columns),
-        dayId: parseInt(destination.droppableId.substring(4), 10),
-        index: destination.index,
-        task,
-      },
+  if (destination.droppableId === "unassignedTasks") {
+    requestObject = {
+      inUnfinishedTasks: true,
+      sorting: destination.index,
+    };
+  }
+
+  if (destination.droppableId.substring(0, 8) === "backlog_") {
+    requestObject = {
+      engineerId: findEngineerId(destination.droppableId, columns),
+      inBacklog: true,
+      sorting: destination.index,
+    };
+  }
+
+  if (destination.droppableId.substring(0, 4) === "day_") {
+    requestObject = {
+      dayId: parseInt(destination.droppableId.substring(4), 10),
+      engineerId: findEngineerId(destination.droppableId, columns),
+      sorting: destination.index,
+    };
+  }
+
+  axios
+    .patch(API_URL + "assign-tasks/tasks/" + task.id, requestObject, {
+      headers: authHeader(),
+    })
+    .then(() => {
+      //delete task from 1 column
+      if (source.droppableId === "unassignedTasks")
+        dispatch({
+          type: DELETE_FROM_UNFINISHED_TASKS,
+          payload: {
+            index: source.index,
+          },
+        });
+      if (source.droppableId.substring(0, 8) === "backlog_")
+        dispatch({
+          type: DELETE_FROM_BACKLOG,
+          payload: {
+            engineerId: findEngineerId(source.droppableId, columns),
+            index: source.index,
+          },
+        });
+      if (source.droppableId.substring(0, 4) === "day_")
+        dispatch({
+          type: DELETE_FROM_DAY_ID,
+          payload: {
+            engineerId: findEngineerId(source.droppableId, columns),
+            dayId: parseInt(source.droppableId.substring(4), 10),
+            index: source.index,
+          },
+        });
+
+      //add task to 1 column
+      if (destination.droppableId === "unassignedTasks")
+        dispatch({
+          type: ADD_TO_UNFINISHED_TASKS,
+          payload: {
+            index: destination.index,
+            task,
+          },
+        });
+      if (destination.droppableId.substring(0, 8) === "backlog_")
+        dispatch({
+          type: ADD_TO_BACKLOG,
+          payload: {
+            engineerId: findEngineerId(destination.droppableId, columns),
+            index: destination.index,
+            task,
+          },
+        });
+      if (destination.droppableId.substring(0, 4) === "day_")
+        dispatch({
+          type: ADD_TO_DAY_ID,
+          payload: {
+            engineerId: findEngineerId(destination.droppableId, columns),
+            dayId: parseInt(destination.droppableId.substring(4), 10),
+            index: destination.index,
+            task,
+          },
+        });
     });
 };
-// const findColumn = (id) => {
-//   let foundColumn = [];
-//   columns.forEach((eachEngineer) => {
-//     let tempTasks = eachEngineer.days.find(
-//       (column) => column.columnId === id
-//     );
-//     if (tempTasks !== undefined) foundColumn = tempTasks;
-//   });
-
-//   return foundColumn;
-// };
-
-// const sourceColumn = findColumn(source.droppableId);
-// const destinationColumn = findColumn(destination.droppableId);
-// const sourceColumnId = source.droppableId;
-// const destinationColumnId = destination.droppableId;
-
-// if (sourceColumnId !== destinationColumnId) {
-//   const sourceTasks = [...sourceColumn.tasks];
-//   const destinationTasks = [...destinationColumn.tasks];
-//   const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
-//   destinationTasks.splice(destinationIndex, 0, removed);
-//   sourceColumn.tasks = sourceTasks;
-//   destinationColumn.tasks = destinationTasks;
-
-//   let source = columns.find((eachEngineer) =>
-//     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-//   );
-
-//   let destination = columns.find((eachEngineer) =>
-//     eachEngineer.schedule.some(
-//       (column) => column.columnId === destinationColumnId
-//     )
-//   );
-
-//   source = {
-//     ...source,
-//     schedule: source.schedule.map((column) => {
-//       if (column.columnId === sourceColumnId) return sourceColumn;
-//       else return column;
-//     }),
-//   };
-
-//   destination = {
-//     ...destination,
-//     schedule: destination.schedule.map((column) => {
-//       if (column.columnId === destinationColumnId) return destinationColumn;
-//       else return column;
-//     }),
-//   };
-
-//   dispatch({
-//     type: ASSIGN_TASK,
-//     payload: [source, destination],
-//   });
-// } else {
-//   const sourceTasks = [...sourceColumn.tasks];
-//   const copiedItems = [...sourceTasks];
-//   const [removed] = copiedItems.splice(sourceTaskIndex, 1);
-//   copiedItems.splice(destinationIndex, 0, removed);
-//   sourceColumn.tasks = copiedItems;
-
-//   let source = columns.find((eachEngineer) =>
-//     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-//   );
-
-//   source = {
-//     ...source,
-//     schedule: source.schedule.map((column) => {
-//       if (column.columnId === sourceColumnId) return sourceColumn;
-//       else return column;
-//     }),
-//   };
-//   dispatch({
-//     type: ASSIGN_TASK,
-//     payload: [source],
-//   });
