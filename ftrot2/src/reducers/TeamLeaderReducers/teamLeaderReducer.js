@@ -1,4 +1,3 @@
-import { uuid } from "uuidv4";
 import moment from "moment";
 import {
   ADD_TO_BACKLOG,
@@ -11,8 +10,6 @@ import {
   GET_COLUMNS,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
 } from "../../actions/types";
-import { Day } from "@material-ui/pickers";
-import { Copyright } from "@material-ui/icons";
 
 const userInfo = {
   name: "Wojciech",
@@ -110,7 +107,9 @@ const teamLeader = (state = initialState, action) => {
             if (engineer.id === payload.engineerId)
               return {
                 ...engineer,
-                backlog: engineer.backlog.splice(payload.index, 1),
+                backlog: engineer.backlog.filter(
+                  (task, index) => index !== payload.index
+                ),
               };
             return engineer;
           }),
@@ -169,11 +168,7 @@ const teamLeader = (state = initialState, action) => {
             if (engineer.id === payload.engineerId)
               return {
                 ...engineer,
-                backlog: engineer.backlog.splice(
-                  payload.index,
-                  0,
-                  payload.task
-                ),
+                backlog: addTask(engineer.backlog, payload.task, payload.index), //.splice(payload.index,0,payload.task),
               };
             return engineer;
           }),

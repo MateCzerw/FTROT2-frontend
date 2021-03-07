@@ -37,7 +37,7 @@ const calculateTotalHoursInColumn = (tasks) => {
 
 const TasksColumn = ({ columnId, dayName, tasks, isUnassignedTasks }) => {
   return (
-    <Droppable droppableId={"day_" + columnId} key={columnId}>
+    <Droppable droppableId={columnId} key={columnId}>
       {(provided, snapshot) => {
         return (
           <StyledColumn isUnassignedTasks={isUnassignedTasks}>

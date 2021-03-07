@@ -102,7 +102,8 @@ const findColumn = (id, columns) => {
   if (id === "unassignedTasks") return columns.unassignedTasks;
   if (id.substring(0, 8) === "backlog_") {
     columns.engineers.forEach((engineer) => {
-      if (engineer.id === id) foundColumn = engineer.backlog;
+      if (engineer.id === parseInt(id.substring(8), 10))
+        foundColumn = engineer.backlog;
     });
   }
 
@@ -134,7 +135,7 @@ const findEngineerId = (id, columns) => {
       return engineer.id;
     if (
       id.substring(0, 8) === "backlog_" &&
-      engineer.week.days.some((day) => day.id === parseInt(id.substring(4), 10))
+      engineer.id === parseInt(id.substring(8), 10)
     )
       return engineer.id;
   }
@@ -192,7 +193,7 @@ export const setNewColumnForTasks = (
         task,
       },
     });
-  if (destination.droppableId.substring(0, 7) === "backlog")
+  if (destination.droppableId.substring(0, 8) === "backlog_")
     dispatch({
       type: ADD_TO_BACKLOG,
       payload: {
@@ -201,7 +202,7 @@ export const setNewColumnForTasks = (
         task,
       },
     });
-  if (source.droppableId.substring(0, 4) === "day_")
+  if (destination.droppableId.substring(0, 4) === "day_")
     dispatch({
       type: ADD_TO_DAY_ID,
       payload: {
