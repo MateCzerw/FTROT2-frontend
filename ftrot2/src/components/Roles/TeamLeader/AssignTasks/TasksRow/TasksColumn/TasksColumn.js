@@ -57,9 +57,10 @@ const TasksColumn = ({ columnId, dayName, tasks, isUnassignedTasks }) => {
                     {(provided, snapshot) => {
                       return (
                         <Task
+                          id={task.id}
                           provided={provided}
                           snapshot={snapshot}
-                          content={task.content}
+                          name={task.name}
                           duration={task.duration}
                         ></Task>
                       );

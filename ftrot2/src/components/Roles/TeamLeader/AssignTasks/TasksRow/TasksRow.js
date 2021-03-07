@@ -65,7 +65,7 @@ const TasksRow = ({ engineer, isProfileOpen }) => {
               <Grid item xs={2}>
                 <TasksColumn
                   key={"Backlog_" + engineer.id}
-                  columnId={0}
+                  columnId={"Backlog_" + engineer.id}
                   tasks={engineer.backlog}
                   isUnassignedTasks={false}
                   dayName={"Backlog"}

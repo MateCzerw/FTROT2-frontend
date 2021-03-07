@@ -26,6 +26,7 @@ const UserDetails = () => {
           sm={6}
           xl={3}
           justify="flex-start"
+          direction="column"
         >
           <p>
             <b>Name:</b> {contentInfo.name}
@@ -41,6 +42,7 @@ const UserDetails = () => {
           xs={12}
           sm={6}
           xl={3}
+          direction="column"
         >
           <p>
             <b>Joined at:</b> {contentInfo.joinedAt}
@@ -56,6 +58,7 @@ const UserDetails = () => {
           xs={12}
           sm={6}
           xl={3}
+          direction="column"
         >
           <p>
             <b>Team:</b> {contentInfo.team}
@@ -71,6 +74,7 @@ const UserDetails = () => {
           xs={12}
           sm={6}
           xl={3}
+          direction="column"
         >
           <p>
             <b>Team members:</b> {contentInfo.teamMembersQuantity}

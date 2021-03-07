@@ -12,7 +12,7 @@ const StyledTask = styled.div`
   justify-content: space-between;
 `;
 
-const Task = ({ provided, snapshot, content, duration }) => {
+const Task = ({ provided, snapshot, name, duration, id }) => {
   return (
     <StyledTask
       ref={provided.innerRef}
@@ -23,7 +23,8 @@ const Task = ({ provided, snapshot, content, duration }) => {
         ...provided.draggableProps.style,
       }}
     >
-      <p>{content}</p>
+      <p>{id}.</p>
+      <p>{name}</p>
       <p>{duration}</p>
     </StyledTask>
   );

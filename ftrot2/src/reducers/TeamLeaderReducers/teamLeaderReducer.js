@@ -11,6 +11,8 @@ import {
   GET_COLUMNS,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
 } from "../../actions/types";
+import { Day } from "@material-ui/pickers";
+import { Copyright } from "@material-ui/icons";
 
 const userInfo = {
   name: "Wojciech",
@@ -118,19 +120,30 @@ const teamLeader = (state = initialState, action) => {
     case DELETE_FROM_DAY_ID: {
       return {
         ...state,
-        engineers: state.columns.engineers.map((engineer) => {
-          if (engineer.id === payload.engineerId) {
-            return {
-              ...engineer,
-              week: engineer.week.map((day) => {
-                if (day.id === payload.dayId)
-                  return { ...day, tasks: day.tasks.splice(payload.index, 1) };
-                return day;
-              }),
-            };
-          }
-          return engineer;
-        }),
+        columns: {
+          ...state.columns,
+          engineers: state.columns.engineers.map((engineer) => {
+            if (engineer.id === payload.engineerId) {
+              return {
+                ...engineer,
+                week: {
+                  ...engineer.week,
+                  days: engineer.week.days.map((day) => {
+                    if (day.id === payload.dayId)
+                      return {
+                        ...day,
+                        tasks: day.tasks.filter(
+                          (task, index) => index !== payload.index
+                        ),
+                      };
+                    return day;
+                  }),
+                },
+              };
+            }
+            return engineer;
+          }),
+        },
       };
     }
 
@@ -170,28 +183,40 @@ const teamLeader = (state = initialState, action) => {
     case ADD_TO_DAY_ID: {
       return {
         ...state,
-        engineers: state.columns.engineers.map((engineer) => {
-          if (engineer.id === payload.engineerId) {
-            return {
-              ...engineer,
-              week: engineer.week.map((day) => {
-                if (day.id === payload.dayId)
-                  return {
-                    ...day,
-                    tasks: day.tasks.splice(payload.index, 0, payload.task),
-                  };
-                return day;
-              }),
-            };
-          }
-          return engineer;
-        }),
+        columns: {
+          ...state.columns,
+          engineers: state.columns.engineers.map((engineer) => {
+            if (engineer.id === payload.engineerId) {
+              return {
+                ...engineer,
+                week: {
+                  ...engineer.week,
+                  days: engineer.week.days.map((day) => {
+                    if (day.id === payload.dayId)
+                      return {
+                        ...day,
+                        tasks: addTask(day.tasks, payload.task, payload.index), //day.tasks.splice(payload.index, 0, payload.task),
+                      };
+                    return day;
+                  }),
+                },
+              };
+            }
+            return engineer;
+          }),
+        },
       };
     }
 
     default:
       return state;
   }
+};
+
+const addTask = (tasks, task, index) => {
+  const copiedTasks = [...tasks];
+  copiedTasks.splice(index, 0, task);
+  return copiedTasks;
 };
 
 export default teamLeader;

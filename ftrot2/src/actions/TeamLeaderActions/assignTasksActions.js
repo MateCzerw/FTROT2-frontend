@@ -107,15 +107,37 @@ const findColumn = (id, columns) => {
   }
 
   if (id.substring(0, 4) === "day_") {
-    columns.engineers.forEach(
-      (engineer) =>
-        (foundColumn = engineer.days.find(
+    for (let engineer of columns.engineers) {
+      if (
+        engineer.week.days.some(
           (day) => day.id === parseInt(id.substring(4), 10)
-        ))
-    );
+        )
+      ) {
+        let column = engineer.week.days.find(
+          (day) => day.id === parseInt(id.substring(4), 10)
+        );
+        foundColumn = column.tasks;
+        break;
+      }
+    }
   }
 
   return foundColumn;
+};
+
+const findEngineerId = (id, columns) => {
+  for (let engineer of columns.engineers) {
+    if (
+      id.substring(0, 4) === "day_" &&
+      engineer.week.days.some((day) => day.id === parseInt(id.substring(4), 10))
+    )
+      return engineer.id;
+    if (
+      id.substring(0, 8) === "backlog_" &&
+      engineer.week.days.some((day) => day.id === parseInt(id.substring(4), 10))
+    )
+      return engineer.id;
+  }
 };
 
 export const setNewColumnForTasks = (
@@ -133,7 +155,7 @@ export const setNewColumnForTasks = (
 
   const sourceColumn = findColumn(source.droppableId, columns);
 
-  const task = sourceColumn.splice(source.index, 1);
+  const task = sourceColumn[source.index];
 
   //delete task from 1 column
   if (source.droppableId === "unassignedTasks")
@@ -147,7 +169,7 @@ export const setNewColumnForTasks = (
     dispatch({
       type: DELETE_FROM_BACKLOG,
       payload: {
-        engineerId: parseInt(source.droppableId.substring(8), 10),
+        engineerId: findEngineerId(source.droppableId, columns),
         index: source.index,
       },
     });
@@ -155,8 +177,8 @@ export const setNewColumnForTasks = (
     dispatch({
       type: DELETE_FROM_DAY_ID,
       payload: {
-        engineerId: parseInt(source.droppableId.substring(4), 10),
-        dayId: source.columnId,
+        engineerId: findEngineerId(source.droppableId, columns),
+        dayId: parseInt(source.droppableId.substring(4), 10),
         index: source.index,
       },
     });
@@ -174,97 +196,96 @@ export const setNewColumnForTasks = (
     dispatch({
       type: ADD_TO_BACKLOG,
       payload: {
-        engineerId: parseInt(destination.droppableId.substring(8), 10),
+        engineerId: findEngineerId(destination.droppableId, columns),
         index: destination.index,
         task,
       },
     });
-  if (!isNaN(destination.droppableId))
+  if (source.droppableId.substring(0, 4) === "day_")
     dispatch({
       type: ADD_TO_DAY_ID,
       payload: {
-        engineerId: parseInt(destination.droppableId.substring(8), 10),
-        dayId: destination.columnId,
+        engineerId: findEngineerId(destination.droppableId, columns),
+        dayId: parseInt(destination.droppableId.substring(4), 10),
         index: destination.index,
         task,
       },
     });
-
-  // const findColumn = (id) => {
-  //   let foundColumn = [];
-  //   columns.forEach((eachEngineer) => {
-  //     let tempTasks = eachEngineer.days.find(
-  //       (column) => column.columnId === id
-  //     );
-  //     if (tempTasks !== undefined) foundColumn = tempTasks;
-  //   });
-
-  //   return foundColumn;
-  // };
-
-  // const sourceColumn = findColumn(source.droppableId);
-  // const destinationColumn = findColumn(destination.droppableId);
-  // const sourceColumnId = source.droppableId;
-  // const destinationColumnId = destination.droppableId;
-
-  // if (sourceColumnId !== destinationColumnId) {
-  //   const sourceTasks = [...sourceColumn.tasks];
-  //   const destinationTasks = [...destinationColumn.tasks];
-  //   const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
-  //   destinationTasks.splice(destinationIndex, 0, removed);
-  //   sourceColumn.tasks = sourceTasks;
-  //   destinationColumn.tasks = destinationTasks;
-
-  //   let source = columns.find((eachEngineer) =>
-  //     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-  //   );
-
-  //   let destination = columns.find((eachEngineer) =>
-  //     eachEngineer.schedule.some(
-  //       (column) => column.columnId === destinationColumnId
-  //     )
-  //   );
-
-  //   source = {
-  //     ...source,
-  //     schedule: source.schedule.map((column) => {
-  //       if (column.columnId === sourceColumnId) return sourceColumn;
-  //       else return column;
-  //     }),
-  //   };
-
-  //   destination = {
-  //     ...destination,
-  //     schedule: destination.schedule.map((column) => {
-  //       if (column.columnId === destinationColumnId) return destinationColumn;
-  //       else return column;
-  //     }),
-  //   };
-
-  //   dispatch({
-  //     type: ASSIGN_TASK,
-  //     payload: [source, destination],
-  //   });
-  // } else {
-  //   const sourceTasks = [...sourceColumn.tasks];
-  //   const copiedItems = [...sourceTasks];
-  //   const [removed] = copiedItems.splice(sourceTaskIndex, 1);
-  //   copiedItems.splice(destinationIndex, 0, removed);
-  //   sourceColumn.tasks = copiedItems;
-
-  //   let source = columns.find((eachEngineer) =>
-  //     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
-  //   );
-
-  //   source = {
-  //     ...source,
-  //     schedule: source.schedule.map((column) => {
-  //       if (column.columnId === sourceColumnId) return sourceColumn;
-  //       else return column;
-  //     }),
-  //   };
-  //   dispatch({
-  //     type: ASSIGN_TASK,
-  //     payload: [source],
-  //   });
 };
+// const findColumn = (id) => {
+//   let foundColumn = [];
+//   columns.forEach((eachEngineer) => {
+//     let tempTasks = eachEngineer.days.find(
+//       (column) => column.columnId === id
+//     );
+//     if (tempTasks !== undefined) foundColumn = tempTasks;
+//   });
+
+//   return foundColumn;
+// };
+
+// const sourceColumn = findColumn(source.droppableId);
+// const destinationColumn = findColumn(destination.droppableId);
+// const sourceColumnId = source.droppableId;
+// const destinationColumnId = destination.droppableId;
+
+// if (sourceColumnId !== destinationColumnId) {
+//   const sourceTasks = [...sourceColumn.tasks];
+//   const destinationTasks = [...destinationColumn.tasks];
+//   const [removed] = sourceTasks.splice(sourceTaskIndex, 1);
+//   destinationTasks.splice(destinationIndex, 0, removed);
+//   sourceColumn.tasks = sourceTasks;
+//   destinationColumn.tasks = destinationTasks;
+
+//   let source = columns.find((eachEngineer) =>
+//     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
+//   );
+
+//   let destination = columns.find((eachEngineer) =>
+//     eachEngineer.schedule.some(
+//       (column) => column.columnId === destinationColumnId
+//     )
+//   );
+
+//   source = {
+//     ...source,
+//     schedule: source.schedule.map((column) => {
+//       if (column.columnId === sourceColumnId) return sourceColumn;
+//       else return column;
+//     }),
+//   };
+
+//   destination = {
+//     ...destination,
+//     schedule: destination.schedule.map((column) => {
+//       if (column.columnId === destinationColumnId) return destinationColumn;
+//       else return column;
+//     }),
+//   };
+
+//   dispatch({
+//     type: ASSIGN_TASK,
+//     payload: [source, destination],
+//   });
+// } else {
+//   const sourceTasks = [...sourceColumn.tasks];
+//   const copiedItems = [...sourceTasks];
+//   const [removed] = copiedItems.splice(sourceTaskIndex, 1);
+//   copiedItems.splice(destinationIndex, 0, removed);
+//   sourceColumn.tasks = copiedItems;
+
+//   let source = columns.find((eachEngineer) =>
+//     eachEngineer.schedule.some((column) => column.columnId === sourceColumnId)
+//   );
+
+//   source = {
+//     ...source,
+//     schedule: source.schedule.map((column) => {
+//       if (column.columnId === sourceColumnId) return sourceColumn;
+//       else return column;
+//     }),
+//   };
+//   dispatch({
+//     type: ASSIGN_TASK,
+//     payload: [source],
+//   });
