@@ -22,10 +22,7 @@ const UserDetails = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      dispatch(getUserInfo()).then(setLoading(false));
-    }, 2000);
+    dispatch(getUserInfo());
   }, []);
 
   return (

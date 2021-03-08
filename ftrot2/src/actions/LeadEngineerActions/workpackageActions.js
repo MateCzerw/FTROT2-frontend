@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
-  ADD_TASK,
-  EDIT_TASK,
-  DELETE_TASK,
-  GET_WORKPACKAGES_FOR_TEAM_LEADER,
+  ADD_LEAD_ENGINEER_TASK,
+  EDIT_LEAD_ENGINEER_TASK,
+  DELETE_LEAD_ENGINEER_TASK,
+  GET_LEAD_ENGINEER_WORKPACKAGES,
   CLEAR_MESSAGE,
   SET_MESSAGE,
 } from "../types";
@@ -11,7 +11,7 @@ import authHeader from "../../services/auth-header";
 
 const API_URL = "http://localhost:8080/api/v1/lead-engineer/";
 
-export const getWorkPackagesForTeamLeader = () => async (dispatch) => {
+export const getWorkPackagesForLeadEngineer = () => async (dispatch) => {
   axios
     .get(API_URL + "work-packages", { headers: authHeader() })
     .then((response) => {
@@ -19,7 +19,7 @@ export const getWorkPackagesForTeamLeader = () => async (dispatch) => {
     })
     .then((data) => {
       dispatch({
-        type: GET_WORKPACKAGES_FOR_TEAM_LEADER,
+        type: GET_LEAD_ENGINEER_WORKPACKAGES,
         payload: data,
       });
 
@@ -56,7 +56,7 @@ export const addTaskAction = (workpackageId, task) => async (dispatch) => {
     })
     .then((data) => {
       dispatch({
-        type: ADD_TASK,
+        type: ADD_LEAD_ENGINEER_TASK,
         payload: {
           workpackageId,
           task,
@@ -93,7 +93,7 @@ export const deleteTaskAction = (workpackageId, taskId) => async (dispatch) => {
     })
     .then(
       dispatch({
-        type: DELETE_TASK,
+        type: DELETE_LEAD_ENGINEER_TASK,
         payload: {
           workpackageId,
           taskId,
@@ -133,7 +133,7 @@ export const editTaskAction = (workpackageId, taskId, editedTask) => async (
     })
     .then((data) => {
       dispatch({
-        type: EDIT_TASK,
+        type: EDIT_LEAD_ENGINEER_TASK,
         payload: {
           workpackageId,
           taskId,

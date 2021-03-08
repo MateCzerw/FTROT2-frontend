@@ -3,7 +3,7 @@ import Workpackage from "./Workpackage/Workpackage";
 import moment from "moment";
 import "./Workpackages.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getWorkPackagesForTeamLeader } from "../../../../actions/LeadEngineerActions/workpackageActions";
+import { getWorkPackagesForLeadEngineer } from "../../../../actions/LeadEngineerActions/workpackageActions";
 
 const Workpackages = () => {
   const workpackagesFromSelector = useSelector(
@@ -13,7 +13,7 @@ const Workpackages = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getWorkPackagesForTeamLeader());
+    dispatch(getWorkPackagesForLeadEngineer());
   }, []);
 
   return (
