@@ -1,6 +1,7 @@
-import { uuid } from "uuidv4";
-import moment from "moment";
 import {
+  GET_TECHNICAL_PROJECT_MANAGER_BOARD_INFO,
+  GET_TECHNICAL_PROJECT_MANAGER_BOARD_WORKPACKAGES,
+  GET_TECHNICAL_PROJECT_MANAGER_BOARD_GRAPH_DETAILS,
   CREATE_WORKPACKAGE,
   EDIT_WORKPACKAGE,
   DELETE_WORKPACKAGE,
@@ -10,37 +11,49 @@ import {
 const initialState = {
   workpackages: [],
   userInfo: {
-    name: "Maciej",
-    surname: "Pszczoła",
     picture:
       "https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo",
-    role: "Technical Project Manager",
-    team: "DLSC2",
-    supervisor: "Łukasz Biernatowski",
-    joinedAt: moment(Date.now()).calendar(),
-    finishedWorkpackages: 25,
-    unFinishedWorkpackages: 5,
-    workPackages: [
-      { name: "HMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-      { name: "BMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-      {
-        name: "Volvo",
-        tasksStatus: 0.5,
-        dueTo: moment(Date.now()).calendar(),
-      },
-      { name: "Daf", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-      {
-        name: "Iveco",
-        tasksStatus: 0.5,
-        dueTo: moment(Date.now()).calendar(),
-      },
-    ],
+    workPackages: [],
+    statusOfWorkpackages: [],
   },
 };
 
 const technicalProjectManagerReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_TECHNICAL_PROJECT_MANAGER_BOARD_INFO:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          name: payload.name,
+          surname: payload.surname,
+          team: payload.team,
+          role: payload.role,
+          finishedWorkPackages: payload.finishedWorkPackages,
+          joinedAt: payload.joinedAt,
+          unfinishedWorkPackages: payload.unfinishedWorkPackages,
+          supervisor: payload.supervisor,
+        },
+      };
+
+    case GET_TECHNICAL_PROJECT_MANAGER_BOARD_WORKPACKAGES:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          workPackages: payload.workPackages,
+        },
+      };
+
+    case GET_TECHNICAL_PROJECT_MANAGER_BOARD_GRAPH_DETAILS:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          statusOfWorkpackages: payload,
+        },
+      };
     case GET_WORKPACKAGES:
       return {
         ...state,

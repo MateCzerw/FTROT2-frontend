@@ -1,7 +1,8 @@
 import { Grid, Paper } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getTechnicalProjectManagerInfo } from "../../../../../actions/TechnicalProjectManagerActions/boardActions";
 
 const StyledInfoColumn = styled(Grid)`
   font-size: 20px;
@@ -15,6 +16,10 @@ const UserDetails = () => {
   const contentInfo = useSelector(
     (state) => state.technicalProjectManager.userInfo
   );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTechnicalProjectManagerInfo());
+  }, []);
   return (
     <Grid container spacing={4} justify="space-between">
       <Grid item xs={4} md={1}>
@@ -79,11 +84,11 @@ const UserDetails = () => {
           direction="column"
         >
           <p>
-            <b>Finished workpackages:</b> {contentInfo.finishedWorkpackages}
+            <b>Finished workpackages:</b> {contentInfo.finishedWorkPackages}
           </p>
           <p>
             <b>Unfinished workpackages:</b>
-            {contentInfo.unFinishedWorkpackages}
+            {contentInfo.unfinishedWorkPackages}
           </p>
         </StyledInfoColumn>
       </Grid>
