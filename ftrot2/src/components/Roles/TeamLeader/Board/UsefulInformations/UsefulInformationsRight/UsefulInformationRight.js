@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
-
+import { getTeamLeaderAssignedHours } from "../../../../../../actions/TeamLeaderActions/boardActions";
 const StyledDoughnutContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -24,6 +24,10 @@ const StyledDoughnutContainer = styled.div`
 
 const UsefulInformationRight = () => {
   const contentInfo = useSelector((state) => state.teamLeader.userInfo);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTeamLeaderAssignedHours());
+  }, []);
   return (
     <StyledDoughnutContainer>
       <h3>Assigned work for current week</h3>

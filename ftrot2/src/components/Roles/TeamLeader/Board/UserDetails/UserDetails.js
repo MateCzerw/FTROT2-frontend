@@ -1,7 +1,8 @@
 import { Grid, Paper } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getTeamLeaderBoardInfo } from "../../../../../actions/TeamLeaderActions/boardActions";
 
 const StyledInfoColumn = styled(Grid)`
   font-size: 20px;
@@ -13,6 +14,12 @@ const StyledInfoColumn = styled(Grid)`
 
 const UserDetails = () => {
   const contentInfo = useSelector((state) => state.teamLeader.userInfo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTeamLeaderBoardInfo());
+  }, []);
+
   return (
     <Grid container spacing={4} justify="space-between">
       <Grid item xs={4} md={1}>
@@ -45,7 +52,7 @@ const UserDetails = () => {
           direction="column"
         >
           <p>
-            <b>Joined at:</b> {contentInfo.joinedAt}
+            <b>Joined at: </b> {contentInfo.joinedAt}
           </p>
           <p>
             <b>Role:</b> {contentInfo.role}
@@ -61,10 +68,10 @@ const UserDetails = () => {
           direction="column"
         >
           <p>
-            <b>Team:</b> {contentInfo.team}
+            <b>Team: </b> {contentInfo.team}
           </p>
           <p>
-            <b>Supervisor:</b> {contentInfo.supervisor}
+            <b>Supervisor: </b> {contentInfo.supervisor}
           </p>
         </StyledInfoColumn>
         <StyledInfoColumn
@@ -77,11 +84,11 @@ const UserDetails = () => {
           direction="column"
         >
           <p>
-            <b>Team members:</b> {contentInfo.teamMembersQuantity}
+            <b>Team members: </b> {contentInfo.teamMembersQuantity}
           </p>
           <p>
-            <b>Unfinished workpackages:</b>
-            {contentInfo.workPackagesInProgress}
+            <b>Unfinished workpackages: </b>
+            {contentInfo.unfinishedWorkPackages}
           </p>
         </StyledInfoColumn>
       </Grid>

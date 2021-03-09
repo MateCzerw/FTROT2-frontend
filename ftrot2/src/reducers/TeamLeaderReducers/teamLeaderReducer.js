@@ -8,36 +8,18 @@ import {
   DELETE_FROM_DAY_ID,
   DELETE_FROM_UNFINISHED_TASKS,
   GET_COLUMNS,
+  GET_TEAM_LEADER_BOARD_GRAPH_DETAILS,
+  GET_TEAM_LEADER_BOARD_INFO,
+  GET_TEAM_LEADER_BOARD_WORKPACKAGES,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
 } from "../../actions/types";
 
 const userInfo = {
-  name: "Wojciech",
-  surname: "Zabiegło",
   picture:
     "https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo",
-  role: "Team Leader",
-  team: "DLSC2",
-  supervisor: "Łukasz Szczuplak",
-  joinedAt: moment(Date.now()).calendar(),
-  teamMembersQuantity: 8,
-  workPackagesInProgress: 12,
-  workPackages: [
-    { name: "HMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-    { name: "BMC", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-    {
-      name: "Volvo",
-      tasksStatus: 0.5,
-      dueTo: moment(Date.now()).calendar(),
-    },
-    { name: "Daf", tasksStatus: 0.5, dueTo: moment(Date.now()).calendar() },
-    {
-      name: "Iveco",
-      tasksStatus: 0.5,
-      dueTo: moment(Date.now()).calendar(),
-    },
-  ],
-  statusOfWorkpackages: [160, 20, 10],
+
+  workPackages: [],
+  statusOfWorkpackages: [],
 };
 
 const initialState = {
@@ -55,6 +37,39 @@ const initialState = {
 const teamLeader = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_TEAM_LEADER_BOARD_INFO:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          name: payload.name,
+          surname: payload.surname,
+          team: payload.team,
+          role: payload.role,
+          teamMembersQuantity: payload.teamMembers,
+          joinedAt: payload.joinedAt,
+          unfinishedWorkPackages: payload.unfinishedWorkPackages,
+          supervisor: payload.supervisor,
+        },
+      };
+    case GET_TEAM_LEADER_BOARD_WORKPACKAGES:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          workPackages: payload.workPackages,
+        },
+      };
+
+    case GET_TEAM_LEADER_BOARD_GRAPH_DETAILS:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          statusOfWorkpackages: [payload, 10, 10],
+        },
+      };
+
     case GET_COLUMNS:
       return {
         ...state,
