@@ -9,10 +9,28 @@ import {
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-
-import "./Task.css";
 import TaskEdit from "./TaskEdit/TaskEdit";
 import TaskDetails from "./TaskDetails/TaskDetails";
+import styled from "styled-components";
+
+const StyledTask = styled(TableRow)`
+  background-color: #1e1f21;
+
+  & td {
+    background-color: #1e1f21;
+    color: #93c5fd;
+  }
+`;
+
+const StyledTaskActions = styled(TableCell)`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  & > button {
+    color: #93c5fd;
+  }
+`;
+
 const Task = ({
   name,
   duration,
@@ -44,11 +62,11 @@ const Task = ({
   };
 
   return (
-    <TableRow role="checkbox" tabIndex={-1} key={id} className="tasks__task">
+    <StyledTask role="checkbox" tabIndex={-1} key={id}>
       <TableCell>{name}</TableCell>
       <TableCell>{duration}h</TableCell>
       <TableCell>{status * 100}%</TableCell>
-      <TableCell className="tasks__actions">
+      <StyledTaskActions>
         <Tooltip title="Task Details" onClick={handleTaskDetailsOpen}>
           <IconButton aria-label="task details">
             <AssignmentIcon></AssignmentIcon>
@@ -84,8 +102,8 @@ const Task = ({
             <DeleteForeverIcon></DeleteForeverIcon>
           </IconButton>
         </Tooltip>
-      </TableCell>
-    </TableRow>
+      </StyledTaskActions>
+    </StyledTask>
   );
 };
 

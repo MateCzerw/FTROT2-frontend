@@ -7,10 +7,8 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
-
 import { useFormik } from "formik";
 import * as yup from "yup";
-import "./TaskAdd.css";
 
 const validationSchema = yup.object({
   name: yup
