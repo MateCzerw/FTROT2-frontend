@@ -3,17 +3,29 @@ import { createMuiTheme } from "@material-ui/core";
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00000033",
+      main: "#93c5fd",
     },
   },
 
   overrides: {
+    MuiCard: {
+      root: {
+        backgroundColor: "#424242",
+      },
+    },
+
     MuiDrawer: {
-      root: {},
+      root: {
+        "& .MuiDivider-root": {
+          marginTop: "5px",
+        },
+      },
       paper: {
         backgroundColor: "#303133",
-        width: "200px",
+        width: "240px",
         color: "#efefef",
+        padding: "0px",
+        marginTop: "0px",
 
         // "&:hover": {
         //   backgroundColor: "rgb(239, 239, 239, 0.4)",
@@ -22,7 +34,12 @@ export const theme = createMuiTheme({
     },
 
     MuiDivider: {
-      root: { backgroundColor: "#efefef" },
+      root: {
+        backgroundColor: "#efefef",
+        opacity: "0.6",
+        margin: "10px 0",
+        width: "100%",
+      },
     },
 
     MuiDialog: {
@@ -102,7 +119,12 @@ export const theme = createMuiTheme({
 
     MuiButton: {
       containedPrimary: {
+        backgroundColor: "#00000033",
         color: "#93c5fd",
+
+        "&:hover": {
+          color: "#000",
+        },
       },
     },
     MuiPaper: {
@@ -111,6 +133,50 @@ export const theme = createMuiTheme({
         color: "#efefef",
         padding: "10px",
         marginTop: "10px",
+      },
+    },
+    MuiAppBar: {
+      root: {},
+      colorPrimary: {
+        backgroundColor: "#3C3D3F",
+        paddingBottom: "0px",
+        paddingTop: "0px",
+      },
+    },
+
+    MuiTabs: {
+      indicator: {
+        backgroundColor: "#BB432C",
+      },
+    },
+
+    MuiTab: {
+      root: {
+        "& > .MuiTab-wrapper": {
+          color: "#c0c0c0",
+        },
+
+        "&.Mui-selected": {
+          backgroundColor: "#262729",
+        },
+      },
+    },
+
+    MuiToggleButtonGroup: {
+      root: {
+        backgroundColor: "#00000033",
+      },
+    },
+
+    MuiToggleButton: {
+      root: {
+        backgroundColor: "#262729",
+        color: "#efefef",
+
+        "&.Mui-selected": {
+          backgroundColor: "#414244",
+          color: "#efefef",
+        },
       },
     },
   },
