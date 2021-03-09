@@ -69,6 +69,13 @@ const StyledNotificationsIcon = styled(NotificationsIcon)`
   width: 30px;
 `;
 
+const StyledAvatar = styled(Avatar)`
+  margin-right: 8px;
+  object-fit: contain;
+  height: 30px;
+  width: 30px;
+`;
+
 const Header = ({ handleDrawerOpen, isDrawerOpen, handleLogOut }) => {
   return (
     <StyledHeader>
@@ -87,10 +94,7 @@ const Header = ({ handleDrawerOpen, isDrawerOpen, handleLogOut }) => {
         <StyledAppsIcon></StyledAppsIcon>
         <StyledNotificationsIcon></StyledNotificationsIcon>
         <Link to="/account">
-          <Avatar
-            src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-            className="header__icon"
-          ></Avatar>
+          <StyledAvatar src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"></StyledAvatar>
         </Link>
         <Button variant="contained" color="secondary" onClick={handleLogOut}>
           Logout

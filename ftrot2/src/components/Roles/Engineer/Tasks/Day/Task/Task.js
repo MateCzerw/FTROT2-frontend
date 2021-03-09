@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import DoneIcon from "@material-ui/icons/Done";
-import "./Task.css";
 import Action from "./Action/Action";
 import StopIcon from "@material-ui/icons/Stop";
 import InfoIcon from "@material-ui/icons/Info";
@@ -9,6 +8,37 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import TaskDetails from "./Action/TaskDetails";
 import CloseIcon from "@material-ui/icons/Close";
 import TaskStatusEdit from "./Action/TaskStatusEdit";
+import styled from "styled-components";
+
+const StyledTaskContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #1e1f21;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  color: #93c5fd;
+  opacity: ${(props) => (props.isDone ? "0.5" : "1")};
+`;
+
+const StyledTaskInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+  & b {
+    font-weight: bold;
+  }
+`;
+
+const StyledTaskActions = styled.div`
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: solid 1px #93c5fd;
+`;
+
 const Task = ({
   taskId,
   name,
@@ -46,16 +76,20 @@ const Task = ({
   };
 
   return (
-    <div
-      className={`engineer tasks task__container ${isDone === true && "done"}`}
-    >
-      <div className="engineer tasks task__info">
+    <StyledTaskContainer>
+      <StyledTaskInfo>
         <p>{name}</p>
-        <p>duration: {duration}h</p>
-        <p>status: {status * 100}%</p>
-        <p>workpackage: {workpackage}</p>
-      </div>
-      <div className="engineer tasks task__actions">
+        <p>
+          <b>duration:</b> {duration}h
+        </p>
+        <p>
+          <b>status:</b> {status * 100}%
+        </p>
+        <p>
+          <b>workpackage:</b> {workpackage}
+        </p>
+      </StyledTaskInfo>
+      <StyledTaskActions>
         <Action
           Icon={!isDone ? DoneIcon : CloseIcon}
           tooltip={!isDone ? "Done" : "Set undone"}
@@ -92,8 +126,8 @@ const Task = ({
             handleTaskDetailsClose={handleTaskDetailsClose}
           ></TaskDetails>
         )}
-      </div>
-    </div>
+      </StyledTaskActions>
+    </StyledTaskContainer>
   );
 };
 

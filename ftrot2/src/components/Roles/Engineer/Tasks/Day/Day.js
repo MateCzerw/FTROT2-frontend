@@ -1,14 +1,43 @@
 import React from "react";
-import "./Day.css";
+import styled from "styled-components";
 import Task from "./Task/Task";
+
+const StyledDayContainer = styled.div`
+  padding: 0 10px 10px 10px;
+  margin: 0 1.25vw;
+  min-width: 14vw;
+  height: 60vh;
+  background-color: #262729;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StyledDayInfo = styled.div`
+  background-color: #262729;
+  color: #c9c9c9;
+  position: sticky;
+  z-index: 999;
+  top: 0;
+`;
+const StyledDayName = styled.h2`
+  text-align: center;
+  padding: 10px;
+`;
+const StyledDayDate = styled.h2`
+  text-align: center;
+  padding: 10px;
+`;
 
 const Day = ({ dayName, date, tasks, actions, dayId }) => {
   return (
-    <div className="engineer tasks tasks__day">
-      <div className="engineer tasks tasks__dayInfo">
-        <h2 className="engineer tasks tasks__dayName">{dayName}</h2>
-        <h2 className="engineer tasks tasks__dayDate"> {date}</h2>
-      </div>
+    <StyledDayContainer>
+      <StyledDayInfo>
+        <StyledDayName>{dayName}</StyledDayName>
+        <StyledDayDate> {date}</StyledDayDate>
+      </StyledDayInfo>
       {tasks.map((task) => (
         <Task
           dayId={dayId}
@@ -23,7 +52,7 @@ const Day = ({ dayName, date, tasks, actions, dayId }) => {
           actions={actions}
         ></Task>
       ))}
-    </div>
+    </StyledDayContainer>
   );
 };
 

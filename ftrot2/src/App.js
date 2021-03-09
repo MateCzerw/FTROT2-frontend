@@ -37,7 +37,7 @@ const StyledApp = styled.div`
 const StyledAppBody = styled.div`
   background-color: #303133;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 58px);
 `;
 
 function App() {
