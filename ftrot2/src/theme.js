@@ -71,10 +71,11 @@ export const theme = createMuiTheme({
       root: {
         color: "#efefef",
         fontSize: "1.1rem",
-        "&.Mui-focused": {
-          // increase the specificity for the pseudo class
-          color: "rgb(239,239,239,1)",
-        },
+        marginLeft: "20px",
+        // "&.Mui-focused": {
+        //   // increase the specificity for the pseudo class
+        //   color: "rgb(239,239,239,1)",
+        // },
       },
     },
 
@@ -105,9 +106,14 @@ export const theme = createMuiTheme({
       root: {
         margin: "10px",
         color: "#efefef",
-        height: "2.2rem",
+        height: "3rem",
         fontSize: "1.1rem",
         backgroundColor: "rgba(0,0,0,0.1)",
+
+        "& .MuiInputBase-input": {
+          marginLeft: "10px",
+        },
+
         "&:hover": {
           backgroundColor: "#000",
         },

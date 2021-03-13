@@ -5,6 +5,7 @@ import {
   EDIT_WORKPACKAGE,
   DELETE_WORKPACKAGE,
   GET_WORKPACKAGES,
+  GET_LEAD_ENGINEERS,
   CLEAR_MESSAGE,
   SET_MESSAGE,
 } from "../types";
@@ -132,4 +133,20 @@ export const deleteWorkpackage = (id) => async (dispatch) => {
         payload: id,
       })
     );
+};
+
+export const getLeadEngineers = () => async (dispatch) => {
+  axios
+    .get(API_URL + "work-packages/lead-engineers", {
+      headers: authHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: GET_LEAD_ENGINEERS,
+        payload: data,
+      });
+    });
 };

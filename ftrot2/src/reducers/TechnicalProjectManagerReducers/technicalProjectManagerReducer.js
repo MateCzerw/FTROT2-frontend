@@ -6,6 +6,7 @@ import {
   EDIT_WORKPACKAGE,
   DELETE_WORKPACKAGE,
   GET_WORKPACKAGES,
+  GET_LEAD_ENGINEERS,
 } from "../../actions/types";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
     workPackages: [],
     statusOfWorkpackages: [],
   },
+  leadEngineers: [],
 };
 
 const technicalProjectManagerReducer = (state = initialState, action) => {
@@ -76,6 +78,12 @@ const technicalProjectManagerReducer = (state = initialState, action) => {
       return {
         ...state,
         workpackages: state.workpackages.filter((item) => item.id !== payload),
+      };
+
+    case GET_LEAD_ENGINEERS:
+      return {
+        ...state,
+        leadEngineers: payload,
       };
 
     default:

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getUserInfo } from "../../../../../actions/EngineerActions/boardActions";
 
 const StyledGrid = styled(Grid)`
-  min-height: 140px;
+  min-height: 90px;
 `;
 
 const StyledInfoColumn = styled(Grid)`

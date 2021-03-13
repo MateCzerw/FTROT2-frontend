@@ -87,7 +87,7 @@ const UserDetails = () => {
             <b>Finished workpackages:</b> {contentInfo.finishedWorkPackages}
           </p>
           <p>
-            <b>Unfinished workpackages:</b>
+            <b>Unfinished workpackages: </b>
             {contentInfo.unfinishedWorkPackages}
           </p>
         </StyledInfoColumn>

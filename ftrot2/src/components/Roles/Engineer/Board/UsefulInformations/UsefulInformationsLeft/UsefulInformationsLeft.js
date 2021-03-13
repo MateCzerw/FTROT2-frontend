@@ -16,9 +16,9 @@ const StyledContainer = styled.div`
 const StyledListOfTasks = styled.ul`
   height: 400px;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-evenly; */
 
   &::-webkit-scrollbar {
     display: none;
@@ -29,7 +29,7 @@ const StyledListOfTasks = styled.ul`
     color: white;
     position: relative;
     margin: 10px 0;
-    height: 200px;
+    height: 100px;
     list-style: none;
     width: 100%;
     font-weight: 700;
@@ -41,10 +41,10 @@ const StyledListOfTasks = styled.ul`
     }
 
     & > p {
-      position: absolute;
+      top: 25%;
       padding: 10px;
       width: 60%;
-      height: 100%;
+      position: absolute;
     }
 
     & > p:last-child {

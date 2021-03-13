@@ -66,11 +66,11 @@ const UsefulInformationsLeft = () => {
   }, []);
   return (
     <StyledContainer>
-      <h3>Upcoming work packages</h3>
+      <h3>Top5 work packages with closest deadline</h3>
       <StyledListOfTasks>
         {contentInfo.workPackages.map((workPackage) => (
           <li>
-            <div style={{ width: "50%" }}></div>
+            <div style={{ width: `${workPackage.status * 100}%` }}></div>
 
             <p>{workPackage.name}</p>
             <p>
