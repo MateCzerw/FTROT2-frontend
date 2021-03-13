@@ -2,6 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import moment from "moment";
 import { getUserTasks } from "../../../../../../actions/EngineerActions/boardActions";
 
 const StyledContainer = styled.div`
@@ -57,16 +58,22 @@ const StyledListOfTasks = styled.ul`
   }
 `;
 
+const getClosestWorkingDay = () => {
+  if (moment(Date.now()).isoWeekday() === 6)
+    return moment(Date.now()).subtract(1, "days").format("LL");
+  if (moment(Date.now()).isoWeekday() === 7)
+    return moment(Date.now()).subtract(2, "days").format("LL");
+
+  return moment(Date.now()).format("LL");
+};
+
 const UsefulInformationsLeft = () => {
   const contentInfo = useSelector((state) => state.engineer.userInfo);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      dispatch(getUserTasks()).then(setLoading(false));
-    }, 2000);
+    dispatch(getUserTasks());
   }, []);
 
   return (
@@ -76,7 +83,7 @@ const UsefulInformationsLeft = () => {
       )}
       {!loading && (
         <>
-          <h3>Tasks for 27.01.2021</h3>
+          <h3>{`Tasks for ${getClosestWorkingDay()}`}</h3>
           <StyledListOfTasks>
             {contentInfo.currentTasks?.map((task) => (
               <li>

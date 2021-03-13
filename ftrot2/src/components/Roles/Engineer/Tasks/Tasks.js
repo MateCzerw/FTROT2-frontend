@@ -4,7 +4,9 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ChangeTaskStatusAction,
-  getWeekWithTasks,
+  getCurrentWeekWithTasks,
+  getNextWeekWithTasks,
+  getPreviousWeekWithTasks,
   setTaskDoneAction,
   setTaskOnHold,
 } from "../../../../actions/EngineerActions/tasksActions";
@@ -73,15 +75,17 @@ const Tasks = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getWeekWithTasks(1, 2021));
+    dispatch(getCurrentWeekWithTasks());
   }, []);
 
   const handleGetNextWeek = () => {
-    dispatch(getWeekWithTasks(schedule.weekNumber + 1, schedule.yearNumber));
+    dispatch(getNextWeekWithTasks(schedule.weekNumber, schedule.yearNumber));
   };
 
   const handleGetPreviousWeek = () => {
-    dispatch(getWeekWithTasks(schedule.weekNumber - 1, schedule.yearNumber));
+    dispatch(
+      getPreviousWeekWithTasks(schedule.weekNumber, schedule.yearNumber)
+    );
   };
 
   const setDoneStatus = (dayId, taskId) => {

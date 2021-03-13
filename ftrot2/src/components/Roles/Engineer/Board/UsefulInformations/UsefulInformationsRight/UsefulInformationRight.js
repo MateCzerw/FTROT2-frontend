@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
+import moment from "moment";
 import styled from "styled-components";
 import { getGraphDetails } from "../../../../../../actions/EngineerActions/boardActions";
 
@@ -32,11 +33,11 @@ const UsefulInformationRight = () => {
 
   useEffect(() => {
     setLoading(true);
-    dispatch(getGraphDetails(1, 2021)).finally(setLoading(false));
+    dispatch(getGraphDetails()).finally(setLoading(false));
   }, []);
   return (
     <StyledDoughnutContainer>
-      <h3>Work in CW01</h3>
+      <h3>{`Work in CW${moment(Date.now()).isoWeek()}`}</h3>
       <div>
         <Doughnut
           data={{

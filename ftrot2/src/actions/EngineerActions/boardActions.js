@@ -79,11 +79,10 @@ export const getUserTasks = () => async (dispatch) => {
     });
 };
 
-export const getGraphDetails = (weekNumber, yearNumber) => async (dispatch) => {
+export const getGraphDetails = () => async (dispatch) => {
   axios
     .get(API_URL + "graph-details", {
       headers: authHeader(),
-      params: { weekNumber, yearNumber },
     })
     .then((response) => {
       return response.data;
