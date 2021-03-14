@@ -28,6 +28,10 @@ const StyledTextArea = styled(TextField)`
   & .MuiInputBase-root {
     height: 8rem;
   }
+
+  & .MuiInputBase-input {
+    height: 6rem;
+  }
 `;
 
 const validationSchema = yup.object({
@@ -127,7 +131,7 @@ const WorkpackageAdd = ({
               {leadEngineers.map((leadEngineer) => {
                 return (
                   <MenuItem value={leadEngineer.username}>
-                    {leadEngineer.username}
+                    {`${leadEngineer.name} ${leadEngineer.surname}`}
                   </MenuItem>
                 );
               })}

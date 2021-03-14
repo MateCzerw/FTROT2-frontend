@@ -56,7 +56,12 @@ export const createWorkpackage = (workpackage) => async (dispatch) => {
     .then((data) => {
       dispatch({
         type: CREATE_WORKPACKAGE,
-        payload: data,
+        payload: {
+          ...data,
+          tasksQuantity: 0,
+          finishedTasks: 0,
+          predictedFinish: "+999999999-12-31",
+        },
       });
 
       dispatch({

@@ -8,7 +8,7 @@ import {
   TextareaAutosize,
   Select,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Dialog from "@material-ui/core/Dialog";
@@ -16,6 +16,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import {} from "@material-ui/core";
+import { getLeadEngineers } from "../../../../../../actions/TechnicalProjectManagerActions/workpackagesActions";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 const validationSchema = yup.object({
   name: yup
@@ -33,7 +36,12 @@ const validationSchema = yup.object({
   deadline: yup.date("Enter date format").required("Team is required"),
 });
 
-const leadEngineers = ["user3"];
+const StyledTextArea = styled(TextField)`
+  & .MuiInputBase-root {
+    height: 8rem;
+  }
+`;
+
 const teams = ["DLSC1"];
 
 const WorkpackageEdit = ({
@@ -42,10 +50,27 @@ const WorkpackageEdit = ({
   isWorkpackageEditOpen,
   id,
 }) => {
+  const dispatch = useDispatch();
+  const leadEngineers = useSelector(
+    (state) => state.technicalProjectManager.leadEngineers
+  );
+  const workpackage = useSelector((state) =>
+    state.technicalProjectManager.workpackages.find(
+      (workpackage) => workpackage.id === id
+    )
+  );
+
+  useEffect(() => {
+    dispatch(getLeadEngineers());
+  }, []);
+
   const formik = useFormik({
     initialValues: {
-      // email: "foobar@example.com",
-      // password: "foobar",
+      name: workpackage?.name,
+      description: workpackage?.description,
+      leadEngineerUsername: workpackage?.leadEngineerUsername,
+      teamName: "DLSC1",
+      deadline: workpackage?.deadline,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -66,33 +91,9 @@ const WorkpackageEdit = ({
           id="customized-dialog-title"
           onClose={handleWorkpackageEditClose}
         >
-          Modal title
+          Edit work package
         </DialogTitle>
         <DialogContent dividers>
-          {/* <TextField
-                  fullWidth
-                  id="email"
-                  name="email"
-                  label="Email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
-                />
-                <TextField
-                  fullWidth
-                  id="password"
-                  name="password"
-                  label="Password"
-                  type="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                /> */}
-
           <TextField
             fullWidth
             id="name"
@@ -105,14 +106,14 @@ const WorkpackageEdit = ({
             helperText={formik.touched.name && formik.errors.name}
           />
 
-          <TextField
+          <StyledTextArea
             fullWidth
             id="description"
             name="description"
             label="description"
             type="textarea"
             multiline
-            rows={2}
+            rows={5}
             value={formik.values.description}
             onChange={formik.handleChange}
             error={
@@ -130,16 +131,13 @@ const WorkpackageEdit = ({
               fullWidth
               onChange={formik.handleChange}
             >
-              {leadEngineers.map((leadEngineerUsername) => {
+              {leadEngineers.map((leadEngineer) => {
                 return (
-                  <MenuItem value={leadEngineerUsername}>
-                    {leadEngineerUsername}
+                  <MenuItem value={leadEngineer.username}>
+                    {`${leadEngineer.name} ${leadEngineer.surname}`}
                   </MenuItem>
                 );
               })}
-              {/* <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
             {formik.touched.leadEngineerUsername &&
               Boolean(formik.errors.leadEngineerUsername) && (
@@ -161,9 +159,6 @@ const WorkpackageEdit = ({
               {teams.map((team) => {
                 return <MenuItem value={team}>{team}</MenuItem>;
               })}
-              {/* <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
             {formik.touched.teamName && Boolean(formik.errors.teamName) && (
               <FormHelperText>{formik.touched.teamName}</FormHelperText>
