@@ -85,7 +85,6 @@ const Workpackage = ({
   description,
   handleWorkpackageDelete,
   handleWorkpackageEdit,
-  tasks,
 }) => {
   const [isWorkpackageEditOpen, setIsWorkpackageEditOpen] = useState(false);
   const [isWorkpackageDetailsOpen, setIsWorkpackageDetailsOpen] = useState(
@@ -139,7 +138,7 @@ const Workpackage = ({
         <WorkpackageDetails
           handleWorkpackageDetailsClose={handleWorkpackageDetailsClose}
           isWorkpackageDetailsOpen={isWorkpackageDetailsOpen}
-          tasks={tasks}
+          id={id}
         />
         <Button
           variant="contained"
