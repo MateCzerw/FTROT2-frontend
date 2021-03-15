@@ -81,6 +81,7 @@ const Workpackage = ({
   tasksQuantity,
   finishedTasks,
   deadline,
+  tasks,
   predictedFinish,
   description,
   handleWorkpackageDelete,

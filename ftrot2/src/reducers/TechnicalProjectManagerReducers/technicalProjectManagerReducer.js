@@ -70,7 +70,11 @@ const technicalProjectManagerReducer = (state = initialState, action) => {
       return {
         ...state,
         workpackages: state.workpackages.map((item) => {
-          if (item.id === payload.id) return payload.workpackage;
+          if (item.id === payload.id)
+            return {
+              ...item,
+              ...payload.workpackageEditedValues,
+            };
           else return item;
         }),
       };

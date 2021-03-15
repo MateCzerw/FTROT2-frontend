@@ -61,6 +61,7 @@ export const createWorkpackage = (workpackage) => async (dispatch) => {
           tasksQuantity: 0,
           finishedTasks: 0,
           predictedFinish: "+999999999-12-31",
+          tasks: [],
         },
       });
 
@@ -87,9 +88,11 @@ export const createWorkpackage = (workpackage) => async (dispatch) => {
     });
 };
 
-export const editWorkpackage = (id, workpackage) => async (dispatch) => {
+export const editWorkpackage = (id, workpackageEditedValues) => async (
+  dispatch
+) => {
   axios
-    .put(API_URL + "work-packages/" + id, workpackage, {
+    .put(API_URL + "work-packages/" + id, workpackageEditedValues, {
       headers: authHeader(),
     })
     .then((response) => {
@@ -100,7 +103,7 @@ export const editWorkpackage = (id, workpackage) => async (dispatch) => {
         type: EDIT_WORKPACKAGE,
         payload: {
           id,
-          workpackage,
+          workpackageEditedValues,
         },
       });
 
