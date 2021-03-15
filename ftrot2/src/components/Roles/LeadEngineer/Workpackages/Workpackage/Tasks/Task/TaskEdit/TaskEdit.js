@@ -7,9 +7,19 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
-
+import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+const StyledTextArea = styled(TextField)`
+  & .MuiInputBase-root {
+    height: 8rem;
+  }
+
+  & .MuiInputBase-input {
+    height: 6rem;
+  }
+`;
 
 const validationSchema = yup.object({
   name: yup
@@ -60,7 +70,7 @@ const TaskEdit = ({
     >
       <form onSubmit={formik.handleSubmit}>
         <DialogTitle id="customized-dialog-title" onClose={handleTaskEditClose}>
-          Modal title
+          Edit task - {name}
         </DialogTitle>
         <DialogContent dividers>
           <TextField
@@ -74,7 +84,7 @@ const TaskEdit = ({
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
           />
-          <TextField
+          <StyledTextArea
             fullWidth
             multiline
             rows={3}

@@ -73,8 +73,7 @@ const UserDetails = () => {
             <b>Team:</b> {contentInfo.team}
           </p>
           <p>
-            <b>Supervisor:</b>
-            {contentInfo.supervisor}
+            <b>Supervisor:</b> {contentInfo.supervisor}
           </p>
         </StyledInfoColumn>
         <StyledInfoColumn
@@ -90,8 +89,7 @@ const UserDetails = () => {
             <b>Finished workpackages:</b> {contentInfo.finishedWorkPackages}
           </p>
           <p>
-            <b>Unfinished workpackages:</b>
-            {contentInfo.unfinishedWorkPackages}
+            <b>Unfinished workpackages:</b> {contentInfo.unfinishedWorkPackages}
           </p>
         </StyledInfoColumn>
       </Grid>

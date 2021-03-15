@@ -49,7 +49,7 @@ const Workpackages = () => {
             name,
             tasksQuantity,
             finishedTasks,
-            pid,
+            status,
             deadline,
             predictedFinish,
             description,
@@ -58,7 +58,7 @@ const Workpackages = () => {
           return (
             <Workpackage
               id={id}
-              pid={pid}
+              status={status}
               name={name}
               tasksQuantity={tasksQuantity}
               finishedTasks={finishedTasks}

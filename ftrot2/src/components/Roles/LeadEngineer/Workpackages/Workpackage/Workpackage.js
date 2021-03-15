@@ -67,7 +67,7 @@ const Workpackage = ({
   id,
   name,
   finishedTasks,
-  pid,
+  status,
   deadline,
   predictedFinish,
   description,
@@ -109,10 +109,10 @@ const Workpackage = ({
         <StyledWorkPackageInfo>
           <h3>{name}</h3>
           <h4>
-            <b>PID:</b> {pid}
+            <b>Status:</b> {status * 100}%
           </h4>
           <h4>
-            <b>finished</b> tasks: {finishedTasks}
+            <b>finished tasks:</b> {finishedTasks}
           </h4>
           <h4>
             <b>Due to:</b> {deadline}
