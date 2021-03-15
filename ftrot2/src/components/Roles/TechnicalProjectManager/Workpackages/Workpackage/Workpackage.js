@@ -81,7 +81,7 @@ const Workpackage = ({
   tasksQuantity,
   finishedTasks,
   deadline,
-  tasks,
+  status,
   predictedFinish,
   description,
   handleWorkpackageDelete,
@@ -119,6 +119,9 @@ const Workpackage = ({
         </StyledWorkPackageInfo>
         <StyledWorkPackageInfo>
           <b>Due to: </b> {deadline}
+        </StyledWorkPackageInfo>
+        <StyledWorkPackageInfo>
+          <b>Status: </b> {status}
         </StyledWorkPackageInfo>
         <StyledWorkPackageInfo>
           <b>Predicted due to: </b> {predictedFinish}

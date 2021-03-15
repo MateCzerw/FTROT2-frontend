@@ -101,7 +101,7 @@ const Workpackages = () => {
             <Workpackage
               id={workpackage.id}
               name={workpackage.name}
-              tasks={workpackage.tasks}
+              status={workpackage.status * 100 + "%"}
               tasksQuantity={workpackage.tasksQuantity}
               finishedTasks={workpackage.finishedTasks}
               deadline={workpackage.deadline}
