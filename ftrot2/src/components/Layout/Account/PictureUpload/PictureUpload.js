@@ -47,7 +47,7 @@ const PictureUpload = () => {
           // );
         }}
         validationSchema={validationSchema}
-        render={({ values, handleSubmit, setFieldValue }) => {
+        render={({ values, handleSubmit, setFieldValue, errors, touched }) => {
           return (
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -60,6 +60,7 @@ const PictureUpload = () => {
                   }}
                   className="form-control"
                 />
+                <p>{errors.file}</p>
               </div>
               <button type="submit" className="btn btn-primary">
                 submit
