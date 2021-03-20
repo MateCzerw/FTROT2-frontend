@@ -9,6 +9,7 @@ import {
   GET_USER_TASKS,
   GET_USER_WEEK,
   GET_USER_GRAPH_DETAILS,
+  UPLOAD_PICTURE,
 } from "../../actions/types";
 
 const userInfo = {
@@ -18,7 +19,7 @@ const userInfo = {
   role: "Lead Eangineer",
   supervisor: "Wojciech Zabiegło",
   joinedAt: moment(Date.now()).calendar(),
-  picture: "",
+  pictureUrl: "",
   reworkRatio: 0.05,
   unfinishedTasks: 10,
   currentTasks: [],
@@ -26,7 +27,9 @@ const userInfo = {
 
 const initialState = {
   schedule: {},
-  userInfo: {},
+  userInfo: {
+    pictureUrl: "",
+  },
   reworkHours: [5, 6, 7, 8, 5, 4, 3, 2, 5, 9, 12, 11],
   statusOfWorkInCurrentWeek: [0, 40, 0],
 };
@@ -47,6 +50,15 @@ const engineerReducer = (state = initialState, action) => {
           joinedAt: payload.joinedAt,
           reworkRatio: payload.reworkRatio,
           unfinishedTasks: payload.unfinishedTasks,
+          pictureUrl: payload.pictureUrl,
+        },
+      };
+    case UPLOAD_PICTURE:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          pictureUrl: payload,
         },
       };
 

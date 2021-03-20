@@ -3,6 +3,10 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import { Formik, useFormik } from "formik";
+import axios from "axios";
+import authHeader from "../../../../services/auth-header";
+import { uploadPicture } from "../../../../actions/AccountActions/accountActions";
+import { useDispatch } from "react-redux";
 
 const StyledImage = styled.img`
   height: 500px;
@@ -28,23 +32,13 @@ const validationSchema = yup.object().shape({
 });
 
 const PictureUpload = () => {
+  const dispatch = useDispatch();
   return (
     <StyledPaper>
       <Formik
         initialValues={{ file: null }}
         onSubmit={(values) => {
-          console.log(values);
-          // alert(
-          //   JSON.stringify(
-          //     {
-          //       fileName: values.file.name,
-          //       type: values.file.type,
-          //       size: `${values.file.size} bytes`,
-          //     },
-          //     null,
-          //     2
-          //   )
-          // );
+          dispatch(uploadPicture(values.file));
         }}
         validationSchema={validationSchema}
         render={({ values, handleSubmit, setFieldValue, errors, touched }) => {

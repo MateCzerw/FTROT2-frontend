@@ -12,11 +12,11 @@ import {
   GET_TEAM_LEADER_BOARD_INFO,
   GET_TEAM_LEADER_BOARD_WORKPACKAGES,
   GET_WEEK_WITH_TASKS_FOR_TEAM_LEADER,
+  UPLOAD_PICTURE,
 } from "../../actions/types";
 
 const userInfo = {
-  picture:
-    "https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo",
+  pictureUrl: "",
 
   workPackages: [],
   statusOfWorkpackages: [],
@@ -31,7 +31,9 @@ const initialState = {
       },
     ],
   },
-  userInfo,
+  userInfo: {
+    pictureUrl: "",
+  },
 };
 
 const teamLeader = (state = initialState, action) => {
@@ -50,6 +52,16 @@ const teamLeader = (state = initialState, action) => {
           joinedAt: payload.joinedAt,
           unfinishedWorkPackages: payload.unfinishedWorkPackages,
           supervisor: payload.supervisor,
+          pictureUrl: payload.pictureUrl,
+        },
+      };
+
+    case UPLOAD_PICTURE:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          pictureUrl: payload,
         },
       };
     case GET_TEAM_LEADER_BOARD_WORKPACKAGES:

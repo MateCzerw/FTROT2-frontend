@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@material-ui/core";
+import { Avatar, Grid, Paper } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -12,6 +12,12 @@ const StyledInfoColumn = styled(Grid)`
   }
 `;
 
+const StyledGenericAvatar = styled(Avatar)`
+  height: 100px;
+  width: 100px;
+  border-radius: 5px;
+`;
+
 const UserDetails = () => {
   const contentInfo = useSelector((state) => state.leadEngineer.userInfo);
   const dispatch = useDispatch();
@@ -22,10 +28,11 @@ const UserDetails = () => {
   return (
     <Grid container spacing={4} justify="space-between">
       <Grid item xs={4} md={1}>
-        <img
-          src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-          alt="Mateusz Czerwiński"
-        ></img>
+        {contentInfo.pictureUrl ? (
+          <img src={contentInfo.pictureUrl} alt="User"></img>
+        ) : (
+          <StyledGenericAvatar variant="square" />
+        )}
       </Grid>
       <Grid item container xs={8} md={11} justify="space-around">
         <StyledInfoColumn
