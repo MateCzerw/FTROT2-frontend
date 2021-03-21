@@ -1,48 +1,91 @@
 import React, { useEffect, useState } from "react";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { Backdrop, CircularProgress } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ChangeTaskStatusAction,
-  getWeekWithTasks,
+  getCurrentWeekWithTasks,
+  getNextWeekWithTasks,
+  getPreviousWeekWithTasks,
   setTaskDoneAction,
   setTaskOnHold,
 } from "../../../../actions/EngineerActions/tasksActions";
-import "./Tasks.css";
 import Day from "./Day/Day";
 import styled from "styled-components";
 
-const StyledBackdrop = styled(Backdrop)`
-  z-index: 999;
-  position: absolute;
+const StyledBackground = styled.div`
+  display: flex;
+  min-height: inherit;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #efefef;
+`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 80vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const StyledWeekNumber = styled.h2`
+  margin-bottom: 35px;
+  background-color: #1d1d1f;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+
+  & > b {
+    color: #b0b0b0;
+    font-weight: bolder;
+  }
+`;
+
+const StyledWeekContainer = styled.div`
+  display: flex;
+`;
+
+const StyledNavigateArrow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > .MuiSvgIcon-root {
+    height: 100px;
+    width: auto;
+    transition: transform 0.2s ease-in;
+  }
+
+  & > .MuiSvgIcon-root:hover {
+    height: 100px;
+    width: auto;
+    color: #b0b0b0;
+    transform: scale(1.07);
+    cursor: pointer;
+  }
 `;
 
 const Tasks = () => {
   const [loading, setLoading] = useState(false);
-  const scheduleFromSelector = useSelector((state) => state.engineer.schedule);
-  const schedule = JSON.parse(JSON.stringify(scheduleFromSelector));
+  const schedule = useSelector((state) => state.engineer.schedule);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    dispatch(getWeekWithTasks(1, 2021))
-      .then(setTimeout(() => {}, 3000))
-      .finally(setLoading(false));
+    dispatch(getCurrentWeekWithTasks());
   }, []);
 
   const handleGetNextWeek = () => {
-    setLoading(true);
-    dispatch(getWeekWithTasks(schedule.weekNumber + 1, schedule.yearNumber))
-      .then(setTimeout(() => {}, 3000))
-      .finally(setLoading(false));
+    dispatch(getNextWeekWithTasks(schedule.weekNumber, schedule.yearNumber));
   };
 
   const handleGetPreviousWeek = () => {
-    setLoading(true);
-    dispatch(getWeekWithTasks(schedule.weekNumber - 1, schedule.yearNumber))
-      .then(setTimeout(() => {}, 3000))
-      .finally(setLoading(false));
+    dispatch(
+      getPreviousWeekWithTasks(schedule.weekNumber, schedule.yearNumber)
+    );
   };
 
   const setDoneStatus = (dayId, taskId) => {
@@ -67,21 +110,18 @@ const Tasks = () => {
   // actions.setDoneStatus();
 
   return (
-    <div className="engineer tasks tasks__background">
-      <StyledBackdrop open={loading}>
-        <CircularProgress color="primary" size={200} />
-      </StyledBackdrop>
-      <div className="engineer tasks tasks__container">
-        <h2 className="engineer tasks tasks__weekTitle">
+    <StyledBackground>
+      <StyledContainer>
+        <StyledWeekNumber>
           <b>Week</b> - {schedule.weekNumber}
           <b> Year</b> - {schedule.yearNumber}
-        </h2>
-        <div className="engineer tasks tasks__week">
-          <div className="engineer tasks tasks__arrow">
+        </StyledWeekNumber>
+        <StyledWeekContainer>
+          <StyledNavigateArrow>
             <NavigateBeforeIcon
               onClick={handleGetPreviousWeek}
             ></NavigateBeforeIcon>
-          </div>
+          </StyledNavigateArrow>
           {schedule.days?.map((day) => (
             <Day
               dayId={day.id}
@@ -92,12 +132,12 @@ const Tasks = () => {
               key={day.id}
             ></Day>
           ))}
-          <div className="engineer tasks tasks__arrow">
+          <StyledNavigateArrow>
             <NavigateNextIcon onClick={handleGetNextWeek}></NavigateNextIcon>
-          </div>
-        </div>
-      </div>
-    </div>
+          </StyledNavigateArrow>
+        </StyledWeekContainer>
+      </StyledContainer>
+    </StyledBackground>
   );
 };
 

@@ -1,9 +1,6 @@
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
-import "./Workpackage.css";
-
 import Tasks from "./Tasks/Tasks";
-import { uuid } from "uuidv4";
 import TaskAdd from "./TaskAdd/TaskAdd";
 import {
   addTaskAction,
@@ -12,12 +9,65 @@ import {
 } from "../../../../../actions/LeadEngineerActions/workpackageActions";
 import { useDispatch } from "react-redux";
 import moment from "moment";
+import styled from "styled-components";
+
+const StyledWorkPackageContainer = styled.div`
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #262729;
+`;
+
+const StyledWorkPackageDetails = styled.div`
+  display: flex;
+`;
+
+const StyledWorkPackageInfo = styled.div`
+  flex: 0.3;
+  padding: 10px;
+
+  & b {
+    color: #b0b0b0;
+    font-weight: bold;
+  }
+`;
+
+const StyledWorkPackageDescription = styled.div`
+  flex: 0.7;
+  padding: 10px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > p {
+    margin-top: 10px;
+  }
+
+  & > h3 {
+    color: #b0b0b0;
+  }
+`;
+
+const StyledWorkPackageTasks = styled.div`
+  padding: 10px;
+  flex-direction: column;
+
+  & > button {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #1e1f21;
+    color: #93c5fd;
+  }
+`;
 
 const Workpackage = ({
   id,
   name,
   finishedTasks,
-  pid,
+  status,
   deadline,
   predictedFinish,
   description,
@@ -54,15 +104,15 @@ const Workpackage = ({
   };
 
   return (
-    <div className="leadEngineer workpackage">
-      <div className="leadEngineer workpackage__details">
-        <div className="leadEngineer workpackage__info">
+    <StyledWorkPackageContainer>
+      <StyledWorkPackageDetails>
+        <StyledWorkPackageInfo>
           <h3>{name}</h3>
           <h4>
-            <b>PID:</b> {pid}
+            <b>Status:</b> {status * 100}%
           </h4>
           <h4>
-            <b>finished</b> tasks: {finishedTasks}
+            <b>finished tasks:</b> {finishedTasks}
           </h4>
           <h4>
             <b>Due to:</b> {deadline}
@@ -70,15 +120,15 @@ const Workpackage = ({
           <h4>
             <b>Predicted due to:</b> {predictedFinish}
           </h4>
-        </div>
-        <div className="leadEngineer workpackage__description">
+        </StyledWorkPackageInfo>
+        <StyledWorkPackageDescription>
           <h3>Description:</h3>
           <p className="leadEngineer workpackage__descriptionText">
             {description}
           </p>
-        </div>
-      </div>
-      <div className="leadEngineer workpackage__tasks">
+        </StyledWorkPackageDescription>
+      </StyledWorkPackageDetails>
+      <StyledWorkPackageTasks>
         <Tasks
           tasks={tasks}
           handleTaskDelete={handleTaskDelete}
@@ -92,8 +142,8 @@ const Workpackage = ({
           handleTaskAddClose={handleTaskAddClose}
           handleTaskAdd={handleTaskAdd}
         />
-      </div>
-    </div>
+      </StyledWorkPackageTasks>
+    </StyledWorkPackageContainer>
   );
 };
 

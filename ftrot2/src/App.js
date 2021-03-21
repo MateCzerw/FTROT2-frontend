@@ -1,4 +1,4 @@
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -6,7 +6,7 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-import "./App.css";
+
 import EngineerBoard from "./components/Roles/Engineer/Board/EngineerBoard";
 import Header from "./components/Layout/Header/Header";
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
@@ -27,6 +27,18 @@ import Login from "./components/Layout/Login/Login";
 import { theme } from "./theme";
 import Register from "./components/Layout/Register/Register";
 import { logout } from "./actions/auth";
+import styled from "styled-components";
+
+const StyledApp = styled.div`
+  height: 100%;
+  width: 100%;
+`;
+
+const StyledAppBody = styled.div`
+  background-color: #303133;
+  width: 100%;
+  min-height: calc(100vh - 58px);
+`;
 
 function App() {
   // const [isLogged, setIsLogged] = useState(true);
@@ -83,7 +95,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider injectFirst>
-        <div className="app">
+        <StyledApp>
           {currentUser && (
             <Header
               handleDrawerOpen={handleSidebarOpen}
@@ -142,7 +154,7 @@ function App() {
             )}
           </Switch>
 
-          <div className="app__body">
+          <StyledAppBody>
             <Switch>
               <Route path="/login" exact component={Login}></Route>
               <Route path="/register" exact component={Register}></Route>
@@ -208,8 +220,8 @@ function App() {
                 </>
               )}
             </Switch>
-          </div>
-        </div>
+          </StyledAppBody>
+        </StyledApp>
       </StylesProvider>
     </ThemeProvider>
   );

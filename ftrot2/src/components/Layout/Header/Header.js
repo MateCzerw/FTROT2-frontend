@@ -1,101 +1,106 @@
 import { Button, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import BallotIcon from "@material-ui/icons/Ballot";
 import React, { useState } from "react";
 import AppsIcon from "@material-ui/icons/Apps";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
-import "./Header.css";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import styled from "styled-components";
 
-const options = [
-  { role: "Engineer", link: "/engineer/board" },
-  {
-    role: "Technical Project Manager",
-    link: "/technical-project-manager/board",
-  },
-  { role: "Lead Engineer", link: "/lead-engineer/board" },
-  { role: "Team Leader", link: "/team-leader/board" },
-];
+const StyledHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #27272a;
+  color: #fff;
+  width: 100%;
+  min-height: 58px;
+`;
+
+const StyledPlug = styled.header`
+  width: 48px;
+  height: 100%;
+`;
+
+const StyledHeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  transform: ${(props) =>
+    props.isDrawerOpen ? "translateX(160px)" : "translateX(0px)"};
+`;
+
+const StyledIconButton = styled(IconButton)`
+  color: white;
+  &:hover {
+    background-color: #c0c0c0;
+  }
+`;
+
+const StyledHeaderTitle = styled.div`
+  & > h1 {
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+const StyledHeaderIcons = styled.div`
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const StyledAppsIcon = styled(AppsIcon)`
+  margin-right: 8px;
+  object-fit: contain;
+  height: 30px;
+  width: 30px;
+`;
+
+const StyledNotificationsIcon = styled(NotificationsIcon)`
+  margin-right: 8px;
+  object-fit: contain;
+  height: 30px;
+  width: 30px;
+`;
+
+const StyledAvatar = styled(Avatar)`
+  margin-right: 8px;
+  object-fit: contain;
+  height: 30px;
+  width: 30px;
+`;
 
 const Header = ({ handleDrawerOpen, isDrawerOpen, handleLogOut }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    console.log(event.currentTarget);
-  };
-
-  const handleRoleClick = (index) => {
-    setSelectedIndex(index);
-    handleClose();
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
-    <header className="header">
-      <div className={`header__left${isDrawerOpen ? " active" : ""}`}>
+    <StyledHeader>
+      <StyledHeaderLeft isDrawerOpen={isDrawerOpen}>
         {!isDrawerOpen && (
-          <IconButton className="header__menu" onClick={handleDrawerOpen}>
+          <StyledIconButton onClick={handleDrawerOpen}>
             <MenuIcon></MenuIcon>
-          </IconButton>
+          </StyledIconButton>
         )}
-        {isDrawerOpen && <div className="header__plug"></div>}
-
-        <div className="header__functionButton">
-          <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            variant="contained"
-            color="default"
-            onClick={handleClick}
-          >
-            {options[selectedIndex].role}
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                component={Link}
-                to={option.link}
-                key={index}
-                selected={index === selectedIndex}
-                onClick={() => handleRoleClick(index)}
-              >
-                {option.role}
-              </MenuItem>
-            ))}
-          </Menu>
-        </div>
-      </div>
-      <div className="header__title">
+        {isDrawerOpen && <StyledPlug></StyledPlug>}
+      </StyledHeaderLeft>
+      <StyledHeaderTitle>
         <h1>First Time Right On Time</h1>
-      </div>
-      <div className="header__icons">
-        <AppsIcon className="header__icon"></AppsIcon>
-        <NotificationsIcon className="header__icon"></NotificationsIcon>
+      </StyledHeaderTitle>
+      <StyledHeaderIcons>
+        <StyledAppsIcon></StyledAppsIcon>
+        <StyledNotificationsIcon></StyledNotificationsIcon>
         <Link to="/account">
-          <Avatar
-            src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"
-            className="header__icon"
-          ></Avatar>
+          <StyledAvatar src="https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo"></StyledAvatar>
         </Link>
         <Button variant="contained" color="secondary" onClick={handleLogOut}>
           Logout
         </Button>
-      </div>
-    </header>
+      </StyledHeaderIcons>
+    </StyledHeader>
   );
 };
 

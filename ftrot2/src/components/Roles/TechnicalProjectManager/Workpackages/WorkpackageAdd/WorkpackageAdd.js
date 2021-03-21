@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   FormControl,
@@ -19,7 +19,20 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextField from "@material-ui/core/TextField";
+import styled from "styled-components";
 import Select from "@material-ui/core/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { getLeadEngineers } from "../../../../../actions/TechnicalProjectManagerActions/workpackagesActions";
+
+const StyledTextArea = styled(TextField)`
+  & .MuiInputBase-root {
+    height: 8rem;
+  }
+
+  & .MuiInputBase-input {
+    height: 6rem;
+  }
+`;
 
 const validationSchema = yup.object({
   name: yup
@@ -37,7 +50,6 @@ const validationSchema = yup.object({
   deadline: yup.date("Enter date format").required("Team is required"),
 });
 
-const leadEngineers = ["user3"];
 const teams = ["DLSC1"];
 
 const WorkpackageAdd = ({
@@ -45,6 +57,15 @@ const WorkpackageAdd = ({
   handleAddWorkPackageClose,
   addWorkPackage,
 }) => {
+  const dispatch = useDispatch();
+  const leadEngineers = useSelector(
+    (state) => state.technicalProjectManager.leadEngineers
+  );
+
+  useEffect(() => {
+    dispatch(getLeadEngineers());
+  }, []);
+
   const formik = useFormik({
     initialValues: {},
     validationSchema: validationSchema,
@@ -67,33 +88,9 @@ const WorkpackageAdd = ({
           id="customized-dialog-title"
           onClose={handleAddWorkPackageClose}
         >
-          Modal title
+          Add new work package
         </DialogTitle>
         <DialogContent dividers>
-          {/* <TextField
-                  fullWidth
-                  id="email"
-                  name="email"
-                  label="Email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
-                />
-                <TextField
-                  fullWidth
-                  id="password"
-                  name="password"
-                  label="Password"
-                  type="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                /> */}
-
           <TextField
             fullWidth
             id="name"
@@ -106,14 +103,14 @@ const WorkpackageAdd = ({
             helperText={formik.touched.name && formik.errors.name}
           />
 
-          <TextField
+          <StyledTextArea
             fullWidth
             id="description"
             name="description"
             label="description"
             type="textarea"
             multiline
-            rows={2}
+            rows={5}
             value={formik.values.description}
             onChange={formik.handleChange}
             error={
@@ -131,16 +128,13 @@ const WorkpackageAdd = ({
               fullWidth
               onChange={formik.handleChange}
             >
-              {leadEngineers.map((leadEngineerUsername) => {
+              {leadEngineers.map((leadEngineer) => {
                 return (
-                  <MenuItem value={leadEngineerUsername}>
-                    {leadEngineerUsername}
+                  <MenuItem value={leadEngineer.username}>
+                    {`${leadEngineer.name} ${leadEngineer.surname}`}
                   </MenuItem>
                 );
               })}
-              {/* <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
             {formik.touched.leadEngineerUsername &&
               Boolean(formik.errors.leadEngineerUsername) && (

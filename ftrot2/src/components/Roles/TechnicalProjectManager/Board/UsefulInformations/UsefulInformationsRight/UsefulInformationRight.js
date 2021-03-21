@@ -24,7 +24,9 @@ const StyledDoughnutContainer = styled.div`
 `;
 
 const UsefulInformationRight = () => {
-  const contentInfo = useSelector((state) => state.leadEngineer.userInfo);
+  const contentInfo = useSelector(
+    (state) => state.technicalProjectManager.userInfo
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTechnicalProjectManagerWorkPackagesStatus());

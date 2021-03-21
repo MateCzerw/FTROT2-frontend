@@ -7,13 +7,13 @@ import {
   EDIT_LEAD_ENGINEER_TASK,
   DELETE_LEAD_ENGINEER_TASK,
   GET_LEAD_ENGINEER_WORKPACKAGES,
+  UPLOAD_PICTURE,
 } from "../../actions/types";
 
 const initialState = {
   workpackages: [],
   userInfo: {
-    picture:
-      "https://yt3.ggpht.com/yti/ANoDKi6wK_UXTj-paYQq980Ia30B623dBP5hTFc9Fnsciw=s88-c-k-c0x00ffffff-no-rj-mo",
+    pictureUrl: "",
 
     workPackages: [],
     statusOfWorkpackages: [],
@@ -36,6 +36,16 @@ const leadEngineer = (state = initialState, action) => {
           joinedAt: payload.joinedAt,
           unfinishedWorkPackages: payload.unfinishedWorkPackages,
           supervisor: payload.supervisor,
+          pictureUrl: payload.pictureUrl,
+        },
+      };
+
+    case UPLOAD_PICTURE:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          pictureUrl: payload,
         },
       };
 

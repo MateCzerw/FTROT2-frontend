@@ -1,5 +1,5 @@
 import React from "react";
-import "./Tasks.css";
+import styled from "styled-components";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,18 +8,36 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Task from "./Task/Task";
 
+const StyledTableContainer = styled(TableContainer)`
+  max-height: 300px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StyledTableRow = styled(TableRow)`
+  & .MuiTableCell-stickyHeader {
+    background-color: #303133;
+    color: #c0c0c0;
+  }
+`;
+
+const StyledActionsCell = styled(TableCell)`
+  padding-left: 100px;
+`;
+
 const Tasks = ({ tasks, handleTaskDelete, handleTaskEdit }) => {
   //   console.log(tasks);
   return (
-    <TableContainer className="tasks__container">
+    <StyledTableContainer>
       <Table stickyHeader aria-label="sticky table">
-        <TableHead className="tasks__header">
-          <TableRow className="tasks__headerRow">
-            <TableCell className="tasks__title--name">Name:</TableCell>
-            <TableCell className="tasks__title--duration">Duration:</TableCell>
-            <TableCell className="tasks__title--status">Status:</TableCell>
-            <TableCell className="tasks__title--actions">Actions:</TableCell>
-          </TableRow>
+        <TableHead>
+          <StyledTableRow>
+            <TableCell>Name:</TableCell>
+            <TableCell>Duration:</TableCell>
+            <TableCell>Status:</TableCell>
+            <StyledActionsCell>Actions:</StyledActionsCell>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {tasks.map((task) => {
@@ -50,7 +68,7 @@ const Tasks = ({ tasks, handleTaskDelete, handleTaskEdit }) => {
           })}
         </TableBody>
       </Table>
-    </TableContainer>
+    </StyledTableContainer>
   );
 };
 

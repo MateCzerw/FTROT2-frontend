@@ -5,6 +5,7 @@ import {
   EDIT_WORKPACKAGE,
   DELETE_WORKPACKAGE,
   GET_WORKPACKAGES,
+  GET_LEAD_ENGINEERS,
   CLEAR_MESSAGE,
   SET_MESSAGE,
 } from "../types";
@@ -55,7 +56,13 @@ export const createWorkpackage = (workpackage) => async (dispatch) => {
     .then((data) => {
       dispatch({
         type: CREATE_WORKPACKAGE,
-        payload: data,
+        payload: {
+          ...data,
+          tasksQuantity: 0,
+          finishedTasks: 0,
+          predictedFinish: "+999999999-12-31",
+          tasks: [],
+        },
       });
 
       dispatch({
@@ -81,9 +88,11 @@ export const createWorkpackage = (workpackage) => async (dispatch) => {
     });
 };
 
-export const editWorkpackage = (id, workpackage) => async (dispatch) => {
+export const editWorkpackage = (id, workpackageEditedValues) => async (
+  dispatch
+) => {
   axios
-    .put(API_URL + "work-packages/" + id, workpackage, {
+    .put(API_URL + "work-packages/" + id, workpackageEditedValues, {
       headers: authHeader(),
     })
     .then((response) => {
@@ -94,7 +103,7 @@ export const editWorkpackage = (id, workpackage) => async (dispatch) => {
         type: EDIT_WORKPACKAGE,
         payload: {
           id,
-          workpackage,
+          workpackageEditedValues,
         },
       });
 
@@ -132,4 +141,20 @@ export const deleteWorkpackage = (id) => async (dispatch) => {
         payload: id,
       })
     );
+};
+
+export const getLeadEngineers = () => async (dispatch) => {
+  axios
+    .get(API_URL + "work-packages/lead-engineers", {
+      headers: authHeader(),
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      dispatch({
+        type: GET_LEAD_ENGINEERS,
+        payload: data,
+      });
+    });
 };
