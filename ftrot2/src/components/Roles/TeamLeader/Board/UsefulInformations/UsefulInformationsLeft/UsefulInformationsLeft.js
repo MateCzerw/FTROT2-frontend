@@ -66,7 +66,7 @@ const UsefulInformationsLeft = () => {
     <StyledContainer>
       <h3>Workpackages with upcoming deadline</h3>
       <StyledListOfTasks>
-        {contentInfo.workPackages.map((workPackage) => (
+        {contentInfo?.workPackages?.map((workPackage) => (
           <li>
             <div style={{ width: `${workPackage.status * 100}%` }}></div>
 
